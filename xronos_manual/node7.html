@@ -1,0 +1,349 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta8 (1.46)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>6. Windows </TITLE>
+<META NAME="description" CONTENT="6. Windows ">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta8">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="xronos.css">
+
+<LINK REL="next" HREF="node8.html">
+<LINK REL="previous" HREF="node6.html">
+<LINK REL="up" HREF="xronos.html">
+<LINK REL="next" HREF="node8.html">
+</HEAD>
+
+<BODY bgcolor="#FFFFFF">
+<!--Navigation Panel-->
+<A NAME="tex2html192"
+  HREF="node8.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="nextoff.gif"></A> <A NAME="tex2html188"
+  HREF="xronos.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="upoff.gif"></A> <A NAME="tex2html182"
+  HREF="node6.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="prevoff.gif"></A> <A NAME="tex2html190"
+  HREF="node1.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="conton.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html193"
+  HREF="node8.html">7. Output File Format</A>
+<B> Up:</B> <A NAME="tex2html189"
+  HREF="xronos.html">XRONOS User's Guide</A>
+<B> Previous:</B> <A NAME="tex2html183"
+  HREF="node6.html">5. Programs</A>
+ &nbsp <B>  <A NAME="tex2html191"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html194"
+  HREF="#SECTION00710000000000000000">6.1 Time Windows</A>
+<LI><A NAME="tex2html195"
+  HREF="#SECTION00720000000000000000">6.2 Phase Windows</A>
+<LI><A NAME="tex2html196"
+  HREF="#SECTION00730000000000000000">6.3 Intensity Windows</A>
+<LI><A NAME="tex2html197"
+  HREF="#SECTION00740000000000000000">6.4 Exposure Windows</A>
+<LI><A NAME="tex2html198"
+  HREF="#SECTION00750000000000000000">6.5 Default Windows</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00700000000000000000">
+6. Windows </A>
+</H1>     
+    There are 4 different types of windows that can be used by XRONOS tasks:
+
+<P>
+
+<UL>
+<LI>Time Windows  : consist of up to 1000 time intervals
+</LI>
+<LI>Phase Windows : consist of an Epoch, a Period and up to 10 phase intervals
+</LI>
+<LI>Intensity Windows : consist of up to 10 intensity in bin, newbin and interval
+</LI>
+<LI>Exposure Windows : consist of up to 1 exposure in bin, newbin and interval
+</LI>
+</UL>
+
+<P>
+If  any  window  is  required  during  the  analysis,  a window file
+    containing  the  relevant  windows  must   be   created   with   the
+    <TT>xronwin</TT> task,  before  running  a  XRONOS task.  The file may then be
+    given as the value for the <TT>window</TT> parameter.
+
+<P>
+Time and Phase windows are applied to Bins.  Only those bins whose
+    center time is  within the  start  and  stop  of  a  time  window  or
+    phase  window (for a specified epoch and period) are accepted.
+
+<P>
+Intensity and Exposure Windows can be specified independently for: (i)
+    Bins , (ii) New Bins , (iii) Intervals (applied in the given order).
+    When dealing with more than one  time  series, Intensity and Exposure
+    Windows must be specified separately for each series.
+
+<P>
+
+<H1><A NAME="SECTION00710000000000000000">
+6.1 Time Windows</A>
+</H1>
+
+<P>
+Time Windows consist of up to 1000 start/stop times. Only those bins whose
+    center time is within the start and stop times of a time window are accepted.
+    Time Windows must be chronologically ordered.
+
+<P>
+Time windows may be specified in several formats, all of which will be
+    automatically recognized by the <TT>xronwin</TT> task:
+
+<P>
+
+<P></P>
+
+<PRE>
+     * d = days ........................... e.g. 123.524268391
+     * d s = day and sec .................. e.g. 123 45296.789
+     * d h m s ms = day hr min sec msec ... e.g. 123 12 34 56 789
+</PRE>
+
+<P>
+Time windows covering a larger duration than the input series are reset
+    to the start and stop of the input series. The first interval can be
+    forced to start at the start time of the first time window by
+    specifying the hidden parameter, <TT>forcestart=yes</TT>, when executing the
+    primary XRONOS tasks: autocor, crosscor, efold, efsearch, lcstats,
+    lcurve, powspec, and timeskew.
+
+<P>
+NOTE, WHEN TIME WINDOWS ARE SET IN THE WINDOW FILE: The time used
+    within XRONOS tasks  is  Truncated  Julian Days (TJD=  JD-2440000.5)
+    if either (1) the keyword MJDREF is present in the header or (2) if the
+    TIMESYS  value  is  one  of the  following strings  MJD  or JD or TJD.
+    If (2), the time values are expected to be stored as JD, MJD or TJD in
+    the header keywords and in  the  TIME column  in  which case the MJDREF
+    keyword is not used (it should not be present).  When Time windows are
+    set using <TT>xronwin</TT>, they must  be compatible  with  the values in header
+    of the timing keywords and/or the values in the TIME column.
+
+<P>
+
+<H1><A NAME="SECTION00720000000000000000">
+6.2 Phase Windows</A>
+</H1>
+
+<P>
+Phase Windows consist of an Epoch, a Period, and up to 10 start and
+    stop Phases. Only those bins whose center time is within the specified
+    start and stop phases (for the specified epoch and period) are
+    accepted. Phases range from 0 to 1. Phase Windows must be phase
+    ordered (except for the case in which the last window straddles phase
+    0).
+
+<P>
+The Epoch may be specified in several formats, all of which will be
+    automatically recognized by the <TT>xronwin</TT> task:
+
+<P>
+
+<P></P>
+
+<PRE>
+     * d = day ............................ e.g. 123.524268391
+     * d s = day and sec .................. e.g. 123 45296.789
+     * d h m s ms = day hr min sec msec ... e.g. 123 12 34 56 789
+</PRE>
+    Two formats are available to specify the Period:
+
+<P>
+
+<P></P>
+
+<PRE>
+     * D = day ............................ e.g. 0.1234567
+     * S = sec ............................ e.g. 10666.659
+</PRE>
+
+<P>
+
+<H1><A NAME="SECTION00730000000000000000">
+6.3 Intensity Windows</A>
+</H1>
+
+<P>
+Intensity Windows consist of a set of up to 10 minimum and maximum
+    intensity levels. Units are the same as in input files (counts/s
+    usually). Intensity windows must be ordered with increasing intensity
+    and can be specified independently for the intensity of (i) Bins, (ii)
+    Newbins, (iii) Intervals, for each of the series which is being
+    analysed. Note that the "intensity" of an interval is its average
+    intensity. Only those Bins, Newbins, and Intervals whose intensity is
+    within the corresponding specified minimum and maximum intensities will
+    be accepted.
+
+<P>
+Intensity windows in newbins can be used in conjunction with "Special
+    Newbin Windows".  Special Newbin Windows are used to exclude the parts
+    of a light curve which  immediately  follow  or precede  a  burst  or a
+    background event which has been rejected by intensity  windows  in
+    newbins.  The  Special  Window  operates  on newbins  in  conjunction
+    with intensity windows (in newbins) and are specified  by   changing
+    to   positive   values   the   parameters <TT>spwinbefore</TT>  and
+    <TT>spwindowafter</TT>.  Their use is the following: if <I>e.g.</I> <TT>spwinbefore=10</TT>,
+    all  newbins,  whose  center  time  is within  10  second before  the
+    center time of a newbin rejected by intensity windows, will also be
+    rejected; if <I>e.g.</I>  <TT>spwindowafter=20</TT>,  all newbins, whose center time
+    is within 20 second after the center time of a newbin  rejected  by
+    intensity  windows,  will also be rejected.
+
+<P>
+
+<H1><A NAME="SECTION00740000000000000000">
+6.4 Exposure Windows</A>
+</H1>
+
+<P>
+Exposure Windows consist of a minimum and a maximum exposure level.
+    Units are such that 1 means 100% exposure. Exposure windows can be
+    specified independently for the exposure of (i) Bins, (ii) Newbins,
+    (iii) Intervals, for each of the series which is being analysed.
+
+<P>
+Note that the Bin Exposure used by XRONOS tasks, besides dead time
+    includes also instrument-dependent constants (<I>i.e.</I> the  collimator
+    efficiency for the ME and GS, the normalisation for the LE) such that,
+    when dealing with photon counting experiments, the relevant Poisson
+    statistics can be reconstructed. For example if a 5 s bin in an input
+    file has been effectively "exposed" only for 2 s (<I>e.g.</I> as a consequence
+    of dead time effects, collimator efficiencies, data dropouts etc.),
+    then its exposure is 40%.
+
+<P>
+The Newbin Exposure is obtained by propagating the bin exposures to
+    each newbin; for example, if in a 30 s newbin the total exposure (due
+    to the sum of the individual exposure of the bins contributing to the
+    given newbin) is 18 s then its exposure is 60%.
+
+<P>
+The Interval Exposure is the ratio of accepted to expected newbins: for
+    example, if a 128 newbin long interval contains only 32 accepted
+    newbins, then its exposure is 25%.
+
+<P>
+Note that exposures can be higher than 100% (<I>e.g.</I> if the newbin time is
+    not a multiple of the bin time, then "beats" are generated which might
+    bring the exposure of a newbin to values <IMG
+ WIDTH="16" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.gif"
+ ALT="$&gt;$">100%; or if two or more input
+    files for the same time series overlap in part, some of the newbins
+    will be more than 100% exposed).
+
+<P>
+
+<H1><A NAME="SECTION00750000000000000000">
+6.5 Default Windows</A>
+</H1>
+
+<P>
+Default exposure windows are used in many XRONOS tasks, primarily
+    to avoid analysing data sets which are too inhomogeneous with
+    respect to their statistical properties. The default exposure windows are:
+
+<P>
+
+<UL>
+<LI>Minimum Exposure in Bins     =0.25 (<I>i.e.</I> 25 % exposure)
+</LI>
+<LI>Minimum Exposure in Newbins  =0.01 (<I>i.e.</I>  1 % exposure)
+</LI>
+<LI>Minimum Exposure in Intervals=0.50 (<I>i.e.</I> 50 % exposure)
+</LI>
+<LI>Maximum Exposure =50.0 in Bins , Newbins and Interval
+       (<I>i.e.</I> 5000 % exposure, meaning that virtually everything which is more than
+       100 % exposed will be accepted).
+</LI>
+</UL>
+
+<P>
+NOTE: The minimum default Exposure windows in an Interval is ignored in
+    lcurve, efold, and efsearch.
+
+<P>
+Default exposure windows are used mainly for protection purposes, to
+    maintain the statistical quality of the results from different
+    intervals as homogeneous as possible. For example suppose that you have
+    a 136 newbin series of which you want to calculate the average power
+    spectrum in intervals of 64 newbins each.  Three intervals will be
+    accumulated, two with 64 newbins each and one with 8 newbins. If there
+    were no exposure windows in intervals, the power spectrum the third
+    interval (containing only 8 newbins, <I>i.e.</I> 12.5 % exposed) would be
+    averaged with the power spectra of the first two intervals (both
+    containing 64 newbins, <I>i.e.</I> 100 % exposed).
+
+<P>
+The side-effects of default exposure windows can be annoying sometimes.
+    For example, when intensity windows in bins or newbins have been
+    specified, and it is difficult to evaluate a priori which fraction of
+    bins and newbins will be accepted, one might end up with many newbins
+    and/or intervals rejected by default exposure windows. Also when
+    specifying time or phase windows, the default windows might need to be
+    reset depending on what fraction of bins and newbins will actually be
+    accepted.
+
+<P>
+If you do not want any exposure windows you can create (with
+    <TT>xronwin</TT>) and use a window file containing no exposure windows.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html192"
+  HREF="node8.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="nextoff.gif"></A> <A NAME="tex2html188"
+  HREF="xronos.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="upoff.gif"></A> <A NAME="tex2html182"
+  HREF="node6.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="prevoff.gif"></A> <A NAME="tex2html190"
+  HREF="node1.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="conton.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html193"
+  HREF="node8.html">7. Output File Format</A>
+<B> Up:</B> <A NAME="tex2html189"
+  HREF="xronos.html">XRONOS User's Guide</A>
+<B> Previous:</B> <A NAME="tex2html183"
+  HREF="node6.html">5. Programs</A>
+ &nbsp <B>  <A NAME="tex2html191"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Micah Johnson
+2001-08-15
+</ADDRESS>
+</BODY>
+</HTML>

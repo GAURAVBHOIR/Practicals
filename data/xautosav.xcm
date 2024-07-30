@@ -1,0 +1,5 @@
+data 1:1 "velax-1_sis01src.pha"
+cornorm 1  1.000000E+00
+model 
+ 
+ statistic chi

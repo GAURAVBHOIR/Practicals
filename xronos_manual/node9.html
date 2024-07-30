@@ -1,0 +1,346 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta8 (1.46)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>8. QDP/PLT </TITLE>
+<META NAME="description" CONTENT="8. QDP/PLT ">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta8">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="xronos.css">
+
+<LINK REL="next" HREF="node10.html">
+<LINK REL="previous" HREF="node8.html">
+<LINK REL="up" HREF="xronos.html">
+<LINK REL="next" HREF="node10.html">
+</HEAD>
+
+<BODY bgcolor="#FFFFFF">
+<!--Navigation Panel-->
+<A NAME="tex2html223"
+  HREF="node10.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="nextoff.gif"></A> <A NAME="tex2html219"
+  HREF="xronos.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="upoff.gif"></A> <A NAME="tex2html213"
+  HREF="node8.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="prevoff.gif"></A> <A NAME="tex2html221"
+  HREF="node1.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="conton.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html224"
+  HREF="node10.html">9. Common Parameters</A>
+<B> Up:</B> <A NAME="tex2html220"
+  HREF="xronos.html">XRONOS User's Guide</A>
+<B> Previous:</B> <A NAME="tex2html214"
+  HREF="node8.html">7. Output File Format</A>
+ &nbsp <B>  <A NAME="tex2html222"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html225"
+  HREF="#SECTION00910000000000000000">8.1 Overview</A>
+<LI><A NAME="tex2html226"
+  HREF="#SECTION00920000000000000000">8.2 Useful QDP Commands</A>
+<LI><A NAME="tex2html227"
+  HREF="#SECTION00930000000000000000">8.3 Plotting Multiple Series</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00900000000000000000">
+8. QDP/PLT </A>
+</H1>     
+    The  array  of results from each XRONOS task can be plotted with
+    QDP/PLT, an all purpose plotting and function fitting program.  It
+    operates on ASCII files containing both the data and plotting command
+    used to control the display.  The plotting function is available for
+    the following  tasks  :  autocor,  crosscor,  efold,  efsearch,
+    lcurve, powspec  and  timeskew.
+
+<P>
+
+<H1><A NAME="SECTION00910000000000000000">
+8.1 Overview</A>
+</H1>
+
+<P>
+QDP reads the ASCII file containing various plotting commands and the data,
+    then calls the PLT subroutines which then executes the commands and plot the
+    data. At this point the <TT>PLT&gt;</TT> prompt appears and the user can then proceed to
+    perform the following:
+
+<P>
+
+<UL>
+<LI>Display information about the interactive commands via HElp.
+</LI>
+<LI>Override various PLT defaults.
+</LI>
+<LI>Override the default PLT commands
+</LI>
+<LI>Add/remove labels.
+</LI>
+<LI>Plot data with various combinations of lines, markers, and error bars.
+</LI>
+<LI>Change the appearance/style of the of the plot, for example converting
+       all text into Roman Font.
+</LI>
+<LI>Plot the data as a function of a different x variable.
+</LI>
+<LI>Change the number of panels in which the data is plotted.
+</LI>
+<LI>Define models and to calculate the 'best fit' parameter values.
+</LI>
+<LI>Generate hardcopy.
+</LI>
+</UL>
+
+<P>
+QDP/PLT can be run interactively within each XRONOS application by
+    entering commands at the <TT>PLT&gt;</TT> prompt, or can automatically
+    execute commands from a script with the hidden parameter
+    <TT>plotfile</TT>.
+
+<P>
+
+<H1><A NAME="SECTION00920000000000000000">
+8.2 Useful QDP Commands</A>
+</H1>
+
+<P>
+A few, commonly used QDP/PLT commands are given below; the full descriptions of
+    the PLT commands are in the "QDP/PLT User's Guide" or can be listed on the
+    terminal by typing <TT>?</TT> or <TT>help</TT> from the PLT prompt.
+
+<P>
+Rescaling: to rescale X and Y axes use:
+
+<P>
+
+<P></P>
+
+<PRE>
+    PLT&gt; r x xlow xhigh
+    PLT&gt; r y ylow yhigh
+    PLT&gt; r xlow xhigh ylow yhigh
+</PRE>
+    Logarithmic Axes: to make the x and/or y axes logarithmic (to the base 10)
+    use:
+
+<P>
+
+<P></P>
+
+<PRE>
+    PLT&gt; log x
+    PLT&gt; log y
+</PRE>
+    To turn off the logarithmic axes use
+
+<P>
+
+<P></P>
+
+<PRE>
+    PLT&gt; log off
+</PRE>
+    Device: to change the current plot device use:
+
+<P>
+
+<P></P>
+
+<PRE>
+    PLT&gt; dev /xxx
+</PRE>
+    where <TT>/xxx</TT> is the new plot device (<I>e.g.</I> <TT>/xw</TT>,<TT>/gif</TT>,<TT>/ps</TT>).
+
+<P>
+Modelling and Fitting: to use the fitting capability of QDP/PLT two are the
+    main commands <TT>MOdel</TT> and <TT>FIT</TT>. The <TT>MOdel</TT> command is used to define the
+    model, any combination of model components can be added together.
+    For example:
+
+<P>
+
+<P></P>
+
+<PRE>
+    PLT&gt; mo cons linr quad
+</PRE>
+    will add a constant, a linear and a quadratic term. The list of the
+    available models is given typing:
+
+<P>
+
+<P></P>
+
+<PRE>
+    PLT&gt; mo ?
+</PRE>
+    The <TT>Fit</TT> command cause PLT to call the fitting routine to search for the
+    best fitting parameters for the model specified with the <TT>MOdel</TT> command.
+
+<P>
+Replot: after making changes in the PLT environment, a replot will
+    show the effects of the modifications
+
+<P>
+
+<P></P>
+
+<PRE>
+    PLT&gt; p
+</PRE>
+
+<P>
+Hardcopy: a hardcopy of the current plot is obtained using:
+
+<P>
+
+<P></P>
+
+<PRE>
+    PLT&gt; hardcopy filename
+</PRE>
+    The file is in postscript.
+
+<P>
+EXit: to exit from the PLT subroutine type:
+
+<P>
+
+<P></P>
+
+<PRE>
+    PLT&gt; exit
+</PRE>
+    QDP was written and is currently maintained by Allyn Tennant, at the
+    Marshall Space Flight Center.  PGPLOT, provided and maintained by Tim
+    Pearson, is the graphics package used by QDP/PLT.
+
+<P>
+
+<H1><A NAME="SECTION00930000000000000000">
+8.3 Plotting Multiple Series</A>
+</H1>
+
+<P>
+For programs that handle simultaneously more than one time series (<I>e.g.</I>
+    lcurve and efold) different types of analysis result can be plotted
+    depending on the number of input time series. For two input time
+    series, three different plots are provided (1) the sum of the
+    intensities of the two input series on the X-axis and on the Y-axis the
+    count ratio (ser2/ser1) of the two input series (Hardness-plot); (2)
+    Time (or Phase) on the X-axis and the intensity on the Y-axis for the
+    two input time series; (3) As (2) but also the ratio is plotted. For
+    three or four input time series two different plots are available:  (1)
+    Colour-Colour diagram that shows the ratio of ser3/ser2 or ser4/ser3 on
+    the Y-axis (for 3 or 4 input series respectively) and ser2/ser1
+    (always) on the X-axis; (2) Time (or Phase) on the X-axis and the
+    intensity on the Y-axis for the 3 (or 4) input time series.
+
+<P>
+The choice of the plot type is done by setting the parameter
+    <TT>plotdnum</TT>. Note that in the <TT>efold</TT> plot with Phase on the X-axis, the
+    Y-axis can be either count/s or count/s normalised by average source
+    intensity. Note that for the multicolor tasks all the arrays
+    calculated by lcurve or efold are available in <TT>PLT&gt;</TT>. A color ratio
+    plot versus time or phase can be obtained as follows. At the prompt:
+
+<P>
+
+<P></P>
+
+<PRE>
+     Two plotting styles available:
+     Colour-Colour [1] ; Intensity vs Time (or Phase)[ # of series (3 or 4)];
+    Enter PLOT style number (default=1)[]
+</PRE>
+    Enter the number of time series. On the screen the plot has as many
+    panels as many input series, showing the  counts for each series on
+    the Y-axis and time or phase on the X-axis.At the <TT>PLT&gt;</TT> prompt type
+    <TT>info</TT> which gives the list of arrays available. For example for 3
+    input series the <TT>info</TT> command gives :
+
+<P>
+
+<P></P>
+
+<PRE>
+    PLT&gt; info
+     Scales:
+     Grp  Wind    Label     XData Min    XData Max    YData Min    YData Max
+      1    -1  Time (s)   :  3496.    ,   8646.     :  3496.    ,   8646.
+      2     2  Ser 1      :  3496.    ,   8646.     :  331.8    ,   466.4
+      3     3  Ser 2      :  3496.    ,   8646.     :  415.9    ,   613.8
+      4     4  Ser 3      :  3496.    ,   8646.     :  747.7    ,   1080.
+      5    -1  Ser 2/Ser  :  3496.    ,   8646.     :  1.222    ,   1.325
+      6    -1  Ser 3/Ser  :  3496.    ,   8646.     :  1.755    ,   1.819
+      7    -1  Ser 1+2+3  :  3496.    ,   8646.     :  1495.    ,   2160.
+      8    -1             :  3496.    ,   8646.     :  1.000    ,   1.000
+    PLT&gt;
+</PRE>
+    To plot the ratios (array number 5 and 6) versus time  together with
+    the three input lightcurves use the following commands:
+
+<P>
+
+<P></P>
+
+<PRE>
+    PLT&gt; color 1 on 5 6
+    PLT&gt; plot ver
+    PLT&gt; plot
+</PRE>
+    The final plot will contain 5 panels. The first three are the input
+    series the last two the ratios.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html223"
+  HREF="node10.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="nextoff.gif"></A> <A NAME="tex2html219"
+  HREF="xronos.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="upoff.gif"></A> <A NAME="tex2html213"
+  HREF="node8.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="prevoff.gif"></A> <A NAME="tex2html221"
+  HREF="node1.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="conton.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html224"
+  HREF="node10.html">9. Common Parameters</A>
+<B> Up:</B> <A NAME="tex2html220"
+  HREF="xronos.html">XRONOS User's Guide</A>
+<B> Previous:</B> <A NAME="tex2html214"
+  HREF="node8.html">7. Output File Format</A>
+ &nbsp <B>  <A NAME="tex2html222"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Micah Johnson
+2001-08-15
+</ADDRESS>
+</BODY>
+</HTML>

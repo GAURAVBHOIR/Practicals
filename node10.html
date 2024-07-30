@@ -1,0 +1,330 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<!--Converted with LaTeX2HTML 98.1p1 release (March 2nd, 1998)
+originally by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Introduction</TITLE>
+<META NAME="description" CONTENT="Introduction">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<LINK REL="STYLESHEET" HREF="manual.css">
+<LINK REL="next" HREF="node11.html">
+<LINK REL="previous" HREF="node9.html">
+<LINK REL="up" HREF="node9.html">
+<LINK REL="next" HREF="node11.html">
+</HEAD>
+<BODY bgcolor="#FFFFFF">
+<!--Navigation Panel-->
+<A NAME="tex2html208"
+ HREF="node11.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="./nextoff.gif"></A> 
+<A NAME="tex2html205"
+ HREF="node9.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="./upoff.gif"></A> 
+<A NAME="tex2html199"
+ HREF="node9.html"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="./prevoff.gif"></A> 
+<A NAME="tex2html207"
+ HREF="node1.html"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="./conton.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html209"
+ HREF="node11.html">The XSPEC implementation</A>
+<B> Up:</B> <A NAME="tex2html206"
+ HREF="node9.html">Spectral Fitting and XSPEC</A>
+<B> Previous:</B> <A NAME="tex2html200"
+ HREF="node9.html">Spectral Fitting and XSPEC</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><strong>Subsections</strong></A>
+<UL>
+<LI><A NAME="tex2html210"
+ HREF="node10.html#SECTION00311000000000000000">The Basics of Spectral Fitting</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00310000000000000000">
+Introduction</A>
+</H1>
+
+<P>
+This chapter is comprised of a brief description of the basics of spectral
+fitting, their application in XSPEC, and some helpful hints on how
+to approach particular problems.
+
+<P>
+
+<H2><A NAME="SECTION00311000000000000000">
+The Basics of Spectral Fitting</A>
+</H2>
+
+<P>
+Although we use a spectrometer to try to find out the spectrum of a
+source, what the spectrometer obtains is not the actual spectrum, but 
+rather photon counts (C) within specific instrument channels, (I). 
+This observed spectrum is related 
+to the actual spectrum of the source (f(E)), such that:
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH: \begin{displaymath}
+C(I) = \int_0^\infty f(E) R(I,E) dE
+\end{displaymath} -->
+
+
+<IMG
+ WIDTH="216" HEIGHT="47"
+ SRC="img5.gif"
+ ALT="\begin{displaymath}C(I) = \int_0^\infty f(E) R(I,E) dE\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+where R(I,E) is the instrumental response and is proportional to the
+probability that an incoming photon of energy E will be detected in
+channel I. Ideally, then, we would like to determine the actual spectrum of
+a source, f(E), by inverting this equation, thus deriving
+f(E) for a given set of C(I).  Regrettably, this is not possible in
+general, as such inversions tend to be non-unique and unstable to small 
+changes in C(I).  (For examples of attempts to circumvent these problems see 
+Blissett &amp; Cruise 1979; Kahn &amp; Blissett 1980; Loredo &amp; Epstein
+1989).
+
+<P>
+The usual alternative is to try to choose a model spectrum, f(E),
+that can be described in terms of a few parameters (i.e., f(E,p1,p2,...)), 
+and match, or ``fit" it to the data obtained by the spectrometer. For 
+each f(E), a predicted count spectrum (<I>C</I><SUB><I>p</I></SUB>(<I>I</I>)) is calculated and 
+compared to the observed data (C(I)).  Then a ``fit statistic'' is 
+computed from the comparison, which enables one to judge whether the 
+model spectrum ``fits'' the data obtained by the spectrometer.
+
+<P>
+The model parameters then are varied to find the parameter values that
+give the most desirable fit statistic.  These values are referred to
+as the <I>best-fit parameters</I>. The model spectrum, <I>f</I><SUB><I>b</I></SUB>(<I>E</I>), made
+up of the best-fit parameters is considered to be the <I>best-fit model</I>. 
+
+<P>
+The most common fit statistic in use for determining the ``best-fit"
+model is <IMG
+ WIDTH="25" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.gif"
+ ALT="$\chi^2$">,
+defined as follows:
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH: \begin{displaymath}
+\chi^2 = \sum ( C(I) - C_p(I) )^2 / (\sigma (I))^2
+\end{displaymath} -->
+
+
+<IMG
+ WIDTH="257" HEIGHT="38"
+ SRC="img7.gif"
+ ALT="\begin{displaymath}\chi^2 = \sum ( C(I) - C_p(I) )^2 / (\sigma (I))^2\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+
+<P>
+where 
+<!-- MATH: $\sigma (I)$ -->
+<IMG
+ WIDTH="40" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.gif"
+ ALT="$\sigma (I)$">
+is the error for channel I (e.g., if C(I) are counts
+then 
+<!-- MATH: $\sigma (I)$ -->
+<IMG
+ WIDTH="40" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.gif"
+ ALT="$\sigma (I)$">
+is usually estimated by 
+<!-- MATH: $\sqrt{C(I)}$ -->
+<IMG
+ WIDTH="60" HEIGHT="42" ALIGN="MIDDLE" BORDER="0"
+ SRC="img9.gif"
+ ALT="$\sqrt{C(I)}$">;
+see
+e.g. Wheaton et.al. 1995 for other possibilities). 
+
+<P>
+Once a ``best-fit" model is obtained, one must ask two questions: 
+
+<P>
+<DL COMPACT>
+<DT>1.
+<DD>First, one must ask how confident one can be that the observed 
+C(I) can have been produced
+by the  best-fit model <I>f</I><SUB><I>b</I></SUB>(<I>E</I>).  The answer to this 
+question is known as the ``goodness-of-fit" of the model.
+<P>
+The <IMG
+ WIDTH="25" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.gif"
+ ALT="$\chi^2$">
+statistic provides a well-known goodness-of-fit criterion
+for a given number of degrees of freedom (<IMG
+ WIDTH="16" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img10.gif"
+ ALT="$\nu$">,
+which is calculated
+as the number of channels minus the number of model parameters) and
+for a given confidence level.  If <IMG
+ WIDTH="25" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.gif"
+ ALT="$\chi^2$">
+exceeds a critical value
+(tabulated in many statistics texts) one can conclude that <I>f</I><SUB><I>b</I></SUB>(<I>E</I>) is
+<I>not</I> an adequate model for C(I). As a general rule, one wants the
+``reduced&nbsp;<IMG
+ WIDTH="25" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.gif"
+ ALT="$\chi^2$">" (<IMG
+ WIDTH="25" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.gif"
+ ALT="$\chi^2$">/<IMG
+ WIDTH="16" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img10.gif"
+ ALT="$\nu$">)
+to be approximately equal to one
+(
+<!-- MATH: $\chi^2\sim \nu$ -->
+<IMG
+ WIDTH="59" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="img11.gif"
+ ALT="$\chi^2\sim \nu$">).  A reduced <IMG
+ WIDTH="25" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.gif"
+ ALT="$\chi^2$">
+that is much greater than one
+indicates a poor fit, while a reduced <IMG
+ WIDTH="25" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.gif"
+ ALT="$\chi^2$">
+that is much less than one
+indicates that the errors on the data have been over-estimated.
+  
+Even if the best-fit model (<I>f</I><SUB><I>b</I></SUB>(<I>E</I>)) <I>does</I> pass the ``goodness-of-fit" test, one still 
+cannot say that <I>f</I><SUB><I>b</I></SUB>(<I>E</I>) is the <I>only</I> acceptable model. For example, if the data used in the 
+fit are not particularly good, one may be able to find  many different models for which adequate 
+fits can be found. In such a case, the choice of the correct model to fit is a matter of scientific
+judgement.
+
+<P>
+<DT>2.
+<DD>Second, for a given best-fit parameter (p1), one must determine the range of values within
+ which one can be confident the true value of the parameter lies.  The answer to this question gives 
+ one the ``confidence interval" for the parameter.
+
+<P>
+The confidence interval for a given parameter is computed by varying the
+parameter value until the <IMG
+ WIDTH="25" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.gif"
+ ALT="$\chi^2$">
+increases by a particular amount above the 
+minimum, or ``best-fit" value. 
+
+<P>
+The amount that the <IMG
+ WIDTH="25" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.gif"
+ ALT="$\chi^2$">
+is allowed to increase (also referred to as the critical 
+<IMG
+ WIDTH="21" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img12.gif"
+ ALT="$\Delta$"><IMG
+ WIDTH="25" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.gif"
+ ALT="$\chi^2$">)
+depends on the confidence level one requires, and on the 
+number of parameters whose confidence space is being calculated.  The critical <IMG
+ WIDTH="21" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img12.gif"
+ ALT="$\Delta$"><IMG
+ WIDTH="25" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.gif"
+ ALT="$\chi^2$">
+for 
+common cases are given in the following table 
+(from Avni, 1976):
+
+<P>
+<DIV ALIGN="CENTER">
+<TABLE CELLPADDING=3 BORDER="1">
+<TR VALIGN="BASELINE"><TD ALIGN="CENTER">Confidence</TD>
+<TD ALIGN="CENTER" COLSPAN=3>Parameters</TD>
+</TR>
+<TR VALIGN="BASELINE"><TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">2</TD>
+<TD ALIGN="CENTER">3</TD>
+</TR>
+<TR VALIGN="BASELINE"><TD ALIGN="CENTER">0.68</TD>
+<TD ALIGN="CENTER">1.00</TD>
+<TD ALIGN="CENTER">2.30</TD>
+<TD ALIGN="CENTER">3.50</TD>
+</TR>
+<TR VALIGN="BASELINE"><TD ALIGN="CENTER">0.90</TD>
+<TD ALIGN="CENTER">2.71</TD>
+<TD ALIGN="CENTER">4.61</TD>
+<TD ALIGN="CENTER">6.25</TD>
+</TR>
+<TR VALIGN="BASELINE"><TD ALIGN="CENTER">0.99</TD>
+<TD ALIGN="CENTER">6.63</TD>
+<TD ALIGN="CENTER">9.21</TD>
+<TD ALIGN="CENTER">11.30</TD>
+</TR>
+</TABLE></DIV>
+
+<P>
+There is a good discussion of confidence ranges in Press <I>et al.</I>, (1992)
+for readers who want more details<A NAME="tex2html1"
+ HREF="footnode.html#foot529"><SUP>2.1</SUP></A>.
+</DL>
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html208"
+ HREF="node11.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="./nextoff.gif"></A> 
+<A NAME="tex2html205"
+ HREF="node9.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="./upoff.gif"></A> 
+<A NAME="tex2html199"
+ HREF="node9.html"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="./prevoff.gif"></A> 
+<A NAME="tex2html207"
+ HREF="node1.html"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="./conton.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html209"
+ HREF="node11.html">The XSPEC implementation</A>
+<B> Up:</B> <A NAME="tex2html206"
+ HREF="node9.html">Spectral Fitting and XSPEC</A>
+<B> Previous:</B> <A NAME="tex2html200"
+ HREF="node9.html">Spectral Fitting and XSPEC</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Ben Dorman</I>
+<BR><I>2001-07-27</I>
+</ADDRESS>
+</BODY>
+</HTML>

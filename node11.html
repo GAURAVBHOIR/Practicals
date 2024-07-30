@@ -1,0 +1,323 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<!--Converted with LaTeX2HTML 98.1p1 release (March 2nd, 1998)
+originally by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The XSPEC implementation</TITLE>
+<META NAME="description" CONTENT="The XSPEC implementation">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<LINK REL="STYLESHEET" HREF="manual.css">
+<LINK REL="next" HREF="node12.html">
+<LINK REL="previous" HREF="node10.html">
+<LINK REL="up" HREF="node9.html">
+<LINK REL="next" HREF="node12.html">
+</HEAD>
+<BODY bgcolor="#FFFFFF">
+<!--Navigation Panel-->
+<A NAME="tex2html220"
+ HREF="node12.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="./nextoff.gif"></A> 
+<A NAME="tex2html217"
+ HREF="node9.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="./upoff.gif"></A> 
+<A NAME="tex2html211"
+ HREF="node10.html"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="./prevoff.gif"></A> 
+<A NAME="tex2html219"
+ HREF="node1.html"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="./conton.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html221"
+ HREF="node12.html">Helpful Hints</A>
+<B> Up:</B> <A NAME="tex2html218"
+ HREF="node9.html">Spectral Fitting and XSPEC</A>
+<B> Previous:</B> <A NAME="tex2html212"
+ HREF="node10.html">Introduction</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><strong>Subsections</strong></A>
+<UL>
+<LI><A NAME="tex2html222"
+ HREF="node11.html#SECTION00321000000000000000">C(I): The Observed Spectrum</A>
+<LI><A NAME="tex2html223"
+ HREF="node11.html#SECTION00322000000000000000">R(I,E): The Instrumental Response</A>
+<LI><A NAME="tex2html224"
+ HREF="node11.html#SECTION00323000000000000000">f(E): The Model Spectrum</A>
+<LI><A NAME="tex2html225"
+ HREF="node11.html#SECTION00324000000000000000">Fits and Confidence Intervals</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00320000000000000000">
+The XSPEC implementation</A>
+</H1>
+
+<P>
+To summarize the preceding section, the main components of spectral fitting are as follows: 
+
+<P>
+<DL COMPACT>
+<DT>1.
+<DD>The observed spectrum (C(I))
+<DT>2.
+<DD>The instrumental response (R(I,E))
+<DT>3.
+<DD>A model spectrum (f(E)) 
+</DL>
+<P>
+These components are used in the following manner:
+<DL COMPACT>
+<DT>1.
+<DD>A parameterized model is created that one feels represents the actual spectrum of the source. 
+<DT>2.
+<DD>One then gives values to the model parameters.
+<DT>3.
+<DD>Based on the parameter values given, one predicts the count spectrum that would be detected 
+by the spectrometer in a given channel for such a model.
+<DT>4.
+<DD>Then, one compares the predicted spectrum to the spectrum actually obtained by the instrument.
+<DT>5.
+<DD>The values of the parameters of the model are manipulated until one finds the best fit 
+between the theoretical model and the observed data.
+<DT>6.
+<DD>One then calculates the ``goodness" of the fit to determine how well the model explains the
+observed data, and calculates the confidence intervals for the model's parameters.
+</DL>
+<P>
+This section describes how XSPEC performs these tasks. 
+
+<P>
+
+<H2><A NAME="SECTION00321000000000000000">
+C(I): The Observed Spectrum</A>
+</H2> 
+
+<P>
+To obtain the observed spectrum (C(I)), for a given observation,
+XSPEC uses two files: the data file, and the background file (for 
+FITS file format see Arnaud, George &amp; Tennant 1992<A NAME="tex2html2"
+ HREF="footnode.html#foot605"><SUP>2.2</SUP></A>).  
+The data file tells XSPEC how many total photon counts were detected 
+by the instrument in a given channel.  XSPEC then uses the background file 
+to derive a background-subtracted C(I) in units of counts per second.   
+The background is scaled to the data by the ratio of the BACKSCAL 
+values in the data and background files.  It also is scaled for 
+exposure times (EXPOSURE keyword) and AREASCAL values. 
+The background-subtracted count rate is given by :
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH: \begin{displaymath}
+C(I) = D(I)/a_D(I)/t_D - (b_D(I)/b_B(I)) B(I)/a_B(I)/t_B
+\end{displaymath} -->
+
+
+<I>C</I>(<I>I</I>) = <I>D</I>(<I>I</I>)/<I>a</I><SUB><I>D</I></SUB>(<I>I</I>)/<I>t</I><SUB><I>D</I></SUB> - (<I>b</I><SUB><I>D</I></SUB>(<I>I</I>)/<I>b</I><SUB><I>B</I></SUB>(<I>I</I>)) <I>B</I>(<I>I</I>)/<I>a</I><SUB><I>B</I></SUB>(<I>I</I>)/<I>t</I><SUB><I>B</I></SUB>
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+where <I>D</I>(<I>I</I>) and <I>B</I>(<I>I</I>) are the counts in the data and background files;
+<I>t</I><SUB><I>D</I></SUB> and <I>t</I><SUB><I>B</I></SUB> are the exposure times in the data and background
+files; <I>b</I><SUB><I>D</I></SUB>(<I>I</I>) and <I>b</I><SUB><I>B</I></SUB>(<I>I</I>) are the BACKSCAL values from the data and
+background files; and <I>a</I><SUB><I>D</I></SUB>(<I>I</I>) and <I>a</I><SUB><I>B</I></SUB>(<I>I</I>) are the AREASCAL values
+from the data and background files
+
+<P>
+When this is done XSPEC has an observed spectrum to which the model 
+spectrum can be fit.  
+
+<P>
+
+<H2><A NAME="SECTION00322000000000000000">
+R(I,E): The Instrumental Response</A>
+</H2>
+
+<P>
+Before XSPEC can take a given set of parameter values and predict the 
+spectrum that would be detected by a given instrument, XSPEC must know
+the specific characteristics of the instrument. This information is 
+known as the <B>detector response</B>. The response (R(I,E)), if you 
+recall, is proportional to the probability that an incoming photon of 
+energy E will be detected in channel I. As such, the response is a 
+continuous function of E. This continuous function is converted to a 
+discrete function by the creator of a <B>response matrix</B> who
+defines the energy ranges (<I>E</I><SUB><I>J</I></SUB>) such that:
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH: \begin{displaymath}
+R_D (I,J) = \int_{E_{J-1}}^{E_J} R(I, E) dE / (E_J - E_{J-1})
+\end{displaymath} -->
+
+
+<IMG
+ WIDTH="334" HEIGHT="54"
+ SRC="img13.gif"
+ ALT="\begin{displaymath}R_D (I,J) = \int_{E_{J-1}}^{E_J} R(I, E) dE / (E_J - E_{J-1})\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+
+<P>
+XSPEC reads both the energy ranges, <I>E</I><SUB><I>J</I></SUB>, and the response matrix 
+(<I>R</I><SUB><I>D</I></SUB>(<I>I</I>,<I>J</I>)) from a <B>response file</B> (for FITS file format see 
+George et al 1992<A NAME="tex2html3"
+ HREF="footnode.html#foot607"><SUP>2.3</SUP></A>) in a
+compressed format that only stores non-zero
+elements. XSPEC also includes an option to use an <B>auxiliary response file</B>
+(George et al 1992<A NAME="tex2html4"
+ HREF="footnode.html#foot608"><SUP>2.4</SUP></A>), which contains an array <I>A</I><SUB><I>D</I></SUB>(<I>J</I>) that XSPEC
+multiplies into <I>R</I><SUB><I>D</I></SUB>(<I>I</I>,<I>J</I>) as follows:
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH: \begin{displaymath}
+R_D(I,J) \rightarrow R_D(I,J) * A_D(J)
+\end{displaymath} -->
+
+
+<IMG
+ WIDTH="237" HEIGHT="34"
+ SRC="img14.gif"
+ ALT="\begin{displaymath}R_D(I,J) \rightarrow R_D(I,J) * A_D(J)\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+Conventionally, the response is in units of cm<SUP>2</SUP>.
+
+<P>
+
+<H2><A NAME="SECTION00323000000000000000">
+f(E): The Model Spectrum</A>
+</H2>
+
+<P>
+The model spectrum, f(E), is calculated within XSPEC using the energy 
+ranges defined by the response file : 
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH: \begin{displaymath}
+f_D(J) = \int_{E_{J-1}}^{E_J} f(E) dE
+\end{displaymath} -->
+
+
+<IMG
+ WIDTH="181" HEIGHT="54"
+ SRC="img15.gif"
+ ALT="\begin{displaymath}f_D(J) = \int_{E_{J-1}}^{E_J} f(E) dE\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+and is in units of photons/cm<SUP>2</SUP>/s. XSPEC allows the construction of
+composite models consisting of additive components (e.g., power-laws,
+blackbodys, and so forth), and multiplicative components, which modify
+additive components by an energy-dependent factor (e.g., photoelectric
+absorption, edges, ...). Convolution and mixing models can then
+perform sophisticated operations on the result. Models can be defined
+in algebraic notation. For example, the following expression:
+
+<P>
+<BR><P></P>
+<DIV ALIGN="CENTER">
+<!-- MATH: \begin{displaymath}
+{\rm phabs ( power + phabs ( bbody ) ) }
+\end{displaymath} -->
+
+
+<IMG
+ WIDTH="239" HEIGHT="34"
+ SRC="img16.gif"
+ ALT="\begin{displaymath}{\rm phabs ( power + phabs ( bbody ) ) }\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+defines an absorbed blackbody (phabs (bbody)) added to a power-law
+(power). The result then is modified by another absorption component (phabs).
+
+<P>
+For a more detailed explanation of models, see Chapter 6.
+
+<P>
+
+<H2><A NAME="SECTION00324000000000000000">
+Fits and Confidence Intervals</A>
+</H2>
+
+<P>
+Once data have been read in and a model defined, XSPEC uses a
+modified Levenberg-Marquardt algorithm (based on CURFIT from
+Bevington, 1969) to find the best-fit values of the model parameters.
+The algorithm used is a local one, so the user should be aware that 
+it is possible for the fitting process to get stuck in a local minimum and not 
+find the global best-fit. The process also goes much faster (and is
+more likely to find the true minimum) if the initial model parameters 
+are set to sensible values.
+
+<P>
+At the end of a fit, XSPEC will write out the best-fit parameter values, along
+with estimated confidence intervals. These confidence intervals are
+one sigma and are calculated from the derivatives of the fit statistic
+with respect to the model parameters. However, the confidence
+intervals are not reliable and should be used for indicative purposes only. 
+
+<P>
+XSPEC has a separate command (<TT>error</TT> or <TT>uncertainty</TT>) to derive 
+confidence intervals for one interesting parameter, which it does by 
+fixing the parameter of interest at a particular value
+and fitting for all the other parameters. New values of the parameter
+of interest are chosen until the appropriate delta-statistic value
+is obtained. XSPEC uses a bracketing algorithm followed by an
+iterative cubic interpolation to find the parameter value at each
+end of the confidence interval.
+
+<P>
+To compute confidence regions for several parameters at a time 
+XSPEC runs a grid on these parameters.  XSPEC also will display a
+contour plot of the confidence regions of any two parameters. 
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html220"
+ HREF="node12.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="./nextoff.gif"></A> 
+<A NAME="tex2html217"
+ HREF="node9.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="./upoff.gif"></A> 
+<A NAME="tex2html211"
+ HREF="node10.html"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="./prevoff.gif"></A> 
+<A NAME="tex2html219"
+ HREF="node1.html"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="./conton.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html221"
+ HREF="node12.html">Helpful Hints</A>
+<B> Up:</B> <A NAME="tex2html218"
+ HREF="node9.html">Spectral Fitting and XSPEC</A>
+<B> Previous:</B> <A NAME="tex2html212"
+ HREF="node10.html">Introduction</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Ben Dorman</I>
+<BR><I>2001-07-27</I>
+</ADDRESS>
+</BODY>
+</HTML>

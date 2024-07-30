@@ -1,0 +1,2683 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta8 (1.46)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>5. Programs </TITLE>
+<META NAME="description" CONTENT="5. Programs ">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta8">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="xronos.css">
+
+<LINK REL="next" HREF="node7.html">
+<LINK REL="previous" HREF="node5.html">
+<LINK REL="up" HREF="xronos.html">
+<LINK REL="next" HREF="node7.html">
+</HEAD>
+
+<BODY bgcolor="#FFFFFF">
+<!--Navigation Panel-->
+<A NAME="tex2html165"
+  HREF="node7.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="nextoff.gif"></A> <A NAME="tex2html161"
+  HREF="xronos.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="upoff.gif"></A> <A NAME="tex2html155"
+  HREF="node5.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="prevoff.gif"></A> <A NAME="tex2html163"
+  HREF="node1.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="conton.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html166"
+  HREF="node7.html">6. Windows</A>
+<B> Up:</B> <A NAME="tex2html162"
+  HREF="xronos.html">XRONOS User's Guide</A>
+<B> Previous:</B> <A NAME="tex2html156"
+  HREF="node5.html">4. Input Files</A>
+ &nbsp <B>  <A NAME="tex2html164"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html167"
+  HREF="#SECTION00610000000000000000">5.1 autocor</A>
+<LI><A NAME="tex2html168"
+  HREF="#SECTION00620000000000000000">5.2 crosscor</A>
+<LI><A NAME="tex2html169"
+  HREF="#SECTION00630000000000000000">5.3 efold</A>
+<LI><A NAME="tex2html170"
+  HREF="#SECTION00640000000000000000">5.4 efsearch</A>
+<LI><A NAME="tex2html171"
+  HREF="#SECTION00650000000000000000">5.5 lcmath</A>
+<LI><A NAME="tex2html172"
+  HREF="#SECTION00660000000000000000">5.6 lcstats</A>
+<LI><A NAME="tex2html173"
+  HREF="#SECTION00670000000000000000">5.7 lcurve</A>
+<LI><A NAME="tex2html174"
+  HREF="#SECTION00680000000000000000">5.8 listdata</A>
+<LI><A NAME="tex2html175"
+  HREF="#SECTION00690000000000000000">5.9 powspec</A>
+<LI><A NAME="tex2html176"
+  HREF="#SECTION006100000000000000000">5.10 timeskew</A>
+<LI><A NAME="tex2html177"
+  HREF="#SECTION006110000000000000000">5.11 xronwin</A>
+<LI><A NAME="tex2html178"
+  HREF="#SECTION006120000000000000000">5.12 ascii2flc</A>
+<LI><A NAME="tex2html179"
+  HREF="#SECTION006130000000000000000">5.13 flc2ascii</A>
+<LI><A NAME="tex2html180"
+  HREF="#SECTION006140000000000000000">5.14 rbf2fits</A>
+<LI><A NAME="tex2html181"
+  HREF="#SECTION006150000000000000000">5.15 earth2sun</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00600000000000000000">
+5. Programs </A>
+</H1>     
+
+<P>
+
+<H1><A NAME="SECTION00610000000000000000">
+5.1 autocor</A>
+</H1>
+
+<P>
+This task calculates an auto correlation for one time series, plots and
+    outputs the results (in a FITS file). The auto correlation is computed
+    either by an FFT algorithm (<TT>fast=yes</TT>, the default) or a slower direct
+    Fourier algorithm (<TT>fast=no</TT>).  Both FITS binned data format and event
+    format are valid input, and can be rebinned and divided into Intervals
+    and Frames. The results of the auto correlation from several intervals
+    can be averaged in a frame, and the averaged results can be rebinned.
+    The standard plot output is the auto correlation function versus time
+    delay (positive) given in seconds.
+
+<P>
+When <TT>outfiletype=2</TT> (the default), the output file for the
+    <TT>autocor</TT> task contains in each extension the following columns: time
+    delay, half width of time delay bin, autocorrelation and error. Not
+    many applications can currently deal with the output files produced
+    when <TT>outfiletype=1</TT>.
+
+<P>
+
+<P></P>
+
+<PRE>
+    Usage: autocor cfile1 window dtnb nbint nintfm rebin outfile
+           plot plotdev
+</PRE>
+
+<P>
+The following represents the parameters that will be queried
+    interactively if not specified when the task is executed.
+
+<P>
+
+<P></P>
+
+<PRE>
+       cfile1   - Ser. 1 filename +options (or @file of filenames +options)[]
+       window   - Name of the window file ('-' for default window)[-]
+       dtnb     - Newbin Time or negative rebinning[]
+       nbint    - Number of Newbins/Interval[]
+       nintfm   - Number of Intervals/Frame[]
+       rebin    - Rebin results? (&gt;1 const rebin, &lt;-1 geom. rebin, 0 none)[0]
+       outfile  - Name of output file[default]
+       plot     - Do you want to plot your results?[yes]
+       plotdev  - Enter PGPLOT device[/XW]
+</PRE>
+
+<P>
+The following parameters are used by <TT>autocor</TT>.  Parameters with
+    task-specific meaning are marked <TT>*</TT>.  All others are
+    documented in "Common Parameters".
+
+<P>
+
+<P></P>
+
+<PRE>
+      tchat         lchat         logname       clobber       dpath
+     *cfile1        window        dtnb          nbint         nintfm
+      rebin         nbdf          itre          itremo        outfile
+      outfileroot   outfiletype   plot          plotdev       plotfile
+      gapfill       forcestart   *errorbars     exposure     *normalization
+      spwinbefore   spwinafter    rescale       offset       *fast
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00611000000000000000">
+5.1.1 cfile1</A>
+</H2>
+
+<P>
+(Character parameter; queried)
+
+<P>
+Specify input filename for the time series (+ options) used to calculate
+    auto-correlation. The valid input files are in FITS format using the
+    BINTABLE extension. Xronos tasks may read for each time series many
+    consecutive input files (up to 50). Additional flexibility is provided
+    by "Input File Options" which are used to perform algebraic operations
+    on individual input files (either on the 'times' or on the 'count' or
+    'count/s' values). The "Input File Options" are also used to select
+    columns and rows within a FITS file. If the first character of the
+    input string is <TT>@</TT>, the rest of the string is taken to be a filename
+    containing the list of input files (see "Filelist").
+
+<P>
+
+<H2><A NAME="SECTION00612000000000000000">
+5.1.2 errorbars</A>
+</H2>
+
+<P>
+(Integer parameter; hidden; d/f=5; range <IMG
+ WIDTH="16" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.gif"
+ ALT="$&gt;$">1)
+
+<P>
+If the specified number of intervals per frame (<TT>nintfm</TT>) is greater
+    than or equal to the value of <TT>errorbars</TT> parameter (default=5), the
+    error bars are calculated from the standard deviation of the average of
+    the auto correlations in each delay bin from different intervals.
+    Otherwise there are two behaviors depending on the <TT>fast</TT> parameter.
+    If <TT>fast=yes</TT> (the default), the error bars are set to zero.  If
+    <TT>fast=no</TT>, error bars are obtained by propagating the theoretical
+    errors bars of the auto correlations from individual intervals in turn
+    obtained by propagating the newbin error bars through the auto
+    correlation formula.
+
+<P>
+
+<H2><A NAME="SECTION00613000000000000000">
+5.1.3 normalization</A>
+</H2>
+
+<P>
+(Integer parameter; hidden; d/f=1)
+
+<P>
+Specify the type of normalization to apply to the results.
+    The <TT>normalization</TT> parameter has the following meanings (and values):
+
+<P>
+
+<UL>
+<LI><TT>=0</TT> autocorrelations are normalised by dividing by the number of good
+            newbins in each interval, <I>i.e.</I> they are autocovariances.
+</LI>
+<LI><TT>=1</TT> (d/f); autocorrelations are normalised by dividing by the number of
+            good newbins and the variance of newbins in each interval.  The
+            autocorrelation at zero time delay is =1 by definition.
+</LI>
+<LI><TT>=2</TT> non-zero (zero) delay autocorrelations are normalised by dividing by
+            the number of good newbins and the excess variance (variance) of
+            newbins in each interval. Problems arise when, due to
+            statistical fluctuations, the excess variance of an interval is
+            negative. In order to avoid a meaningless negative
+            normalization, <TT>autocor</TT> automatically adopts normalization 1.
+</LI>
+<LI><TT>=3</TT> non-zero (zero) delay autocorrelations are normalised by
+            dividing by the excess variance (variance) of newbins in each
+            frame after averaging autocovariances. Problems arise again
+            when, due to statistical fluctuations, the excess variance of
+            a frame is negative. In this case normalization 1 is adopted
+            automatically.
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00614000000000000000">
+5.1.4 fast</A>
+</H2>
+
+<P>
+(Logical parameter; hidden; d/f=yes)
+
+<P>
+Sets the algorithm used for the Fourier transform.  If yes (the
+    default), an FFT algorthim is used, otherwise a slower direct Fourier
+    calculation is performed. Note: if <TT>fast=yes</TT>, <TT>nbint</TT> must be a power
+    of 2 due to the use of the FFT algorithm.
+
+<P>
+
+<P></P>
+
+<B>Examples:</B>
+<PRE>
+     
+    From a time series of length 10000 seconds with a binning of
+    6.25e-2  seconds, calculate the auto correlation function of 8192
+    points (equivalent to an interval in time of 512 seconds) and average
+    every 5 intervals in one frame (4 frames in total). Apply no rebinning
+    to the results, make a plot and output the results in a file.
+     
+    &gt; autocor cfile1="mydata.lc" window="-" dtnb=6.25e-2 nbint=8192
+              nintfm=5 rebin=0 plot=yes plotdev="/xw" outfile="-"
+     
+    Same as above but all the intervals are averaged in one frame
+     
+    &gt; autocor cfile1="mydata.lc" window="-" dtnb=6.25e-2 nbint=8192
+              nintfm=INDEF rebin=0 plot=yes plotdev="/xw" outfile="-"
+</PRE>
+
+<P>
+
+<H1><A NAME="SECTION00620000000000000000">
+5.2 crosscor</A>
+</H1>
+
+<P>
+This task calculates the cross correlation of 2 input time series,
+    plots and outputs the results (in a FITS file). The cross correlation
+    is computed either by an FFT algorithm (<TT>fast=yes</TT>, the default) or a
+    slower direct Fourier algorithm (<TT>fast=no</TT>).  It requires two
+    simultaneous input time series (FITS format). The results of the cross
+    correlation from several intervals can be averaged in a frame.  The
+    standard plot output is cross correlation versus time delay. The time
+    delays refer to the 1st series:  therefore a cross correlation function
+    peaking for positive time delays indicates that variations in the 2nd
+    series lag those in the 1st series.
+
+<P>
+When <TT>outfiletype=2</TT> (the default), the output file for the
+    <TT>crosscor</TT> task contains in each extension the following columns: time
+    delay, half width of time delay bin, cross correlation and error. Not
+    many applications can currently deal with the output files produced
+    when <TT>outfiletype=1</TT>.
+
+<P>
+
+<P></P>
+
+<PRE>
+    Usage: crosscor cfile1 cfile2 window dtnb nbint nintfm
+           plot plotdev outfile
+</PRE>
+
+<P>
+The following represents the parameters that will be queried
+    interactively if not specified when the task is executed.
+
+<P>
+
+<P></P>
+
+<PRE>
+       cfile1   - Ser. 1 filename +options (or @file of filenames +options)[]
+       cfile2   - Ser. 2 filename +options (or @file of filenames +options)[]
+       window   - Name of the window file ('-' for default window)[-]
+       dtnb     - Newbin Time or negative rebinning[]
+       nbint    - Number of Newbins/Interval[]
+       nintfm   - Number of Intervals/Frame[]
+       outfile  - Name of output file[default]
+       plot     - Do you want to plot your results?[yes]
+       plotdev  - Enter PGPLOT device[/XW]
+</PRE>
+
+<P>
+The following parameters are used by <TT>crosscor</TT>.  Parameters with
+    task-specific meaning are marked <TT>*</TT>.  All others are
+    documented in "Common Parameters".
+
+<P>
+
+<P></P>
+
+<PRE>
+      tchat         lchat         logname       clobber       dpath
+     *cfile1       *cfile2        window        dtnb          nbint
+      nintfm        nbdf          itre          itremo        outfile
+      outfileroot   outfiletype   plot          plotdev       plotfile
+      gapfill       forcestart   *errorbars     exposure     *normalization
+     *simultaneous  spwinbefore   spwinafter    rescale       offset
+     *fast
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00621000000000000000">
+5.2.1 cfile1,cfile2</A>
+</H2>
+
+<P>
+(Character parameter; queried)
+
+<P>
+Specify input filenames for the time series (+ options) used to
+    calculate cross-correlation. The valid input files are in FITS format
+    using the BINTABLE extension. Xronos tasks may read for each time
+    series many consecutive input files (up to 50). Additional flexibility
+    is provided by "Input File Options" which are used to perform algebraic
+    operations on individual input files (either on the 'times' or on the
+    'count' or 'count/s' values). The "Input File Options" are also used to
+    select columns and rows within a FITS file. If the first character of
+    the input string is <TT>@</TT>, the rest of the string is taken to be a
+    filename containing the list of input files (see "Filelist").
+
+<P>
+
+<H2><A NAME="SECTION00622000000000000000">
+5.2.2 errorbars</A>
+</H2>
+
+<P>
+(Integer parameter; hidden; d/f=5; range <IMG
+ WIDTH="16" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.gif"
+ ALT="$&gt;$">1)
+
+<P>
+If the specified number of intervals per frame (<TT>nintfm</TT>) is greater
+    than or equal to the value of <TT>errorbars</TT> parameter (default=5), the
+    error bars are calculated from the standard deviation of the average of
+    the cross correlations in each delay bin from different intervals.
+    Otherwise, there are two behaviors depending on the <TT>fast</TT> parameter.
+    If <TT>fast=yes</TT> (the default), the error bars are set to zero.  If
+    <TT>fast=no</TT>, error bars are obtained by propagating the theoretical
+    errors bars of the cross correlations from individual intervals in turn
+    obtained by propagating the newbin error bars through the cross
+    correlation formula.
+
+<P>
+
+<H2><A NAME="SECTION00623000000000000000">
+5.2.3 normalization</A>
+</H2>
+
+<P>
+(Integer parameter; hidden; d/f=1)
+
+<P>
+Specify the type of normalization to apply to the results.
+    The <TT>normalization</TT> parameter has the following meanings (and values):
+
+<P>
+
+<UL>
+<LI><TT>=0</TT> cross correlations are normalised by dividing by the square root
+            of the product of the number of good newbins of the two series
+            in each interval, <I>i.e.</I> they are cross covariances.
+</LI>
+<LI><TT>=1</TT> (d/f); cross correlations are normalised as in the case =0 and by
+            dividing also by the square root of the product of the newbin
+            variances of the two series in each interval. Since the variance
+            contains also the variance expected from (Poisson) noise etc. in
+            newbins, all values of the cross correlation are underestimated.
+</LI>
+<LI><TT>=2</TT> cross correlations are normalized as in the case =0 and by dividing
+            also by the square root of the product of the newbin excess variances
+            of the two series in each interval. Problems arise when, due to
+            statistical fluctuations, the excess variance of an interval is
+            negative for any of the two series. To avoid negative normalization,
+            <TT>crosscor</TT> adopts normalization 1.
+</LI>
+<LI><TT>=3</TT> cross correlations are normalized by dividing by the square root of
+            the product of the average newbin excess variances of the two series
+            in each frame after averaging cross covariances. If the excess
+            variance in a frame is negative, for any of the two series, <TT>crosscor</TT>
+            adopts automatically normalization 1.
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00624000000000000000">
+5.2.4 simultaneous</A>
+</H2>
+
+<P>
+(Logical parameter; hidden; d/f=no)
+
+<P>
+If =yes a strict simultaneousness between the two series can be imposed
+    (<I>i.e.</I> if the n-th newbin of a series is a gap or is rejected, then the
+    n-th newbin of all other series will be also rejected).  This is useful
+    to check whether artificial time delay between the two series are
+    introduced by a non strict simultaneousness of the two series.
+
+<P>
+
+<H2><A NAME="SECTION00625000000000000000">
+5.2.5 fast</A>
+</H2>
+
+<P>
+(Logical parameter; hidden; d/f=yes)
+
+<P>
+Sets the algorithm used for the Fourier transform.  If yes (the
+    default), an FFT algorthim is used, otherwise a slower direct Fourier
+    calculation is performed. Note: if <TT>fast=yes</TT>, <TT>nbint</TT> must be a power
+    of 2 due to the use of the FFT algorithm.
+
+<P>
+
+<P></P>
+
+<B>Examples:</B>
+<PRE>
+     
+    Given 2 time series with an original binning of 1 second and length 1.5
+    hours compute the cross correlation in intervals of 1024 points and
+    average all the results per interval in a frame.  Make a plot and
+    output the results.
+     
+    &gt; crosscor  cfile1="mydata1.lc" cfile2="myfile2.lc" window="-"
+                dtnb=1 nbint=1024 nintfm=INDEF plot=yes plotdev="/xw"
+                outfile="-"
+     
+    As before but using as input file a list of filenames (@all.lis) (see
+    "Filelist").
+     
+    &gt; crosscor cfile1="@all.lis"  window="-" dtnb=1 nbint=1024
+               nintfm=INDEF plot=yes plotdev="/xw" outfile="-"
+     
+    Given 2 time series with an original binning of 1 second and length 1.5
+    hours compute cross correlation using all the data  in one interval
+    (nintfm=1). The number of points in such interval length are 5400 and
+    for the fast method this requires that the number of points be a power
+    of two. The closest value is 8192.
+     
+    &gt; crosscor cfile1="@all.lis" window="-" dtnb=1 nbint=8192
+               nintfm=INDEF plot=yes plotdev="/xw" outfile="-"
+</PRE>
+
+<P>
+
+<H1><A NAME="SECTION00630000000000000000">
+5.3 efold</A>
+</H1>
+
+<P>
+This task calculates folded lightcurves, plots and outputs the results
+    (in a FITS file). Up to 4 simultaneous time series can be input (FITS
+    format) and ratios and sums are calculated (for more that 2 input
+    series).  In <TT>efold</TT> the newbin time corresponds to the time duration
+    of a phase bin in the folded light curve, internally calculated after
+    input a number of phase bins. Folded lightcurves from different
+    intervals can be averaged in one or more frame. The standard plot
+    output is normalised counts/sec versus phase, but for multiple time
+    series the hardness and colour-colour diagrams are available where
+    appropriate.
+
+<P>
+The output for <TT>efold</TT> task consists of phase and counts/s vectors
+    (with associated error columns) There are as many count/s vectors as
+    there are of time series analysed (therefore up to 4). For 2 input
+    series the additional columns contain the ratio (ser2/ser1) and the sum
+    (ser1+ser2) of the input series and their errors. For 3 input series
+    the additional columns contain two ratios (ser2/ser1 and ser3/ser2) and
+    the sum (ser1+ser2+ser3) and their errors. For 4 input series the
+    additional columns contain two ratios (ser2/ser1 and ser4/ser3) and the
+    sum (ser1+ser2+ser3+ser4) and their errors.  The output also contains a
+    fractional exposure column (currently is filled with values different
+    from 1 only for 1 input series)
+
+<P>
+
+<P></P>
+
+<PRE>
+    Usage: efold nser file(s)+options window sepoch dper nphase nbint
+                 nintfm plot plotdev plotdnum outfile
+</PRE>
+
+<P>
+The following represents the parameters that will be queried
+    interactively if not specified when the task is executed.
+
+<P>
+
+<P></P>
+
+<PRE>
+       nser     - Number of time series for this task[]
+       cfile1   - Ser. 1 filename +options (or @file of filenames +options)[]
+       cfile2   - Ser. 2 filename +options (or @file of filenames +options)[]
+       cfile3   - Ser. 3 filename +options (or @file of filenames +options)[]
+       cfile4   - Ser. 4 filename +options (or @file of filenames +options)[]
+       window   - Name of the window file ('-' for default window)[-]
+       sepoch   - Epoch[]
+       dper     - Period[]
+       nphase   - Phasebins/Period {value or neg. power of 2}[]
+       nbint    - Number of Newbins/Interval[]
+       nintfm   - Number of Intervals/Frame[]
+       outfile  - Name of output file[default]
+       plot     - Do you want to plot your results?[yes]
+       plotdev  - Enter PGPLOT device[/XW]
+       plotdnum - Enter PLOT style number (default=1 )[1]
+</PRE>
+
+<P>
+The following parameters are used by <TT>efold</TT>.  Parameters with
+    task-specific meaning are marked <TT>*</TT>.  All others are
+    documented in "Common Parameters".
+
+<P>
+
+<P></P>
+
+<PRE>
+      tchat          lchat         logname       clobber       dpath
+     *nser          *cfile1       *cfile2       *cfile3       *cfile4
+      window        *epochfo      *sepoch       *perfo        *dper
+     *dpdot          nphase        nbint         nintfm        nbdf
+      outfile        outfileroot   outfiletype   plot          plotdev
+      plotfile      *plotdnum      forcestart   *errorbars     exposure
+     *normalization  spwinbefore   spwinafter    rescale       offset
+     *flatexpo
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00631000000000000000">
+5.3.1 nser</A>
+</H2>
+
+<P>
+(Integer parameter; queried; d/f=1)
+
+<P>
+Number of input time series simultaneously processed.  Only the <TT>cfile</TT>
+    parameters up to the value for <TT>nser</TT> will be prompted.
+
+<P>
+
+<H2><A NAME="SECTION00632000000000000000">
+5.3.2 cfile1,cfile2,cfile3,cfile4</A>
+</H2>
+
+<P>
+(Character parameter; queried)
+
+<P>
+Input filenames for the time series (+ options) to be folded.
+    The valid input files are in FITS format using the
+    BINTABLE extension. Xronos tasks may read for each time series many
+    consecutive input files (up to 50). Additional flexibility is provided
+    by "Input File Options" which are used to perform algebraic operations
+    on individual input files (either on the 'times' or on the 'count' or
+    'count/s' values). The "Input File Options" are also used to select
+    columns and rows within a FITS file. If the first character of the
+    input string is <TT>@</TT>, the rest of the string is taken to be a filename
+    containing the list of input files (see "Filelist").
+
+<P>
+
+<H2><A NAME="SECTION00633000000000000000">
+5.3.3 epochfo</A>
+</H2>
+
+<P>
+(Integer parameter; hidden; d/f=1; values=1,2,3)
+
+<P>
+Specify format for the input epoch of phase zero. There are
+    three possible formats for <TT>epochfo</TT>: (1) days; (2) integer
+    days and second (dd ss); and (3) days hours minute second and
+    millisecond (dd hh mm ss ms). The <TT>epochfo</TT> default format is
+    set to days (1).
+
+<P>
+
+<H2><A NAME="SECTION00634000000000000000">
+5.3.4 sepoch</A>
+</H2>
+
+<P>
+(String parameter; queried)
+
+<P>
+Value for epoch used as phase zero in the folding. The default value is
+    the integer day of the start time.
+
+<P>
+
+<H2><A NAME="SECTION00635000000000000000">
+5.3.5 perfo</A>
+</H2>
+
+<P>
+(Integer parameter; hidden; d/f=1; values=1,2)
+
+<P>
+Specify format for the input period. The period can be input either as
+    (1) fractional days or in (2) seconds. The default value is set to
+    seconds (2).
+
+<P>
+
+<H2><A NAME="SECTION00636000000000000000">
+5.3.6 dper</A>
+</H2>
+
+<P>
+(Real parameter; queried)
+
+<P>
+Value for the period used in the folding.
+
+<P>
+
+<H2><A NAME="SECTION00637000000000000000">
+5.3.7 dpdot</A>
+</H2>
+
+<P>
+(Real parameter; hidden; d/f=0)
+
+<P>
+Period derivative.
+
+<P>
+
+<H2><A NAME="SECTION00638000000000000000">
+5.3.8 plotdnum</A>
+</H2>
+
+<P>
+(Integer parameter; queried; d/f=1; values=1,2,3,4)
+
+<P>
+The parameter sets the number of subplots which will appear on
+    the plotting device. For more than 1 input series, two
+    different plots are provided which are differentiated by the
+    number of final subplot. The first has TIME or PHASE (default
+    plot) on the X-axis and as many Y-axis as the number of input
+    time series (lightcurve or folded lightcurve). The parameter
+    <TT>plotdnum</TT>, in this case, should be set equal to the total
+    number of timeseries (<I>e.g.</I> 1, 2, 3 or 4). The second plot
+    type is available only for 2 or more time series and gives
+    either Hardness versus total Intensity (2 series) or
+    Colour-Colour diagram (3 or 4 series). To obtain this type of
+    plot, the parameter <TT>plotdnum</TT> should be set equal 1 regardless
+    of the time series number.  For more information see the "Plotting
+    Multiple Series" section under "QDP/PLT".
+
+<P>
+
+<H2><A NAME="SECTION00639000000000000000">
+5.3.9 errorbars</A>
+</H2>
+
+<P>
+(Integer parameter; hidden; d/f=5; range <IMG
+ WIDTH="16" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.gif"
+ ALT="$&gt;$">1)
+
+<P>
+The error bars are calculated after averaging folded lightcurves from
+    different intervals in a frame. If the specified number of intervals
+    per frame (<TT>nintfm</TT>) is greater than or equal to the value of
+    <TT>errorbars</TT> parameter (default=5), the error bars are calculated from
+    the standard deviation of the mean values of each phase bin.  Otherwise
+    the error bars are obtained by propagating the error in each phase.
+
+<P>
+
+<H2><A NAME="SECTION006310000000000000000">
+5.3.10 normalization</A>
+</H2>
+
+<P>
+(Integer parameter; hidden; d/f=1)
+
+<P>
+Specify the type of normalization to apply to the results.
+    The <TT>normalization</TT> parameter has the following meanings (and values):
+
+<P>
+
+<UL>
+<LI><TT>=0</TT> folded light curve are normalised to counts/s
+</LI>
+<LI><TT>=1</TT> (d/f) folded light curves are normalised by dividing by
+            the average source intensity in the frame (normalised
+            intensity)
+</LI>
+</UL>
+
+<P>
+Note the hardness ratios are not affected by the normalization flag.
+
+<P>
+
+<H2><A NAME="SECTION006311000000000000000">
+5.3.11 simultaneous</A>
+</H2>
+
+<P>
+(Logical parameter; hidden; d/f=no)
+
+<P>
+If =yes a strict simultaneousness between the two series can be imposed
+    (<I>i.e.</I> if the n-th newbin of a series is a gap or is rejected, then the
+    n-th newbin of all other series will be also rejected).  This is useful
+    to check whether artificial time delay between the two series are
+    introduced by a non strict simultaneousness of the two series.
+
+<P>
+
+<H2><A NAME="SECTION006312000000000000000">
+5.3.12 flatexpo</A>
+</H2>
+
+<P>
+(Logical parameter; hidden; d/f=no)
+
+<P>
+This parameter sets the exposure in each bin of the folded lightcurve
+    to be constant (=1) when dealing with event file.  For an event file
+    the exposure in each folded bin is calculated using the GTI extension
+    to account for the data gap in the data. If the period used in the
+    folding is very short compared to the gaps, this calculation slows down
+    the program since the exposure is being calculated for each <TT>nbint</TT>.
+    For fast periods since the number of bins affected by the gap is quite
+    reduced, it is possible to speed the calculation by setting
+    <TT>flatexpo=yes</TT>.
+
+<P>
+
+<P></P>
+
+<B>Examples:</B>
+<PRE>
+     
+    For a single file data (1 time series) of length 5000 seconds,
+    calculate the folded lightcurve using a period of 37 seconds and 10
+    phase bins using 1352 data points (this will correspond to one interval
+    per frame). Make a plot and output the results.
+     
+    &gt; efold nser=1 cfile1="myfile.lc" window="-" sepoch=INDEF dper=37
+            nphase=10 nbint=1352 nintfm=INDEF plot=yes plotdev="/xw"
+            plotdnum=1 outfile="-"
+     
+    As above but using only 300 points per interval and average all the
+    intervals in one frame.
+     
+    &gt; efold nser=1 cfile1="myfile.lc" window="-" sepoch=INDEF dper=37
+            nphase=10 nbint=300 nintfm=INDEF plot=yes plotdev="/xw"
+            plotdnum=1 outfile="-"
+     
+    As above but using 3 input series and plot the Colour-Colour diagram
+     
+    &gt; efold nser=3 cfile1="@all.lis" window="-" sepoch=INDEF dper=37
+            nphase=10 nbint=300 nintfm=INDEF plot=yes plotdev="/xw"
+            plotdnum=1 outfile="-"
+</PRE>
+
+<P>
+
+<H1><A NAME="SECTION00640000000000000000">
+5.4 efsearch</A>
+</H1>
+
+<P>
+This task searches for periodicities in a time series (input in FITS
+    format) by folding data over a range of periods, determines the chi-square
+    of the folded lightcurve, plots the chi-square values versus the
+    periods with the best period found in the search written as a label
+    in the plot, and outputs the results (in a FITS file).  The search can
+    be separately  done in different Intervals.  In <TT>efsearch</TT> the newbin
+    time corresponds to the time duration of a phase bin in the folded
+    light curve, internally calculated after inputting a number of phase bins.
+    The newbins per interval and the newbin time determines the length of
+    the time axis, <I>e.g.</I> an internal, over which a group of folded light
+    curves is accumulated and their chi-square versus period is calculated.
+    The period resolution is the spacing between two contiguous periods in
+    the search. The default adopted is half of the Fourier resolution in
+    the interval, P*P/T/2 where P is the trial period and T the interval
+    duration. With the above resolution a coherent periodicity will appear
+    as a 1-2 bin broad peak in the chi-square versus period plot.
+    The period values are determined by adding to Po the total number
+    of periods equispaced by the given resolution, where Po is determined by
+    subtracting half of the total number of periods equispaced by the given
+    resolution from the trial period. Error bars for the chi-square represent
+    the standard deviation of the relevant chi-square distribution rescale by
+    the value of the chi-square for each period divided by N-1, where N is
+    the number of phase bins.
+
+<P>
+The output for the <TT>efsearch</TT> task for <TT>outfiletype=2</TT>
+    contains in each extension the following columns: period,
+    chi-square and error.  Not many applications can currently deal
+    with the output files produced when <TT>outfiletype=1</TT>.
+
+<P>
+
+<P></P>
+
+<PRE>
+    Usage: efsearch cfile1 window sepoch dper nphase nbint dres
+                    nper outfile plot plotdev
+</PRE>
+
+<P>
+The following represents the parameters that will be queried
+    interactively if not specified when the task is executed.
+
+<P>
+
+<P></P>
+
+<PRE>
+       cfile1  - Ser. 1 filename +options (or @file of filenames +options)[]
+       window  - Name of the window file ('-' for default window)[-]
+       sepoch  - Epoch[]
+       dper    - Period[]
+       nphase  - Phasebins/Period {value or neg. power of 2}[]
+       nbint   - Number of Newbins/Interval[]
+       dres    - Resolution for period search {value or neg. power of 2}[]
+       nper    - Number of periods to search[100]
+       outfile - Name of output file[default]
+       plot    - Do you want to plot your results?[yes]
+       plotdev - Enter PGPLOT device[/XW]
+</PRE>
+
+<P>
+The following parameters are used by <TT>efsearch</TT>.  Parameters with
+    task-specific meaning are marked <TT>*</TT>.  All others are
+    documented in "Common Parameters".
+
+<P>
+
+<P></P>
+
+<PRE>
+      tchat         lchat         logname       clobber       dpath
+     *cfile1        window       *epochfo      *sepoch       *perfo
+     *dper         *dpdot        *dres         *nper          nphase
+      nbint         nintfm        nbdf          outfile       outfileroot
+      outfiletype   plot          plotdev       plotfile      forcestart
+      exposure      spwinbefore   spwinafter    rescale       offset
+     *flatexpo
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00641000000000000000">
+5.4.1 cfile1</A>
+</H2>
+
+<P>
+(Character parameter; queried)
+
+<P>
+Specify input filename for the time series + options to be searched.
+    The valid input files are in FITS format using the BINTABLE extension.
+    Xronos tasks may read for each time series many consecutive input files
+    (up to 50). Additional flexibility is provided by "Input File Options"
+    which are used to perform algebraic operations on individual input
+    files (either on the 'times' or on the 'count' or 'count/s' values).
+    The "Input File Options" are also used to select columns and rows
+    within a FITS file. If the first character of the input string is <TT>@</TT>,
+    the rest of the string is taken to be a filename containing the list of
+    input files (see "Filelist").
+
+<P>
+
+<H2><A NAME="SECTION00642000000000000000">
+5.4.2 epochfo</A>
+</H2>
+
+<P>
+(Integer parameter; hidden; d/f=1; values=1,2,3)
+
+<P>
+Specify format for the input epoch of phase zero. There are
+    three possible formats for <TT>epochfo</TT>: (1) days; (2) integer
+    days and second (dd ss); and (3) days hours minute second and
+    millisecond (dd hh mm ss ms). The <TT>epochfo</TT> default format is
+    set to days (1).
+
+<P>
+
+<H2><A NAME="SECTION00643000000000000000">
+5.4.3 sepoch</A>
+</H2>
+
+<P>
+(String parameter; queried)
+
+<P>
+Value for epoch used as phase zero in the folding. The default value is
+    the integer day of the start time.
+
+<P>
+
+<H2><A NAME="SECTION00644000000000000000">
+5.4.4 perfo</A>
+</H2>
+
+<P>
+(Integer parameter; hidden; d/f=1; values=1,2)
+
+<P>
+Specify format for the input period. The period can be input either as
+    (1) fractional days or in (2) seconds. The default value is set to
+    seconds (2).
+
+<P>
+
+<H2><A NAME="SECTION00645000000000000000">
+5.4.5 dper</A>
+</H2>
+
+<P>
+(Real parameter; queried)
+
+<P>
+The value used as the center of the range of trial periods.
+
+<P>
+
+<H2><A NAME="SECTION00646000000000000000">
+5.4.6 dpdot</A>
+</H2>
+
+<P>
+(Real parameter; hidden; d/f=0)
+
+<P>
+Period derivative.
+
+<P>
+
+<H2><A NAME="SECTION00647000000000000000">
+5.4.7 dres</A>
+</H2>
+
+<P>
+(Real parameter; queried)
+
+<P>
+The period resolution is the spacing between two contiguous periods in
+    the search. The resolution value should be given in the same unit
+    (seconds or days) used for the period.  Typing <TT>INDEF</TT> forces the task
+    to use the default value which corresponds to half of the Fourier
+    resolution in the interval (<I>e.g.</I> P*P/T(i)/2 where P is the period and
+    T(i) is the interval duration).
+
+<P>
+
+<H2><A NAME="SECTION00648000000000000000">
+5.4.8 nper</A>
+</H2>
+
+<P>
+(Integer parameter; queried; d/f=100)
+
+<P>
+The number of periods over which the search is carried out.
+
+<P>
+
+<H2><A NAME="SECTION00649000000000000000">
+5.4.9 flatexpo</A>
+</H2>
+
+<P>
+(Logical parameter; hidden; d/f=no)
+
+<P>
+This parameter sets the exposure in each bin of the folded lightcurve
+    to be constant (=1) when dealing with event file.  For an event file
+    the exposure in each folded bin is calculated using the GTI extension
+    to account for the data gap in the data. If the period used in the
+    folding is very short compared to the gaps, this calculation slows down
+    the program since the exposure is being calculated for each <TT>nbint</TT>.
+    For fast periods since the number of bins affected by the gap is quite
+    reduced, it is possible to speed the calculation by setting
+    <TT>flatexpo=yes</TT>.
+
+<P>
+
+<P></P>
+
+<B>Examples:</B>
+<PRE>
+     
+    Using 1.5 hours of data, search over 100 periods for the best
+    chi-square (period), using a trial period of 37 seconds and folding the
+    lightcurve over 10 phases with the default resolution (period step).
+    Make a plot and output the results.
+     
+    &gt; efsearch cfile1="mydata.lc" window="-" sepoch=INDEF dper=37
+               nphase=10 nbint=INDEF nper=100 dres=INDEF outfile="-"
+               plot=yes plotdev="/xw"
+     
+    As above but divide the data in two intervals. Two parameters change
+    from the above setup: `nbint` and `dres`. The newbin time in 1.5 hours
+    of data using a period of 37 seconds and 10 phases is 3.7 seconds,
+    therefore the total number of "nbint" in 1.5 hours is 1460. To search
+    in half of the data (e.g. two intervals) nbint should be set to 730.
+    Note that the default resolution in this case will reduce by half.
+     
+    &gt; efsearch cfile1="mydata.lc" window="-" sepoch=INDEF dper=37
+               nphase=10 nbint=730 nper=100 dres=INDEF outfile="-"
+               plot=yes plotdev="/xw"
+</PRE>
+
+<P>
+
+<H1><A NAME="SECTION00650000000000000000">
+5.5 lcmath</A>
+</H1>
+
+<P>
+This program takes as input two binned lightcurves and calculates a
+    result lightcurve either subtracting (second from the first) or
+    adding the two input files. The two input files should cover the
+    same time interval. In particular the start time and the stop  time
+    of the first lightcurve should be included within the start and
+    stop time of the second lightcurve. Errors are given if the start
+    and/or the stop are outside of the time interval of the second file.
+    The time resolution of the two files can be different, but the
+    integration time of the first input file should be always less than
+    or equal to that in the second input file. The task does not work
+    for input files containing an EVENT table. Constant scaling and
+    additive factors can be separately input for both lightcurves.  By
+    default, the task will apply any vignetting (or collimator) and
+    deadtime correction information contained in the input file (header
+    keywords VIGNET and DEADC) to the result lightcurve. The user may
+    cancel this correction by setting the parameter <TT>docor=no</TT>.  The columns
+    names recognized by the task are TIME, COUNT, RATE and ERROR. The
+    units (TUNITn keyword) are expected to be 'count' for column name
+    'COUNT' and 'count/s' for column name RATE. The input file
+    structure is a FITS bintable with data stored in the column COUNT
+    or RATE either as a single element or a vector of element in each
+    row. For the last case the task works correctly only if the column
+    n contains a vector of counts in different channel (the value of
+    the column keyword 1CTYPn should be "CHANNEL"). The parameters
+    <TT>emin</TT>  and <TT>emax</TT> are applicable in this case. The structure of the
+    output file will always have data stored as a single element in
+    each row.
+
+<P>
+
+<P></P>
+
+<PRE>
+    Usage: lcmath infile bgfile outfile multi multb
+</PRE>
+
+<P>
+The following represents the parameters that will be queried
+    interactively if not specified when the task is executed.
+
+<P>
+
+<P></P>
+
+<PRE>
+       infile  - name of input fits file[]
+       bgfile  - name of background fits file[]
+       outfile - name of output fits file[]
+       multi   - Scaling factor for input[1.]
+       multb   - Scaling factor for background[1.]
+       addsubr - Add instead of subract?[no]
+</PRE>
+
+<P>
+The following parameters are used by <TT>lcmath</TT>.  Parameters with
+    task-specific meaning are marked <TT>*</TT>.  All others are
+    documented in "Common Parameters".
+
+<P>
+
+<P></P>
+
+<PRE>
+      tchat         lchat        *infile       *bgfile       *outfile
+     *multi        *multb        *addsubr      *addi         *addb
+     *docor        *emin         *emax         *err_mode
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00651000000000000000">
+5.5.1 infile</A>
+</H2>
+
+<P>
+(Character parameter; queried)
+
+<P>
+The name of the first input lightcurve. If the task is used in
+    subtraction mode the file should contain source+background data.
+
+<P>
+
+<H2><A NAME="SECTION00652000000000000000">
+5.5.2 bgfile</A>
+</H2>
+
+<P>
+(Character parameter; queried)
+
+<P>
+The name of the second input lightcurve. If the task is used  in
+    subtraction mode the file should contain background data.
+
+<P>
+
+<H2><A NAME="SECTION00653000000000000000">
+5.5.3 outfile</A>
+</H2>
+
+<P>
+(Character parameter; queried)
+
+<P>
+The name of the output result lightcurve. If <TT>lcmath</TT> is used in
+    the subtracting mode the file contain source data only and the
+    keyword BACKAPP is added or updated.
+
+<P>
+
+<H2><A NAME="SECTION00654000000000000000">
+5.5.4 multi</A>
+</H2>
+
+<P>
+(Real parameter; queried; d/f=1.)
+
+<P>
+Scaling factor for first input lightcurve.
+
+<P>
+
+<H2><A NAME="SECTION00655000000000000000">
+5.5.5 multb</A>
+</H2>
+
+<P>
+(Real parameter; queried; d/f=1.)
+
+<P>
+Scaling factor for second input lightcurve (or background lightcurve).
+
+<P>
+
+<H2><A NAME="SECTION00656000000000000000">
+5.5.6 addsubr</A>
+</H2>
+
+<P>
+(Logical parameter; queried; d/f=no)
+
+<P>
+Flag to add input lightcurve instead of subtract. The default
+    value is set to subtract (<TT>addsubr=no</TT>) the lightcurve.
+
+<P>
+
+<H2><A NAME="SECTION00657000000000000000">
+5.5.7 addi</A>
+</H2>
+
+<P>
+(Real parameter; hidden; d/f=0.)
+
+<P>
+Additive offset for first input lightcurve. This value should
+    be given as counts (internally the value corrected for the bin
+    fractional exposure).
+
+<P>
+
+<H2><A NAME="SECTION00658000000000000000">
+5.5.8 addb</A>
+</H2>
+
+<P>
+(Real parameter; hidden; d/f=0.)
+
+<P>
+Additive offset for second input lightcurve (or background
+    lightcurve). This value should be given as counts (internally
+    the value is corrected for the bin fractional exposure).
+
+<P>
+
+<H2><A NAME="SECTION00659000000000000000">
+5.5.9 docor</A>
+</H2>
+
+<P>
+(Logical parameter; hidden; d/f=yes)
+
+<P>
+Whether to apply the corrections to the result lightcurve. If
+    the input lightcurves have stored in the header the vignetting
+    or collimator (VIGNET keyword) and the deadtime (keyword DEADC)
+    correction, this is also applied by default to the output lightcurve.
+
+<P>
+
+<H2><A NAME="SECTION006510000000000000000">
+5.5.10 emin</A>
+</H2>
+
+<P>
+(Integer parameter; hidden; d/f=0)
+
+<P>
+Minimum energy channel to use.  Enter 0 for no lower bound.
+
+<P>
+
+<H2><A NAME="SECTION006511000000000000000">
+5.5.11 emax</A>
+</H2>
+
+<P>
+(Integer parameter; hidden; d/f=0)
+
+<P>
+Maximum energy channel to use.  Enter 0 for no upper bound.
+
+<P>
+
+<H2><A NAME="SECTION006512000000000000000">
+5.5.12 err_mode </A>
+</H2>
+
+<P>
+(Integer parameter; hidden; d/f=1; values 1-6)
+
+<P>
+If scaling and additive factors are input for both files
+    the derived counts are calculated as:
+
+<P>
+
+<P></P>
+
+<PRE>
+    count1=M1*x1 + C1
+    count2=M2*x2 + C2
+</PRE>
+    where M1 and M2 are the input scaling values for the first and second
+    lightcurve respectively; C1 and C2 are the additive input factors in
+    counts (rescaling for the fractional exposure) and x1 and x2 are the
+    value always in counts read from the files (if the file contains rate
+    x1 and x2 are the value after rescaling for the integration and
+    exposure time).
+
+<P>
+The final results in the output file will be:
+
+<P>
+
+<P></P>
+
+<PRE>
+    count3=count1 -/+ count2 divided for the integration time
+</PRE>
+
+<P>
+The error for count3 is calculated as:
+
+<P>
+
+<P></P>
+
+<PRE>
+    err3=sqrt(err1**2 + err2**2)
+</PRE>
+    where err3, err2, and err1 are the error values for the count3, count2
+    and count1 respectively.
+
+<P>
+To calculate the individual errors (<I>i.e.</I> err1 for the quantity count1
+    and err2 for the quantity count2) the user can choose one of the 6
+    different methods listed below.
+
+<P>
+
+<P></P>
+
+<PRE>
+        Mode 1   err1=sqrt((sqrt(M1*sx1*sx1))**2 + C1)
+     
+        Mode 2   err1=sqrt((M1*sx1)**2)
+     
+        Mode 3   err1=sqrt( (sqrt(M1*sx1*sx1))**2)
+     
+        Mode 4   err1=sqrt( (M1*sx1)**2 + C1)
+     
+        Mode 5   err1=sqrt(count1)
+     
+        Mode 6   The error in the output file is set equal to the
+                 value of the error of first input file (i.e. err3=sx1)
+</PRE>
+    If the file contains an error column, sx1 is the value in the
+    file rescaled for the integration time and exposure, otherwise sx1
+    is set as the sqrt(x1) or sqrt(x2). If x1 or x2 are 0 the error
+    (sx1 or sx2) is set to 1. If the scaling factor is 1 and the
+    additive factor is 0, the methods 1,2,3,4 are equivalent.
+
+<P>
+
+<H1><A NAME="SECTION00660000000000000000">
+5.6 lcstats</A>
+</H1>
+
+<P>
+This task performs statistical analysis for one times series and prints
+    the results on the screen (no output is produced). The input file
+    format is FITS using the BINTABLE extension in either binned data or
+    event list format.
+
+<P>
+The following quantities are calculated:
+
+<P>
+
+<UL>
+<LI>Newbin integration time (x2 gives the shortest timescale sampled
+       in the analysis)
+</LI>
+<LI>Interval duration (gives the longest timescale sampled)
+</LI>
+<LI>Number of good (accepted) newbins in interval
+</LI>
+<LI>Average (and its error)
+</LI>
+<LI>Standard deviation
+</LI>
+<LI>Minimum and maximum count rates in interval
+</LI>
+<LI>Variance (and its Gaussian error), as evaluated from the data scatter
+</LI>
+<LI>Expected variance from a constant source (and its Gaussian error), as
+       evaluated from the errors in the newbin count rates (corrected for dead
+       time effects as appropriate)
+</LI>
+<LI>Third moment
+</LI>
+<LI>Average absolute deviation
+</LI>
+<LI>Skewness (and its Gaussian error)
+</LI>
+<LI>Kurtosis (and its Gaussian error)
+</LI>
+<LI>RMS fractional variation (and its Gaussian error) or a 3 sigma upper limit
+       if the variance is not larger than the expected variance at a confidence
+       level higher than 99.86%
+</LI>
+<LI>Chi-square and corresponding number of degrees of freedom
+</LI>
+<LI>Constant source probability associated to the Chi-square value
+</LI>
+<LI>Constant source probability from a Kolmogorov-Smirnov test (note however
+       that, strictly speaking, this test should be applied only to unbinned data;
+       moreover this test often fails if used with background subtracted light
+       curves of faint sources)
+</LI>
+</UL>
+
+<P>
+
+<P></P>
+
+<PRE>
+    Usage: lcstats cfile1 window dtnb nbint
+</PRE>
+
+<P>
+The following represents the parameters that will be queried
+    interactively if not specified when the task is executed.
+
+<P>
+
+<P></P>
+
+<PRE>
+       cfile1  - Ser. 1 filename +options (or @file of filenames +options)[]
+       window  - Name of the window file ('-' for default window)[-]
+       dtnb    - Newbin Time or negative rebinning[]
+       nbint   - Number of Newbins/Interval[]
+</PRE>
+
+<P>
+The following parameters are used by <TT>lcstats</TT>.  Parameters with
+    task-specific meaning are marked <TT>*</TT>.  All others are
+    documented in "Common Parameters".
+
+<P>
+
+<P></P>
+
+<PRE>
+      tchat         lchat         logname       dpath        *cfile1
+      window        dtnb          nbint         nbdf          itre
+      itremo        forcestart    exposure      spwinbefore   spwinafter
+      rescale       offset
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00661000000000000000">
+5.6.1 cfile1</A>
+</H2>
+
+<P>
+(Character parameter; queried)
+
+<P>
+Specify input filename for the time series (+ options) to calculate
+    statistics.  The valid input files are in FITS format using the
+    BINTABLE extension. Xronos tasks may read for each time series many
+    consecutive input files (up to 50). Additional flexibility is provided
+    by "Input File Options" which are used to perform algebraic operations
+    on individual input files (either on the 'times' or on the 'count' or
+    'count/s' values). The "Input File Options" are also used to select
+    columns and rows within a FITS file. If the first character of the
+    input string is <TT>@</TT>, the rest of the string is taken to be a filename
+    containing the list of input files (see "Filelist").
+
+<P>
+
+<P></P>
+
+<B>Examples:</B>
+<PRE>
+     
+    Calculate statistical variables for an input time series with a binning
+    of 100 seconds and a start-stop=5000 seconds in one interval (50 newbin
+    per interval)
+     
+    &gt; lcstats cfile1="mydata.lc" window="-" dtnb=INDEF nbint=50
+     
+    For an input time series (consisting of several files) with an original
+    binning of 400 seconds and a total length of 6 hours, calculate
+    statistical variables using a newbin of 800 seconds over 2-hour
+    intervals (9 newbin per interval for a total of 3 intervals).
+     
+    &gt; lcstats cfile1="@all.lis" window="-" dtnb=800 nbint=9
+     
+    The file `all.lis` contains the list of filenames for one time series (see
+    "Filelist").
+</PRE>
+
+<P>
+
+<H1><A NAME="SECTION00670000000000000000">
+5.7 lcurve</A>
+</H1>
+
+<P>
+Produces binned lightcurves and plot up to 4 simultaneous energy time
+    series. For more than 2 input time series, ratio and sum are also
+    calculated.  This task produces binned lightcurves, plots and outputs
+    the results (in a FITS file).  The standard plot output is counts/sec
+    versus time, but for multiple time series the hardness and
+    colour-colour diagrams are available where appropriate.
+
+<P>
+The output for the <TT>lcurve</TT> task consists of time and counts/s
+    vectors (with associated error columns). There are as many count/s
+    vectors as there are time series analysed (therefore up to 4). The
+    time column always contains number of seconds from the keyword
+    TIMEZERO (or TIMEZERI and TIMEZERF). The time in the output
+    (TIME(n)+TIMEZERO) is in TJD (TJD=JD-2440000.5) if the input light
+    curves have the MJDREF keyword present in the header, otherwise the
+    original times are maintained. Note that the TIMESYS keyword in
+    either cases is not currently set. For 2 input series the
+    additional columns contain the ratio (ser2/ser1) and the sum
+    (ser1+ser2) of the input series and their errors. For 3 input
+    series the additional columns contain two ratios (ser2/ser1 and
+    ser3/ser2) and the sum (ser1+ser2+ser3) and their errors. For 4
+    input series the additional columns contain two ratios (ser2/ser1
+    and ser4/ser3) and the sum (ser1+ser2+ser3+ser4) and their errors.
+    The output also contains a fractional exposure column (currently is
+    filled with values different from 1 for only 1 input series)
+
+<P>
+
+<P></P>
+
+<PRE>
+    Usage: lcurve nser file(s)+options window dtnb nbint outfile
+           plot plotdev
+</PRE>
+
+<P>
+The following represents the parameters that will be queried
+    interactively if not specified when the task is executed.
+
+<P>
+
+<P></P>
+
+<PRE>
+       nser     - Number of time series for this task[]
+       cfile1   - Ser. 1 filename +options (or @file of filenames +options)[]
+       cfile2   - Ser. 2 filename +options (or @file of filenames +options)[]
+       cfile3   - Ser. 3 filename +options (or @file of filenames +options)[]
+       cfile4   - Ser. 4 filename +options (or @file of filenames +options)[]
+       window   - Name of the window file ('-' for default window)[-]
+       dtnb     - Newbin Time or negative rebinning[]
+       nbint    - Number of Newbins/Interval[]
+       outfile  - Name of output file[default]
+       plot     - Do you want to plot your results?[yes]
+       plotdev  - Enter PGPLOT device[/XW]
+       plotdnum - Enter PLOT style number (default=1 )[1]
+</PRE>
+
+<P>
+The following parameters are used by <TT>lcurve</TT>.  Parameters with
+    task-specific meaning are marked <TT>*</TT>.  All others are
+    documented in "Common Parameters".
+
+<P>
+
+<P></P>
+
+<PRE>
+      tchat         lchat         logname       clobber       dpath
+     *nser         *cfile1       *cfile2       *cfile3       *cfile4
+      window        dtnb          nbint         nbdf         *tunits
+      outfile       outfileroot   outfiletype   plot          plotdev
+      plotfile     *plotdnum      itre          itremo        forcestart
+      exposure     *simultaneous  spwinbefore   spwinafter    rescale
+      offset
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00671000000000000000">
+5.7.1 nser</A>
+</H2>
+
+<P>
+(Integer parameter; queried; d/f=1)
+
+<P>
+Number of input time series simultaneously processed.  Only the <TT>cfile</TT>
+    parameters up to the value for <TT>nser</TT> will be prompted.
+
+<P>
+
+<H2><A NAME="SECTION00672000000000000000">
+5.7.2 cfile1,cfile2,cfile3,cfile4</A>
+</H2>
+
+<P>
+(Character parameter; queried)
+
+<P>
+Specify input filenames for the time series (+ options). The valid
+    input files are in FITS format using the BINTABLE extension. Xronos
+    tasks may read for each time series many consecutive input files (up to
+    50). Additional flexibility is provided by "Input File Options" which
+    are used to perform algebraic operations on individual input files
+    (either on the 'times' or on the 'count' or 'count/s' values). The
+    "Input File Options" are also used to select columns and rows within a
+    FITS file. If the first character of the input string is <TT>@</TT>, the rest
+    of the string is taken to be a filename containing the list of input
+    files (see "Filelist").
+
+<P>
+
+<H2><A NAME="SECTION00673000000000000000">
+5.7.3 tunits</A>
+</H2>
+
+<P>
+(Integer parameter; hidden; values 0-4)
+
+<P>
+Five different time axis units can be specified: (0) seconds
+    from the start time of the current interval (which might be
+    different from the time of the first accepted newbin) (1)
+    seconds from the start of the hour, (2) hours from the start of
+    the day, (3) days, (4) seconds from the start time of the first
+    interval. Option 4 is useful when the lightcurve is broken into
+    several intervals and it is desirable to maintain for each
+    plotted interval the same counter (from the start time of the
+    first interval) for the time axis. The default depends on the
+    duration of the input series and is printed on the screen.
+    Typing <TT>INDEF</TT> forces the task to use the calculated value.
+
+<P>
+
+<H2><A NAME="SECTION00674000000000000000">
+5.7.4 plotdnum</A>
+</H2>
+
+<P>
+(Integer parameter; queried; d/f=1; values=1,2,3,4)
+
+<P>
+The parameter sets the number of subplots which will appear on the
+    plotting device.  For 2 input series, three different plots are
+    available: 1) Total intensity on X-axis and Ratio on Y-axis (Hardness),
+    2) Time (or Phase) on the X-axis and intensity of the 2 input series on
+    the Y-axis, and 3) as 2 but also the ratio is plotted.  The parameter
+    <TT>plotdnum</TT> should be set equal to 1 or 2 or 3 respectively to get one
+    of the three style plots. For 3 or 4 input series only two style of
+    plots are available : 1) Colour-Colour diagram (ratio 1 vs ratio 2) and
+    2) Time (or phase) on the X-axis and intensity of the 3 (or 4) input
+    series on the Y-axis.  The parameter <TT>plotdnum</TT> should be set equal to
+    1 or to the total number of input timeseries (<I>e.g.</I> 3 or 4) respectively
+    to get one of the two style plots.  For more information see the
+    "Plotting Multiple Series" section under "QDP/PLT".
+
+<P>
+
+<H2><A NAME="SECTION00675000000000000000">
+5.7.5 simultaneous</A>
+</H2>
+
+<P>
+(Logical parameter; hidden; d/f=no)
+
+<P>
+If =yes a strict simultaneity is forced between the input series
+    provided more than one series has been specified (<I>i.e.</I> if the n-th
+    newbin of a series is a gap or is rejected, then the n-th newbin of all
+    other series will be also rejected).
+
+<P>
+
+<P></P>
+
+<B>Examples:</B>
+<PRE>
+     
+    From a single file data (1 time series) with a binning of 20
+    seconds and a start-stop=5000 seconds, create a one interval lightcurve
+    with a binning of 100 seconds. Make a plot and output the results.
+     
+    &gt;lcurve nser=1 cfile1="mydata.lc" window="-" dtnb=100 nbint=50
+            outfile="-" plot=yes plotdev="/xw"
+     
+    From 3 input series with a binning of 20 seconds and a length of
+    5 hours, create a one-interval lightcurve with a binning of 400
+    seconds. Plot the Colour-Colour diagram and not create an output.
+     
+    &gt;lcurve nser=3 cfile1="@all.lis" window="-" dtnb=400 nbint=45
+            outfile=" " plot=yes plotdev="/xw" plotdnum=1
+     
+    The file `all.lis` contains the list of filenames for each series (see
+    "Filelist").
+</PRE>
+
+<P>
+
+<H1><A NAME="SECTION00680000000000000000">
+5.8 listdata</A>
+</H1>
+
+<P>
+This task lists on screen a summary header and the data points of input
+    file(s) for one time series. The input file format is FITS using the
+    BINTABLE extension in either binned data or event format.  For each
+    data point the following is printed on the screen : time associated
+    with the bin N as fractional day, and the h:m:s:ms of that day, the
+    integration time (set -1 for event list), count/s, error and fractional
+    exposure (set to 1 for event list). Changing the <TT>tchat</TT> parameter to
+    higher values causes the FITS header to be printed as well. To list
+    only part of the data Phase, Intensity and Exposure windows (See
+    "Windows") can be used for screening. A range of data rows can  be
+    selected  using  the  input option  <TT>frN</TT>  and  <TT>lrM</TT> where n and M are
+    the first and the last row to be printed on the screen.
+
+<P>
+The following represents the parameters that will be queried
+    interactively if not specified when the task is executed.
+
+<P>
+
+<P></P>
+
+<PRE>
+       cfile1  - Ser. 1 filename +options (or @file of filenames +options)[]
+       window  - Name of the window file ('-' for default window)[-]
+</PRE>
+
+<P>
+The following parameters are used by <TT>listdata</TT>.  Parameters with
+    task-specific meaning are marked <TT>*</TT>.  All others are
+    documented in "Common Parameters".
+
+<P>
+
+<P></P>
+
+<PRE>
+      tchat         lchat         logname       dpath        *cfile1
+      window
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00681000000000000000">
+5.8.1 cfile1</A>
+</H2>
+
+<P>
+(Character parameter; queried)
+
+<P>
+Specify input filename for the time series (+ options) to list.  The
+    valid input files are in FITS format using the BINTABLE extension.
+    Xronos tasks may read for each time series many consecutive input files
+    (up to 50).  Additional flexibility is provided by "Input File Options"
+    which are used to perform algebraic operations on individual input
+    files (either on the 'times' or on the 'count' or 'count/s' values).
+    The "Input File Options" are also used to select columns and rows
+    within a FITS file.  If the first character of the input string is <TT>@</TT>,
+    the rest of the string is taken to be a filename containing the list of
+    input files (see "Filelist").
+
+<P>
+
+<P></P>
+
+<B>Examples:</B>
+<PRE>
+     
+    List the header and all the data of myfile.lc
+     
+    &gt; listdata cfile1="mydata.lc" window="-"
+     
+    List the header and the data from row 100 to 300 of myfile.lc
+     
+    &gt; listdata cfile1="muyfile.lc fr100 lr300" window="-"
+     
+    List  the  header and the data of myfile.lc using time window in
+    mywindow.wi file
+     
+    &gt; listdata cfile1="muyfile.lc fr100 lr300" window="mywindow.wi"
+</PRE>
+
+<P>
+
+<H1><A NAME="SECTION00690000000000000000">
+5.9 powspec</A>
+</H1>
+
+<P>
+This task produces a power spectral density for one time series, plots
+    and outputs the results (in a FITS file). The power spectrum is
+    computed either by an FFT algorithm (<TT>fast=yes</TT>, the default) or a
+    slower direct Fourier algorithm (<TT>fast=no</TT>).  The input file format is
+    FITS using the BINTABLE extension in either binned data or event
+    format.  The power spectra from several intervals can be averaged in a
+    frame, and the results can be rebinned. The standard plot output is
+    power versus frequency.
+
+<P>
+When <TT>outfiletype=2</TT> (the default) the output file for the <TT>powspec</TT> task
+    contains in each extension the following columns: frequency, half
+    width frequency bin, power, error and the number of power spectrum
+    bins averaged in frequency (as result of rebinning) or in time (as
+    results of averaging intervals in frame). Not many applications  can
+    currently deal with the output files produced when <TT>outfiletype=1</TT>.
+
+<P>
+
+<P></P>
+
+<PRE>
+    Usage: powspec cfile1 window dtnb nbint nintfm rebin outfile
+                   plot plotdev
+</PRE>
+
+<P>
+The following represents the parameters that will be queried
+    interactively if not specified when the task is executed.
+
+<P>
+
+<P></P>
+
+<PRE>
+       cfile1  - Ser. 1 filename +options (or @file of filenames +options)[]
+       window  - Name of the window file ('-' for default window)[-]
+       dtnb    - Newbin Time or negative rebinning[]
+       nbint   - Number of Newbins/Interval[]
+       nintfm  - Number of Intervals/Frame[]
+       rebin   - Rebin results? (&gt;1 const rebin, &lt;-1 geom. rebin, 0 none)[0]
+       outfile - Name of output file[default]
+       plot    - Do you want to plot your results?[yes]
+       plotdev - Enter PGPLOT device[/XW]
+</PRE>
+
+<P>
+The following parameters are used by <TT>powspec</TT>.  Parameters with
+    task-specific meaning are marked <TT>*</TT>.  All others are
+    documented in "Common Parameters".
+
+<P>
+
+<P></P>
+
+<PRE>
+      tchat         lchat         logname       clobber       dpath
+     *cfile1        window        dtnb          nbint         nintfm
+      rebin         nbdf          itre          itremo        outfile
+      outfileroot   outfiletype   plot          plotdev       plotfile
+      gapfill       forcestart   *errorbars     exposure     *normalization
+      spwinbefore   spwinafter    rescale       offset       *fast
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00691000000000000000">
+5.9.1 cfile1</A>
+</H2>
+
+<P>
+(Character parameter; queried)
+
+<P>
+Specify input filename for the time series (+ options) to calculate a power
+    spectral density. The valid input files are in FITS format using the
+    BINTABLE extension. Xronos tasks may read for each time series many
+    consecutive input files (up to 50). Additional flexibility is provided
+    by "Input File Options" which are used to perform algebraic operations
+    on individual input files (either on the 'times' or on the 'count' or
+    'count/s' values). The "Input File Options" are also used to select
+    columns and rows within a FITS file. If the first character of the
+    input string is <TT>@</TT>, the rest of the string is taken to be a filename
+    containing the list of input files (see "Filelist").
+
+<P>
+
+<H2><A NAME="SECTION00692000000000000000">
+5.9.2 errorbars</A>
+</H2>
+
+<P>
+(Integer parameter; hidden; d/f=5; range <IMG
+ WIDTH="16" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.gif"
+ ALT="$&gt;$">1)
+
+<P>
+If the specified number of intervals per frame (<TT>nintfm</TT>) is greater
+    than or equal to the value of the <TT>errorbars</TT> parameter (default=5),
+    the error bars are calculated from the standard deviation of the
+    average of the power in each frequency bin from different intervals.
+    Otherwise, error bars are obtained by propagating the theoretical
+    errors bars associated with each power spectrum.
+
+<P>
+For example, if <TT>errorbars</TT> is 5 in <TT>powspec</TT>: (a) if a frame contains
+    the average fewer than 5 power spectra, then the error bars in the
+    average power spectrum will be calculated by propagating through the
+    average the theoretical error bars associated with each power spectrum
+    (in turn obtained from the relevant chi-square distribution); (b) if a
+    frame contains the average of 5 or more power spectra, then the error
+    bars in the average power spectrum will be calculated by evaluating the
+    standard  deviation of the average power for each frequency.  By
+    adjusting the value of <TT>errorbars</TT> it is possible,  <I>e.g.</I>  to evaluate
+    error bars as in (a), also in the case in which a large number of
+    intervals per frame has been specified.  Values <IMG
+ WIDTH="16" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.gif"
+ ALT="$&lt;$"> 5 are not recommended
+    (at least 5-6 measures are necessary to reliably evaluate the standard
+    deviation of the average from the scatter around it).
+
+<P>
+
+<H2><A NAME="SECTION00693000000000000000">
+5.9.3 normalization</A>
+</H2>
+
+<P>
+(Integer parameter; hidden; d/f=1)
+
+<P>
+Specify the type of normalization to apply to the results.
+    The <TT>normalization</TT> parameter has the following meanings (and values):
+
+<P>
+
+<UL>
+<LI><TT>=0&nbsp;</TT> power spectra are normalised by dividing by the number of good newbins
+             in each interval.
+</LI>
+<LI><TT>=1&nbsp;</TT> (d/f); power spectra are normalised such that the (white) noise level
+             expected from the data errors, corresponds to a power of 2 (note that
+             a correction of the data errors for instrument dead time effect might be
+             necessary to bring the expected noise level to 2)
+</LI>
+<LI><TT>=2&nbsp;</TT> power spectra are normalised such that their integral gives the squared
+             rms fractional variability (therefore the power spectrum is in units
+             of (rms)**2/Hz). The expected (white) noise level must be subtracted
+             to obtain the rms fractional variability of the series.
+</LI>
+<LI><TT>=-1</TT> as <TT>=1</TT>, but the expected white noise level is subtracted
+</LI>
+<LI><TT>=-2</TT> as <TT>=2</TT>, but the expected white noise level is subtracted
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00694000000000000000">
+5.9.4 fast</A>
+</H2>
+
+<P>
+(Logical parameter; hidden; d/f=yes)
+
+<P>
+Sets the algorithm used for the Fourier transform.  If yes (the
+    default), an FFT algorthim is used, otherwise a slower direct Fourier
+    calculation is performed. Note: if <TT>fast=yes</TT>, <TT>nbint</TT> must be a power
+    of 2 due to the use of the FFT algorithm.
+
+<P>
+
+<P></P>
+
+<B>Examples:</B>
+<PRE>
+     
+    From a time series of 10000 sec with a binning of 6.25e-2
+    seconds, calculate the  power spectrum of 8192 points (equivalent to an
+    interval in time of 512 seconds) and average every 5 intervals in one
+    frame (4 frames in total). Apply no rebinning to the results, make a
+    plot and output the results in a file.
+     
+    &gt; powspec cfile1="mydata.lc" window="-" dtnb=6.25e-2 nbint=8192 nintfm=5
+              rebin=0 plot=yes plotdev="/xw" outfile="-"
+     
+    Same as above but all the intervals are averaged in one frame.
+     
+    &gt; powspec cfile1="mydata.lc" window="-" dtnb=6.25e-2 nbint=8192
+              nintfm=INDEF rebin=0 plot=yes plotdev="/xw" outfile="-"
+</PRE>
+
+<P>
+
+<H1><A NAME="SECTION006100000000000000000">
+5.10 timeskew</A>
+</H1>
+
+<P>
+This task calculates a time skewness function for one time series,
+    plots and outputs the results (in a FITS file). The time skewness is
+    computed using a slow algorithm. The input file format is FITS using
+    the BINTABLE extension in either binned data or event list format.  The
+    standard plot output is the time skewness function versus time delay.
+
+<P>
+When <TT>outfiletype=2</TT> (the default), the output file contains in each extension
+    the following columns: time delay, half width of time delay bin,
+    time skewness and error. Not many applications can currently deal
+    with the output files produced when <TT>outfiletype=1</TT>.
+
+<P>
+
+<P></P>
+
+<PRE>
+    Usage: timeskew cfile1 window dtnb nbint nintfm rebin outfile
+                    plot plotdev
+</PRE>
+
+<P>
+The following represents the parameters that will be queried
+    interactively if not specified when the task is executed.
+
+<P>
+
+<P></P>
+
+<PRE>
+       cfile1  - Ser. 1 filename +options (or @file of filenames +options)[]
+       window  - Name of the window file ('-' for default window)[-]
+       dtnb    - Newbin Time or negative rebinning[]
+       nbint   - Number of Newbins/Interval[]
+       nintfm  - Number of Intervals/Frame[]
+       rebin   - Rebin results? (&gt;1 const rebin, &lt;-1 geom. rebin, 0 none)[0]
+       outfile - Name of output file[default]
+       plot    - Do you want to plot your results?[yes]
+       plotdev - Enter PGPLOT device[/XW]
+</PRE>
+
+<P>
+The following parameters are used by <TT>timeskew</TT>.  Parameters with
+    task-specific meaning are marked <TT>*</TT>.  All others are
+    documented in "Common Parameters".
+
+<P>
+
+<P></P>
+
+<PRE>
+      tchat         lchat         logname       clobber       dpath
+     *cfile1        window        dtnb          nbint         nintfm
+      rebin         nbdf          itre          itremo        outfile
+      outfileroot   outfiletype   plot          plotdev       plotfile
+      gapfill       forcestart   *errorbars     exposure     *normalization
+      spwinbefore   spwinafter    rescale       offset
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION006101000000000000000">
+5.10.1 cfile1</A>
+</H2>
+
+<P>
+(Character parameter; queried)
+
+<P>
+Specify input filename for the time series (+ options) to calculate time
+    skewness function. The valid input files are in FITS format using the
+    BINTABLE extension. Xronos tasks may read for each time series many
+    consecutive input files (up to 50). Additional flexibility is provided
+    by "Input File Options" which are used to perform algebraic operations
+    on individual input files (either on the 'times' or on the 'count' or
+    'count/s' values). The "Input File Options" are also used to select
+    columns and rows within a FITS file. If the first character of the
+    input string is <TT>@</TT>, the rest of the string is taken to be a filename
+    containing the list of input files (see "Filelist").
+
+<P>
+
+<H2><A NAME="SECTION006102000000000000000">
+5.10.2 errorbars</A>
+</H2>
+
+<P>
+(Integer parameter; hidden; d/f=5; range <IMG
+ WIDTH="16" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.gif"
+ ALT="$&gt;$">1)
+
+<P>
+If the specified number of intervals per frame (<TT>nintfm</TT>) is greater
+    than or equal to the value of <TT>errorbars</TT> parameter (default=5), time
+    skewness error bars are calculated from the standard deviation of the
+    average of the time skewness in each time delay bin from different
+    intervals.  Otherwise, error bars are obtained by propagating the
+    theoretical errors bars of the time skewness from individual intervals
+    (in turn obtained by propagating the newbin errors bars through the
+    time skewness formula).
+
+<P>
+
+<H2><A NAME="SECTION006103000000000000000">
+5.10.3 normalization</A>
+</H2>
+
+<P>
+(Integer parameter; hidden; d/f=1)
+
+<P>
+Specify the type of normalization to apply to the results.
+    The <TT>normalization</TT> parameter has the following meanings (and values):
+
+<P>
+
+<UL>
+<LI><TT>=0</TT> time skewness is normalised by dividing by the number of good newbins
+            in each interval.
+</LI>
+<LI><TT>=1</TT> (d/f) time skewness is normalised by dividing by the number of good
+            newbins and the third moment of newbins in each interval. No correction
+            for the third moment due to Poisson statistics in newbins is calculated.
+</LI>
+</UL>
+
+<P>
+
+<P></P>
+
+<B>Examples:</B>
+<PRE>
+     
+    From a time series of 10000 sec with a binning of 6.25e-2
+    seconds, calculate the time skewness of 8192 points (equivalent to an
+    interval in time of 512 seconds) and average every 5 intervals in one
+    frame (4 frames in total). Apply no rebinning to the results, make a
+    plot and output the results in a file.
+     
+    &gt; timeskew cfile1="mydata.lc" window="-" dtnb=6.25e-2 nbint=8192
+               nintfm=5 rebin=0 plot=yes plotdev="/xw" outfile="-"
+     
+    Same as above but all the intervals are averaged in one frame
+     
+    &gt; timeskew cfile1="mydata.lc" window="-" dtnb=6.25e-2 nbint=8192
+               nintfm=INDEF rebin=0 plot=yes plotdev="/xw" outfile="-"
+</PRE>
+
+<P>
+
+<H1><A NAME="SECTION006110000000000000000">
+5.11 xronwin</A>
+</H1>
+
+<P>
+This task is a script which writes a new or modifies an existing XRONOS
+    window file. XRONOS window files are ASCII files and contain values for
+    the different type of windows and text. There are 4 types of windows in
+    the XRONOS window file (See "Windows"):
+
+<P>
+
+<UL>
+<LI>Time   : consist of up to 1000 time intervals
+</LI>
+<LI>Phase  : consist of an epoch, period and up to 10 phase intervals
+</LI>
+<LI>Intensity : consist of up to 10 intensity in bin, newbin and interval
+</LI>
+<LI>Exposure  : consist of up to 1 exposure in bin, newbin and interval
+</LI>
+</UL>
+
+<P>
+When the script is invoked the following menu is displayed:
+
+<P>
+
+<P></P>
+
+<PRE>
+     [T]  Change TIME Windows
+     [P]  Change PHASE Windows
+     [I]  Change INTENSITY Windows
+     [E]  Change EXPOSURE Windows
+     [R]  READ an Input file
+     [S]  SHOW All Defined Windows
+     [C]  CLEAR All Defined Windows
+     [W]  WRITE Window file
+     [Q]  QUIT Window Program
+     [DS] Define Series Number (Currently 1)
+     [DB] Define Bin Type (Currently Orig. Bins)
+     [DE] Define Epoch for Phase Windows (Currently Undefined)
+     [DP] Define Period for Phase Windows (Currently Undefined)
+     [DW] Copy Defined Windows from Series to Series
+    Choose an action:
+</PRE>
+
+<P>
+One of the actions in square brackets should be entered. The minimun
+    and maximum values of the Time [T], Phase [P], Intensity [I] and
+    Exposure [E] windows must always be given in increasing order. The
+    different types of window can be specified in any order, the script
+    will give the correct order in the output file. An epoch [DS] and a
+    period [DP] are required when phase windows are selected. If not
+    given, the script displays a warning message. Intensity and Exposure
+    windows can be specified independently for (i) Bins , (ii) New Bins ,
+    (iii) Intervals (XRONOS basic time entities), using the option
+    [DB]. When dealing with more than one time series, Intensity and
+    Exposure windows must be specified separately for each series, using
+    the option [DS] and/or using [DW] to copy the current exposure and
+    or intensity window from one time series to another. To read an
+    existent XRONOS window file use the the option [R]. Input files are
+    cumulative therefore many existent XRONOS window files can be read in
+    (via the [R] option) and further modified. All the windows read in,
+    for each type, are added (up to the maximun value allowed) with
+    exception of the Exposure windows for which only the last read or set
+    is accepted. Checking for overlapping windows is done only within the
+    Change options (<I>e.g.</I> [T], [P], [I], [E]). It is therefore recommended,
+    after reading many existing files, that users to check for conflicts
+    (and corrections) using the above options. Entering [S] gives an
+    overview of the current defined windows and after the selection is
+    completed the option [W] writes the XRONOS window file. The values for
+    the phase window range from 0 to 1. Exposure windows consist of a
+    minimum and a maximum exposure level. Units are such that 1 means 100%
+    exposure. The default values for the minimun exposure window in bin,
+    newbin and interval are set to 0.
+
+<P>
+Three formats for time are available to enter time windows:
+
+<P>
+
+<P></P>
+
+<PRE>
+    1. day - enter one number (e.g. 123.524268391)
+    2. day sec - enter two numbers, the 2nd must contain a decimal point.
+           (e.g. 123 45296.789)
+    3. day hr min sec msec - enter up to 5 numbers, the 5th may contain a
+           decimal point. (e.g. 123 12 34 56 789)
+</PRE>
+
+<P>
+The same rules apply for entering the Epoch for phase windows. Note
+    that time windows and epoch values should be compatible with how
+    XRONOS reconstructs the time. The time used within XRONOS tasks is
+    Truncated Julian Days (TJD=JD-2440000.5) if either (1) the keyword
+    MJDREF is present in the header of the files or (2) if the TIMESYS
+    value is one of the following strings MJD or JD or TJD. If neither (1)
+    or (2) are true, the times are given in days relative to the value
+    found in the TIME column.
+
+<P>
+The following optional command line flags are available:
+
+<P>
+
+<P></P>
+
+<PRE>
+      -h               Get online help
+     
+      -i infile        Name of the input window file.  You may specify a window
+                       file containing some starting values that you wish to
+                       modify or add to. If you  don't specify one, you will
+                       get the default values.
+     
+      -o outfile       Output window file name.
+     
+      -v               Verbose mode.
+</PRE>
+
+<P>
+
+<H1><A NAME="SECTION006120000000000000000">
+5.12 ascii2flc</A>
+</H1>
+
+<P>
+This task is a script which creates a lightcurve FITS file, suitable
+    for XRONOS, from an ASCII format file by calling the FTOOL task
+    <TT>fcreate</TT>. Different types of FITS lightcurve formats can be created
+    depending on the number of columns available in the ASCII file.
+
+<P>
+The input file is a free-format ASCII file. Each line of data
+    corresponds to one row in the FITS table and should contain values for
+    every column. Any line whose first non-whitespace character is not a
+    digit will be treated as a comment. The script asks for the column
+    number (in the ASCII file) of the following quantities: Time, Rate (or
+    Counts), Errors and Fractional Exposure. Not all of them need to be
+    present, only the Rate (or Count) with the Error (in the case of Count
+    only if different from sqrt(Count)) columns are required. If the time
+    column is not present, the input timing header keywords (see later)
+    are sufficient for XRONOS to reconstruct the time for each bin. NOTE
+    that undefined values in the data file (es. data gap) should be marked
+    with  "INDEF".
+
+<P>
+The script also asks for the following values: TIMEUNIT, TSTART,
+    TSTOP, TIMEDEL and TIMEZERO. Those are the minimum required header
+    keywords for the FITS lightcurve output. All the keywords should be
+    entered in the same unit either days ('d') or seconds ('s'). The unit
+    value is the input for TIMEUNIT. TSTART and TSTOP define the
+    start and stop of the lightcurve and TIMEDEL the integration time. If
+    the TIME column is not present in the ASCII, the script prompts for
+    TIMEZERO which is a reference value, used within XRONOS to calculate
+    the nth bin time. See also fcreate help.
+
+<P>
+The following optional command line flags are available:
+
+<P>
+
+<P></P>
+
+<PRE>
+      -h               Get online help
+     
+      -i infile[ext]   Name of the input ASCII data file.
+     
+      -o outfile       Output file FITS file name.
+     
+      -d               Debug mode.  Doesn't delete temporary files on exit.
+</PRE>
+
+<P>
+
+<H1><A NAME="SECTION006130000000000000000">
+5.13 flc2ascii</A>
+</H1>
+
+<P>
+This task is a script which dumps a FITS lightcurve or a XRONOS output
+    file into ASCII and adds header information suitable for QDP/PLT. The
+    output ASCII file contains: (1) the QDP/PLT command 'READ SERR',
+    followed by numbers indicating the vectors which have errors, (2) the
+    FITS header and GTI extension (if present in the input file) with an
+    '!' prepended to each line, and (3) columns of data representing the
+    X-axis and Y-axis (plus additional error columns and a fractional
+    exposure column, if selected from the input file). The script
+    recognizes two possible formats for the FITS lightcurve or XRONOS
+    output: data stored (a) as a single element or (b) as an array of
+    elements in column (Note only one dimension <I>e.g.</I>  TDIMn= '(j)'). For
+    the format (a), all the rows in the table for a given column are moved
+    into the ASCII file, for (b), only one row (array type) is dumped into
+    an ASCII file. The script creates an X-axis if not present in the FITS
+    lightcurve or XRONOS output. For the format (b) the X-axis is derived
+    using the auxiliary coordinates column keywords (<I>e.g.</I> 1CTYPn, 1CVALn,
+    1CDLTn with n column number). Only if the X-axis is TIME for the format
+    (a), the X column in the ASCII file is derived from the timing header
+    keyword TIMEDEL.
+
+<P>
+The following optional command line flags are available:
+
+<P>
+
+<P></P>
+
+<PRE>
+      -h                Get online help
+     
+      -i infile[ext]    Name of the input file.  Extension may be specified with
+                        + or []. Default extension is 1.
+     
+      -o outfile        Output file name.
+     
+      -q                Spawn QDP on output file when finished.
+     
+      -r #              For a "one interval per row" type input file, specifies
+                        which  row number.
+     
+      -x column[,error] Column name for the X axis and (optional) X error column.
+                        (For no X column enter 0).
+     
+      -y column[,error] Column name for the Y axis and (optional) Y error column.
+     
+      -f column         Column name for the fractional exposure (0 for none).
+</PRE>
+
+<P>
+
+<H1><A NAME="SECTION006140000000000000000">
+5.14 rbf2fits</A>
+</H1>
+
+<P>
+This task converts the "EXOSAT rate buffer" binary format
+    in FITS format suitable for
+    XRONOS. Currently only the rate buffer type 0 and 2 are
+    implemented. The detectors information (the second rate buffer
+    record) is translated in FITS header keywords for the ME, GSPC, CMA
+    (1 and 2) and TGS (1 and 2) EXOSAT detectors.
+
+<P>
+Note: Rate buffer files are binary format files and are platform
+    dependent.
+
+<P>
+
+<P></P>
+
+<PRE>
+    Usage: rbf2fits infile outfile
+</PRE>
+
+<P>
+The following represents the parameters that will be queried
+    interactively if not specified when the task is executed.
+
+<P>
+
+<P></P>
+
+<PRE>
+       infile  - Input name rate buffer[]
+       outfile - Output file[]
+</PRE>
+
+<P>
+The following parameters are used by <TT>rbf2fits</TT>.  Parameters with
+    task-specific meaning are marked <TT>*</TT>.  All others are
+    documented in "Common Parameters".
+
+<P>
+
+<P></P>
+
+<PRE>
+      tchat         lchat        *infile       *outfile
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION006141000000000000000">
+5.14.1 infile</A>
+</H2>
+
+<P>
+(Character parameter; queried)
+
+<P>
+Input filename for the rate buffer.
+
+<P>
+
+<H2><A NAME="SECTION006142000000000000000">
+5.14.2 outfile</A>
+</H2>
+
+<P>
+(Character parameter; queried)
+
+<P>
+Output filename for the FITS file. If the string is blank the
+    default filename is set as the input file with extension ".lc"
+
+<P>
+
+<H1><A NAME="SECTION006150000000000000000">
+5.15 earth2sun</A>
+</H1>
+
+<P>
+This  task  corrects  the arrival time of photons, assumed as tagged
+    at Earth, for the time delay EARTH-SUN.  No  other  corrections  are
+    applied,  in  particular  it  is  not  included  the corrections for
+    travel time from the satellite-earth or any spacecraft clock  delay.
+    This program uses the JPL DE200 ephemeris,given as FITS binary table
+    (Standish,M.,1982 Astr. Ap.,114,297). The file validity is  until  31
+    December 2050. The task takes as input only FITS  file  with  binary
+    table extension. The format of the FITS input file can  contain many
+    extensions. The  task  corrects  the  times  only in  one   selected
+    extension.The selected extension can be specified at the input level
+    (see parameter input file). If the FITS file is  an  EVENT  list the
+    times  in  the  EVENT  and  GTI extensions are corrected.  A file is
+    assumed an EVENT list if  the  EXTNAME  and/or    HDUCLAS1  keywords
+    contain the string EVENT (or EVENTS). The column name containing the
+    time  values  can  be  specified  at  input  level  (see   parameter
+    Column  name). The default column name is TIME. The   time values in
+    the TIME column are expected to  be  either  MJD  (or   TJD  or  JD)
+    values  (1) or  residuals  from  a  MJD  reference time (2) given as
+    header  keyword.   In  the  first  case  (the  time  column contains
+    values  written as a MJD or JD or TJD), the header keyword 'TIMESYS'
+    is required, containing with one of the following  values: MJD or JD
+    or  TJD.  In  the second case, the  keyword  'MJDREF' (or 'MJDREFI',
+    integer  part,  and  'MJDREFF'  fractional  part)  should contain an
+    MJD  value.  If  MJDREF is not found and TIMESYS is not  either  MJD
+    or JD or TJD the program gives a fatal error.
+
+<P>
+A GTI extension is expected in the file  if  the  FITS  file  is  an
+    EVENT  list,  and it is identified if the either EXTNAME or HDUCLAS1
+    keyword contain the string  GTI  (or  ALLGTI  or  STDGTI).  The  GTI
+    extension  format  must  have  at  least two columns named START and
+    STOP and no other column named are searched and/or  recognized.  The
+    task  adds  and/or  replaces  a number of header keywords. TIMREF is
+    set to 'SOLARSYSTEM'.  TSTART and TSTOP are set either to the  first
+    and  last  value in the TIME column or if an EVENT list to the first
+    start GTI and last stop GTI.
+
+<P>
+
+<P></P>
+
+<PRE>
+    Usage: earth2sun infile colnam outfile ra dec
+</PRE>
+
+<P>
+The following represents the parameters that will be queried
+    interactively if not specified when the task is executed.
+
+<P>
+
+<P></P>
+
+<PRE>
+       infile  - Name of input file[]
+       colnam  - Column name[TIME]
+       outfile - Name of output file[]
+       ra      - RA in hh mm ss.s or degrees -- epoch 2000[0.0]
+       dec     - DEC in dd mm ss.s or degrees -- epoch 2000[0.0]
+</PRE>
+
+<P>
+The following parameters are used by <TT>earth2sun</TT>.  Parameters with
+    task-specific meaning are marked <TT>*</TT>.  All others are
+    documented in "Common Parameters".
+
+<P>
+
+<P></P>
+
+<PRE>
+      tchat         lchat         logname      *infile       *colnam
+     *outfile      *ra           *dec          *ephfile
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION006151000000000000000">
+5.15.1 infile</A>
+</H2>
+
+<P>
+(Character parameter; queried)
+
+<P>
+The name of the input file for which the correction is
+    needed. The extension can be specified either as "infile+<code>#</code>"
+    or "infile[<code>#</code>]" where <code>#</code> is the extension number.
+
+<P>
+
+<H2><A NAME="SECTION006152000000000000000">
+5.15.2 colnam</A>
+</H2>
+
+<P>
+(Character parameter; queried; d/f="TIME")
+
+<P>
+The name of the column containing the times value. Default name
+    is TIME.
+
+<P>
+
+<H2><A NAME="SECTION006153000000000000000">
+5.15.3 outfile</A>
+</H2>
+
+<P>
+(Character parameter; queried)
+
+<P>
+The name of the output file. Note in the output file all the
+    extensions present in the input file are copied.
+
+<P>
+
+<H2><A NAME="SECTION006154000000000000000">
+5.15.4 ra</A>
+</H2>
+
+<P>
+(Real parameter; queried)
+
+<P>
+The RA of the source (either in hh:mm:ss.s or deg) given in
+    2000.0 equinox.
+
+<P>
+
+<H2><A NAME="SECTION006155000000000000000">
+5.15.5 dec</A>
+</H2>
+
+<P>
+(Real parameter; queried)
+
+<P>
+The Declination of the source (either in dd:mm:ss.s or deg) given in
+    2000.0 equinox.
+
+<P>
+
+<H2><A NAME="SECTION006156000000000000000">
+5.15.6 ephfile</A>
+</H2>
+
+<P>
+(Real parameter; queried)
+
+<P>
+Name and path of the ephemeris file. Ephemeris valid until 31
+    December 2050
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html165"
+  HREF="node7.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="nextoff.gif"></A> <A NAME="tex2html161"
+  HREF="xronos.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="upoff.gif"></A> <A NAME="tex2html155"
+  HREF="node5.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="prevoff.gif"></A> <A NAME="tex2html163"
+  HREF="node1.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="conton.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html166"
+  HREF="node7.html">6. Windows</A>
+<B> Up:</B> <A NAME="tex2html162"
+  HREF="xronos.html">XRONOS User's Guide</A>
+<B> Previous:</B> <A NAME="tex2html156"
+  HREF="node5.html">4. Input Files</A>
+ &nbsp <B>  <A NAME="tex2html164"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Micah Johnson
+2001-08-15
+</ADDRESS>
+</BODY>
+</HTML>

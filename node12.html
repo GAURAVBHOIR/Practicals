@@ -1,0 +1,317 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<!--Converted with LaTeX2HTML 98.1p1 release (March 2nd, 1998)
+originally by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Helpful Hints</TITLE>
+<META NAME="description" CONTENT="Helpful Hints">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<LINK REL="STYLESHEET" HREF="manual.css">
+<LINK REL="previous" HREF="node11.html">
+<LINK REL="up" HREF="node9.html">
+<LINK REL="next" HREF="node13.html">
+</HEAD>
+<BODY bgcolor="#FFFFFF">
+<!--Navigation Panel-->
+<A NAME="tex2html233"
+ HREF="node13.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="./nextoff.gif"></A> 
+<A NAME="tex2html230"
+ HREF="node9.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="./upoff.gif"></A> 
+<A NAME="tex2html226"
+ HREF="node11.html"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="./prevoff.gif"></A> 
+<A NAME="tex2html232"
+ HREF="node1.html"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="./conton.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html234"
+ HREF="node13.html">An overview of XSPEC</A>
+<B> Up:</B> <A NAME="tex2html231"
+ HREF="node9.html">Spectral Fitting and XSPEC</A>
+<B> Previous:</B> <A NAME="tex2html227"
+ HREF="node11.html">The XSPEC implementation</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><strong>Subsections</strong></A>
+<UL>
+<LI><A NAME="tex2html235"
+ HREF="node12.html#SECTION00331000000000000000">Scripts and the Save command</A>
+<LI><A NAME="tex2html236"
+ HREF="node12.html#SECTION00332000000000000000">How to return to the XSPEC&gt; prompt</A>
+<LI><A NAME="tex2html237"
+ HREF="node12.html#SECTION00333000000000000000">Simulations</A>
+<LI><A NAME="tex2html238"
+ HREF="node12.html#SECTION00334000000000000000">Plotting Devices and  Hardcopy</A>
+<LI><A NAME="tex2html239"
+ HREF="node12.html#SECTION00335000000000000000">Data groups</A>
+<LI><A NAME="tex2html240"
+ HREF="node12.html#SECTION00336000000000000000">What to do when you have small numbers of counts</A>
+<LI><A NAME="tex2html241"
+ HREF="node12.html#SECTION00337000000000000000">Binning and Grouping data</A>
+<LI><A NAME="tex2html242"
+ HREF="node12.html#SECTION00338000000000000000">How to shut XSPEC up (somewhat)</A>
+<LI><A NAME="tex2html243"
+ HREF="node12.html#SECTION00339000000000000000">References</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00330000000000000000">
+Helpful Hints</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION00331000000000000000">
+Scripts and the Save command</A>
+</H2>
+
+<P>
+One can write XSPEC commands into a file and have them executed
+by entering <TT>@filename</TT> at the XSPEC prompt. 
+Also, one may enter from the shell prompt
+
+<P>
+<PRE>
+% xspec - filename &amp;
+</PRE>
+<P>
+for batch execution (remember to end the script in file <TT>filename</TT> with 
+<TT>exit</TT> if you want the program to terminate after completion!). Note 
+that the default suffix for xspec scripts is <TT>.xcm</TT>
+
+<P>
+The <TT>save</TT> command
+writes out a file of XSPEC commands, which, when run, will restore
+XSPEC to the state it was in when the <TT>save</TT> command was issued.
+This command is very useful when reading a large number of data sets and/or
+fitting complicated models. If autosaving is operating (the default)
+then the equivalent of <TT>save all xautosav.xcm</TT> is run after each
+command, so if a disaster occurs it is possible to recover.
+
+<P>
+
+<H2><A NAME="SECTION00332000000000000000">
+How to return to the XSPEC&gt; prompt</A>
+</H2>
+
+<P>
+The string /* acts as an emergency escape back to the XSPEC prompt. 
+If one gives this string in answer to any question then one should be
+bounced out of whatever one is doing and returned to the XSPEC
+prompt. Counterexamples to this should be sent to
+<A HREF="mailto:xanprob@athena.gsfc.nasa.gov">xanprob@athena.gsfc.nasa.gov</A>.
+
+<P>
+
+<H2><A NAME="SECTION00333000000000000000">
+Simulations</A>
+</H2>
+
+<P>
+If one has a response file for an instrument and wants to make some
+fake spectra, then the command <TT>fakeit none</TT> should be used. XSPEC will
+prompt the user for the response and ancillary filenames from which to
+build the simulated data. It is important to note that one must define a model
+prior to issuing the <TT>fakeit</TT> command.
+
+<P>
+
+<H2><A NAME="SECTION00334000000000000000">
+Plotting Devices and  Hardcopy</A>
+</H2>
+
+<P>
+XSPEC uses the PGPLOT package, which comes with a standard set of
+device drivers. Any X-windows terminal should support /xw while
+xterm windows should support /xt.
+
+<P>
+The easiest way of making a hardcopy of an XSPEC plot is to use
+the <TT>iplot</TT> command and then at the PLT prompt to enter <TT>hard /ps</TT>.
+This will make a file called <TT>pgplot.ps</TT> which can be printed.
+
+<P>
+
+<H2><A NAME="SECTION00335000000000000000">
+Data groups</A>
+</H2>
+
+<P>
+The most common use of XSPEC is to fit one or more data sets with
+responses to a particular model. However, it is often useful to
+be able to fit simultaneously several data sets with a model whose
+parameters can be different for each data set. A simple example
+would be a number of data sets that we expect to have the same
+model spectrum shape but different normalizations. XSPEC caters
+to this need through the use of data groups. When files are read
+in they can be labelled as belonging to a particular data group.
+When a model is defined a set of model parameters is allocated
+for each data group. These parameters can all vary freely or they
+can be linked together across data groups as required.
+
+<P>
+To set up data groups, the <TT>data</TT> command should be given as
+in the following example :
+
+<P>
+<PRE>
+ XSPEC&gt; data 1:1 file1 1:2 file2 2:3 file3
+</PRE>
+<P>
+which sets up two data groups. The first data group comprises data
+sets from file1 and file2, and the second data group takes the data 
+set from file3. Now when a model is defined, XSPEC will give two 
+sets of model parameters, one for the first datagroup and one for 
+the second.
+
+<P>
+
+<H2><A NAME="SECTION00336000000000000000">
+What to do when you have small numbers of counts</A>
+</H2>
+
+<P>
+The <IMG
+ WIDTH="25" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.gif"
+ ALT="$\chi^2$">
+statistic assumes that all the spectral channels are
+Gaussian distributed and that the estimate for the variance is
+uncorrelated with the observed counts. If there are small numbers of 
+counts in a channel these will not be true. An alternative statistic, the
+C-statistic, can be used in this case. The C-statistic now in use does 
+provide a goodness-of-fit if there are enought counts and this can be 
+checked using the <TT>goodness</TT> command which uses Monte Carlo
+methods. This C-statistic
+can also provide confidence intervals in exactly the same way as <IMG
+ WIDTH="25" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.gif"
+ ALT="$\chi^2$">.
+So give the command <TT>stat cstat</TT> and then use the <TT>fit</TT> and 
+<TT>error</TT> commands as usual. An alternative approach is to continue 
+using the <IMG
+ WIDTH="25" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.gif"
+ ALT="$\chi^2$">
+statistic but change the weighting to provide a 
+better estimate of the variance in the small number 
+limit. This can be done using the <TT>weight gehrels</TT> or <TT>weight
+Churazov</TT> commands. The latter is to be preferred.
+
+<P>
+
+<H2><A NAME="SECTION00337000000000000000">
+Binning and Grouping data</A>
+</H2>
+
+<P>
+Often one does not want to use the full resolution of a spectrum,
+either because the channels oversample the spectral resolution or
+because the S/N is low. XSPEC and the associated programs provide
+a number of ways of handling this. Firstly, the XSPEC <TT>setplot
+rebin</TT> command can be used to add channels together in the plot.
+It is important to realise that this effects only the plot and not
+the data being fitted. Two FTOOLS are available to bin and group
+data for fitting purposes. RBNPHA bins up the data in a non-reversible
+manner and should only be used to ensure that the number of bins
+in the spectrum is the same as that in the response. GRPPHA is the
+tool of choice for grouping the data to get adequate S/N or number
+of counts in each channel. GRPPHA does not actually add together
+channels, but instead sets a flag which is read by XSPEC and causes
+XSPEC to sum the appropriate channels. If a data file is read with
+some grouping then XSPEC will apply the same operation to any
+background or response files used.
+
+<P>
+
+<H2><A NAME="SECTION00338000000000000000">
+How to shut XSPEC up (somewhat)</A>
+</H2>
+
+<P>
+The <TT>fit</TT> command in XSPEC will run a certain number of iterations
+and then query the user whether he or she wants to continue. While
+useful under most circumstances, the constant questioning can be a
+pain if one leaves XSPEC running and expects to find it finished when 
+one gets back, or if
+one habitually runs scripts. One way around this problem is to reset the
+number of iterations before the question is asked by giving a single argument on 
+the <TT>fit</TT> command. For example, <TT>fit 100</TT> will run 100 iterations
+before asking a question.
+A more drastic solution is to use the <TT>query</TT> command. <TT>query yes</TT>
+will suppress all questions and assume that their answer is yes while
+<TT>query no</TT> will suppress all questions but assume that their answer
+is no.
+
+<P>
+
+<H2><A NAME="SECTION00339000000000000000">
+References</A>
+</H2>
+
+<P>
+Arnaud, K.A., George, I.M., Tennant, A.F., 1992. Legacy, 2, 65.
+<BR>
+Avni, Y., 1976. ApJ, 210, 642.
+<BR>
+Bevington, P.R., 1969. Data Reduction and Error Analysis for the
+Physical Sciences, McGraw-Hill.
+<BR>
+Blissett, R.J., Cruise, A.M., 1979. MNRAS, 186, 45.
+<BR>
+George, I.M., Arnaud, K.A., Pence, W., Ruamsuwan, L., 1992. Legacy, 2, 51.
+<BR>
+Kahn, S.M., Blissett, R.J., 1980. ApJ, 238, 417.
+<BR>
+Loredo, T.J., Epstein, R.I., 1989. ApJ, 336, 896.
+<BR>
+Press, W.H., Teukolsky, S.A., Vetterling, W.T., Flannery, B.P., 1992.
+Numerical Recipes (2nd edition), p687ff, CUP.
+<BR>
+Wheaton, W.A. et.al., 1995. ApJ, 438, 322.
+<BR>
+
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html233"
+ HREF="node13.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="./nextoff.gif"></A> 
+<A NAME="tex2html230"
+ HREF="node9.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="./upoff.gif"></A> 
+<A NAME="tex2html226"
+ HREF="node11.html"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="./prevoff.gif"></A> 
+<A NAME="tex2html232"
+ HREF="node1.html"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="./conton.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html234"
+ HREF="node13.html">An overview of XSPEC</A>
+<B> Up:</B> <A NAME="tex2html231"
+ HREF="node9.html">Spectral Fitting and XSPEC</A>
+<B> Previous:</B> <A NAME="tex2html227"
+ HREF="node11.html">The XSPEC implementation</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Ben Dorman</I>
+<BR><I>2001-07-27</I>
+</ADDRESS>
+</BODY>
+</HTML>

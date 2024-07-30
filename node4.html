@@ -1,0 +1,392 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<!--Converted with LaTeX2HTML 98.1p1 release (March 2nd, 1998)
+originally by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>New in Version 11.1</TITLE>
+<META NAME="description" CONTENT="New in Version 11.1">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<LINK REL="STYLESHEET" HREF="manual.css">
+<LINK REL="next" HREF="node5.html">
+<LINK REL="previous" HREF="node3.html">
+<LINK REL="up" HREF="node2.html">
+<LINK REL="next" HREF="node5.html">
+</HEAD>
+<BODY bgcolor="#FFFFFF">
+<!--Navigation Panel-->
+<A NAME="tex2html141"
+ HREF="node5.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="./nextoff.gif"></A> 
+<A NAME="tex2html138"
+ HREF="node2.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="./upoff.gif"></A> 
+<A NAME="tex2html132"
+ HREF="node3.html"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="./prevoff.gif"></A> 
+<A NAME="tex2html140"
+ HREF="node1.html"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="./conton.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html142"
+ HREF="node5.html">How to contact us</A>
+<B> Up:</B> <A NAME="tex2html139"
+ HREF="node2.html">Introduction</A>
+<B> Previous:</B> <A NAME="tex2html133"
+ HREF="node3.html">XSPEC</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00220000000000000000">
+New in Version 11.1</A>
+</H1>
+
+<P>
+Version 11.1 is an incremental release over version 11. There are changes intended for
+analysis of high resolution spectra including support for an extension of
+the spectral file format which allows the AREASCAL and BACKSCAL keywords to
+be vectors, taking separate values for each channel. 
+
+<P>
+The following list summarizes the major changes to XSPEC since the
+previous edition of the user's manual. Bug fixes are listed in Appendix E.
+
+<P>
+<UL>
+<P>
+<LI>Improvements in Data Input
+
+<P>
+<DL COMPACT>
+
+<P>
+<DT>
+<!-- MATH: $\rightarrow$ -->
+<IMG
+ WIDTH="24" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.gif"
+ ALT="$\rightarrow$"><DD>Spectral files can now have vector values of AREASCAL and BACKSCAL. XMM-RGS
+spectra have an AREASCAL for each channel. The vector BACKSCAL allows the
+grating spectrum to be extracted from a non-rectangular region on the detector.
+Since AREASCAL and BACKSCAL can be vectors, they are no longer prompted for
+in <TT>fakeit.</TT>
+
+<P>
+<DT>
+<!-- MATH: $\rightarrow$ -->
+<IMG
+ WIDTH="24" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.gif"
+ ALT="$\rightarrow$"><DD>The <TT>response</TT> command has been fixed so that XSPEC only reads the response(s) required
+instead of the responses corresponding to all data sets loaded.
+The response reading also makes more efficient use of memory, although it is still slow for
+large response files.
+
+<P>
+<DT>
+<!-- MATH: $\rightarrow$ -->
+<IMG
+ WIDTH="24" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.gif"
+ ALT="$\rightarrow$"><DD>The constraint that the background file must have the same grouping as the
+source has been relaxed. Unless the file is in the deprecated SF (non-FITS)
+format, the background file grouping does not matter since the source file 
+grouping is automatically used.
+
+<P>
+<DT>
+<!-- MATH: $\rightarrow$ -->
+<IMG
+ WIDTH="24" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.gif"
+ ALT="$\rightarrow$"><DD>FITS NULL values are now trapped and replaced by 1.<I>E</I>-32, which should have no
+practical effect because channels with NULL values will presumably have bad
+quality set. 
+
+<P>
+</DL>
+<P>
+<LI>Model Fitting 
+
+<P>
+<DL COMPACT>
+<DT>
+<!-- MATH: $\rightarrow$ -->
+<IMG
+ WIDTH="24" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.gif"
+ ALT="$\rightarrow$"><DD>The command <TT>model ?</TT> no longer removes the current model.
+
+<P>
+<DT>
+<!-- MATH: $\rightarrow$ -->
+<IMG
+ WIDTH="24" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.gif"
+ ALT="$\rightarrow$"><DD>The Cstat statistic has been extended to work in the case where a background 
+spectrum has been read in. The mathematical basis for this is described in Arnaud, 2001,
+ApJ submitted.
+
+<P>
+<DT>
+<!-- MATH: $\rightarrow$ -->
+<IMG
+ WIDTH="24" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.gif"
+ ALT="$\rightarrow$"><DD>A new model type [acnmod] has been added for convolution on the model times the 
+effective area. This is used for pile-up models in CCDs.
+
+<P>
+</DL>
+<P>
+<LI>Improvements in Output
+
+<P>
+<DL COMPACT>
+
+<P>
+<DT>
+<!-- MATH: $\rightarrow$ -->
+<IMG
+ WIDTH="24" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.gif"
+ ALT="$\rightarrow$"><DD>New options on the <TT>identify</TT> command:
+
+<P>
+<DL COMPACT>
+
+<P>
+<DT><IMG
+ WIDTH="15" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="img2.gif"
+ ALT="$\bullet$"><DD>The user can now switch between line lists. 
+
+<P>
+<DT><IMG
+ WIDTH="15" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="img2.gif"
+ ALT="$\bullet$"><DD>The APEC line list has been added. 
+
+<P>
+<DT><IMG
+ WIDTH="15" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="img2.gif"
+ ALT="$\bullet$"><DD>The APEC option has additional options to specify a
+        temperature and an emissivity limit, and 
+        uses the same APEC line list file as the apec model. 
+
+<P>
+<DT><IMG
+ WIDTH="15" HEIGHT="19" ALIGN="BOTTOM" BORDER="0"
+ SRC="img2.gif"
+ ALT="$\bullet$"><DD>If the command <TT>setplot wave</TT> has been issued, then the 
+        input range is specified in Angstroms, and wavelengths rather 
+        than energies are written out.
+</DL>
+<P>
+<DT>
+<!-- MATH: $\rightarrow$ -->
+<IMG
+ WIDTH="24" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.gif"
+ ALT="$\rightarrow$"><DD>The model rate has been added to the <TT>tclout rate</TT> option.
+
+<P>
+<DT>
+<!-- MATH: $\rightarrow$ -->
+<IMG
+ WIDTH="24" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.gif"
+ ALT="$\rightarrow$"><DD>The number of significant figures written out by the <TT>show pha</TT> command has
+been increased.
+
+<P>
+<DT>
+<!-- MATH: $\rightarrow$ -->
+<IMG
+ WIDTH="24" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.gif"
+ ALT="$\rightarrow$"><DD>The <TT>cosmo</TT> command now allows a cosmological constant to be set. This is only
+allowed if the Universe is flat (when an analytic expression is available for
+the luminosity distance).
+
+<P>
+</DL>
+<P>
+<LI>Plotting Improvements
+
+<P>
+<DL COMPACT>
+
+<P>
+<DT>
+<!-- MATH: $\rightarrow$ -->
+<IMG
+ WIDTH="24" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.gif"
+ ALT="$\rightarrow$"><DD>The <TT>setplot id</TT> command adds line IDs to the plots; the APEC line list is used
+and the temperature and emissivity limit can be set.
+
+<P>
+<DT>
+<!-- MATH: $\rightarrow$ -->
+<IMG
+ WIDTH="24" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.gif"
+ ALT="$\rightarrow$"><DD>The <TT>plot icount</TT> command makes an integrated counts plot,  useful for
+spectra with very few counts.
+
+<P>
+<DT>
+<!-- MATH: $\rightarrow$ -->
+<IMG
+ WIDTH="24" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.gif"
+ ALT="$\rightarrow$"><DD>A new PLT feature has been used to slave any x-axis changes in the lower 
+window to those in the upper for two-window plots. We have also explicitly 
+included a rescale x command to ensure that the x-axis range corresponds to 
+the data present. This overrides a PLT/PGPLOT feature that tends to produce 
+lots of blank space on log axis plots which cover a small range.
+
+<P>
+</DL>
+<P>
+<LI>New Models 
+
+<P>
+<DL COMPACT>
+
+<P>
+<DT><IMG
+ WIDTH="20" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3.gif"
+ ALT="${\bf +}$"><DD><TT>xion</TT>  performs reflection from an ionized disk.
+
+<P>
+<DT><IMG
+ WIDTH="20" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3.gif"
+ ALT="${\bf +}$"><DD><TT>projct</TT> a mixing model that performs  3-D to 2-D projection for prolate ellipsoids.
+
+<P>
+<DT><IMG
+ WIDTH="20" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3.gif"
+ ALT="${\bf +}$"><DD><TT>reflect</TT> a convolution model for reflection from a neutral medium.
+It subsumes the pexrav and bexrav models.
+
+<P>
+<DT><IMG
+ WIDTH="20" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3.gif"
+ ALT="${\bf +}$"><DD><TT>lsmooth</TT> convolution model smoothes using a Lorentzian kernel.
+
+<P>
+<DT><IMG
+ WIDTH="20" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3.gif"
+ ALT="${\bf +}$"><DD><TT>tbabs,ztbabs,tbgrain,tbvarabs</TT> The Tuebingen-Boulder Galactic absorption models provide better models for
+absorption due to the ISM. tbabs calculates absorption including molecular gas
+and dust. ztbabs is a redshifted version without the dust. tbgrain allows the
+atomic to molecular gas ratio and the grain parameters to be varied. tbvarabs
+allows all parameters including gas and dust metal abundances to be varied.
+
+<P>
+</DL>
+<P>
+<LI>Enhancements of Current Models
+
+<P>
+<DL COMPACT>
+
+<P>
+<DT>
+<!-- MATH: $\rightarrow$ -->
+<IMG
+ WIDTH="24" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.gif"
+ ALT="$\rightarrow$"><DD><TT>apec,vapec</TT> The apec and vapec models have been sped up by a factor of 50-100. The model
+now uses the APEC v1.10 data files. The XSPEC_APEC environment variable has
+been added to enable the user to switch the input files in use.
+
+<P>
+<DT>
+<!-- MATH: $\rightarrow$ -->
+<IMG
+ WIDTH="24" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.gif"
+ ALT="$\rightarrow$"><DD><TT>comptt</TT> The default ranges for comptt have been altered to better reflect the physical
+range of validity of the model.
+
+<P>
+<DT>
+<!-- MATH: $\rightarrow$ -->
+<IMG
+ WIDTH="24" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.gif"
+ ALT="$\rightarrow$"><DD><TT>gsmooth</TT> A second parameter has been added to gsmooth to allow the width to vary with
+energy in different ways.
+
+<P>
+<DT>
+<!-- MATH: $\rightarrow$ -->
+<IMG
+ WIDTH="24" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.gif"
+ ALT="$\rightarrow$"><DD><TT>redden,uvred</TT> The redden and uvred models have been changed to have unit transmission
+shortward of the Lyman limit. This is physically wrong but allows them to
+be used in concert with photoelectric absorption models.
+
+<P>
+<DT>
+<!-- MATH: $\rightarrow$ -->
+<IMG
+ WIDTH="24" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.gif"
+ ALT="$\rightarrow$"><DD><TT>nei family</TT>  The NEI models have slightly updated atomic physics. There is somewhat 
+updated data for the Fe Kalpha line and a couple of bugs have been fixed. 
+There are better collision strengths for He-like S, Ca, and Fe (and minor 
+modifications for He-like ions for several other elements).
+
+<P>
+</DL>
+<P>
+</UL>
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html141"
+ HREF="node5.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="./nextoff.gif"></A> 
+<A NAME="tex2html138"
+ HREF="node2.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="./upoff.gif"></A> 
+<A NAME="tex2html132"
+ HREF="node3.html"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="./prevoff.gif"></A> 
+<A NAME="tex2html140"
+ HREF="node1.html"><IMG  ALIGN="BOTTOM" BORDER="1" ALT="[*]"
+ SRC="./conton.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html142"
+ HREF="node5.html">How to contact us</A>
+<B> Up:</B> <A NAME="tex2html139"
+ HREF="node2.html">Introduction</A>
+<B> Previous:</B> <A NAME="tex2html133"
+ HREF="node3.html">XSPEC</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Ben Dorman</I>
+<BR><I>2001-07-27</I>
+</ADDRESS>
+</BODY>
+</HTML>

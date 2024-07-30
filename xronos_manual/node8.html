@@ -1,0 +1,351 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta8 (1.46)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>7. Output File Format </TITLE>
+<META NAME="description" CONTENT="7. Output File Format ">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta8">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="xronos.css">
+
+<LINK REL="next" HREF="node9.html">
+<LINK REL="previous" HREF="node7.html">
+<LINK REL="up" HREF="xronos.html">
+<LINK REL="next" HREF="node9.html">
+</HEAD>
+
+<BODY bgcolor="#FFFFFF">
+<!--Navigation Panel-->
+<A NAME="tex2html209"
+  HREF="node9.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="nextoff.gif"></A> <A NAME="tex2html205"
+  HREF="xronos.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="upoff.gif"></A> <A NAME="tex2html199"
+  HREF="node7.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="prevoff.gif"></A> <A NAME="tex2html207"
+  HREF="node1.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="conton.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html210"
+  HREF="node9.html">8. QDP/PLT</A>
+<B> Up:</B> <A NAME="tex2html206"
+  HREF="xronos.html">XRONOS User's Guide</A>
+<B> Previous:</B> <A NAME="tex2html200"
+  HREF="node7.html">6. Windows</A>
+ &nbsp <B>  <A NAME="tex2html208"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html211"
+  HREF="#SECTION00810000000000000000">7.1 Statistical Keywords</A>
+<LI><A NAME="tex2html212"
+  HREF="#SECTION00820000000000000000">7.2 Columns</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00800000000000000000">
+7. Output File Format </A>
+</H1>     
+    The analysis results are output in a FITS file. Two  different  FITS
+    layouts  are available (selected with parameter <TT>outfiletype</TT>). For
+    <TT>outfiletype=1</TT>, the file stores one interval (or frame) of interval
+    results per FITS table row,  and the  output file will have a single
+    extension. For <TT>outfiletype=2</TT> (the default), the file stores one
+    interval (or frame) per FITS extension, and  the  output  file  will
+    have as many extensions as the number of intervals (or frames).
+
+<P>
+
+<H1><A NAME="SECTION00810000000000000000">
+7.1 Statistical Keywords</A>
+</H1>
+
+<P>
+A number of statistical variables (and errors if appropriate)
+    associated with each interval (or frame) for each time series are
+    calculated and stored as FITS keywords in the output file:
+
+<P>
+
+<P></P>
+
+<PRE>
+     * `AVRGE_n  ` - Average count/s in frame (in a frame this is the average
+                     of the averages in intervals)
+     * `AVRGE_En ` - Error in average
+     * `FREXP_n  ` - Fractional exposure in frame (from average of fractional
+                     exposures in intervals, the latter is the ratio of good
+                     newbins to the total number of expected newbins/interval)
+     * `FREXP_En ` - Error in fractional exposure
+     * `VAROB_n  ` - Variance in frame (average of variances in intervals)
+     * `VAROB_En ` - Error in variance
+     * `VAREX_n  ` - Expected variance in frame (average of the expected
+                     variances in intervals, the latter is calculated from the
+                     error bars of the newbins
+     * `VAREX_En ` - Error in expected variance
+     * `THRDM_n  ` - Third  moment in frame (average of 3rd moments in intervals)
+     * `MININ_n  ` - Minimum count/s in frame
+     * `MAXIN_n  ` - Maximum count/s in frame
+     * `EXVAR_n  ` - Excess variance in frame (average of excess variances in
+                     intervals, the latter is calculated as variance-expected
+                     variance)
+     * `CHI2_n   ` - Chi-square in frame (average of chi-squares in intervals)
+     * `CHI2_En  ` - Error in chi-square
+     * `RMS_n    ` - RMS fractional variation in frame (average of RMS fractional
+                     variation in intervals, the latter is calculated as the
+                     square-root of the excess variance divided by the average.
+     * `RMS_En   ` - Error in RMS
+</PRE>
+
+<P>
+
+<H1><A NAME="SECTION00820000000000000000">
+7.2 Columns</A>
+</H1>
+
+<P>
+The standard output FITS files for XRONOS tasks (<TT>outfiletype=2</TT>)
+    contain the following columns of data, documented using the form:
+
+<P>
+taskname (file extension)
+
+<P>
+
+<P></P>
+
+<PRE>
+     * `COLUMN    ` - column description
+</PRE>
+
+<P>
+autocor (<TT>.fac</TT>)
+
+<P>
+
+<P></P>
+
+<PRE>
+     * `DELAY     ` - Time delay
+     * `XAX_E     ` - Half-width of time delay bin
+     * `AUTO_CORR ` - Auto correlation
+     * `ERROR     ` - Error in auto correlation
+</PRE>
+
+<P>
+crosscor (<TT>.fcc</TT>)
+
+<P>
+
+<P></P>
+
+<PRE>
+     * `DELAY     ` - Time delay
+     * `XAX_E     ` - Half-width of time delay bin
+     * `CROSS_CORR` - Cross correlation
+     * `ERROR     ` - Error in cross correlation
+</PRE>
+
+<P>
+efold (<TT>.fef</TT>)
+
+<P>
+
+<P></P>
+
+<PRE>
+     * `PHASE     ` - Phase
+     * `XAX_E     ` - Half-width of phase bin
+     * `RATEn     ` - Cnts/sec for series n
+     * `ERRORn    ` - Error in rate of series n
+</PRE>
+    If efold is given 2 series, additional columns are written:
+
+<P>
+
+<P></P>
+
+<PRE>
+     * `RATIO_12  ` - Ratio of ser2/ser1
+     * `RAT_E12   ` - Error in ratio of ser2/ser1
+     * `SUM12     ` - Sum of all (ser1+ser2)
+     * `SUM_E     ` - Error in sum
+</PRE>
+    If efold is given 3 series, additional columns are written:
+
+<P>
+
+<P></P>
+
+<PRE>
+     * `RATIO_12  ` - Ratio of ser2/ser1
+     * `RAT_E12   ` - Error in ratio of ser2/ser1
+     * `RATIO_23  ` - Ratio of ser3/ser2
+     * `RAT_E23   ` - Error in ratio of ser3/ser2
+     * `SUM123    ` - Sum of all (ser1+ser2+ser3)
+     * `SUM_E     ` - Error in sum
+</PRE>
+    If efold is given 4 series, additional columns are written:
+
+<P>
+
+<P></P>
+
+<PRE>
+     * `RATIO_12  ` - Ratio of ser2/ser1
+     * `RAT_E12   ` - Error in ratio of ser2/ser1
+     * `RATIO_34  ` - Ratio of ser4/ser3
+     * `RAT_E34   ` - Error in ratio of ser4/ser3
+     * `SUM1234   ` - Sum of all (ser1+ser2+ser3+ser4)
+     * `SUM_E     ` - Error in sum
+</PRE>
+
+<P>
+efsearch (<TT>.fes</TT>)
+
+<P>
+
+<P></P>
+
+<PRE>
+     * `PERIOD    ` - Period
+     * `CHISQRD1  ` - Chi-square
+     * `ERROR     ` - Error in chi-square
+</PRE>
+
+<P>
+lcurve (<TT>.flc</TT>)
+
+<P>
+
+<P></P>
+
+<PRE>
+     * `TIME      ` - Phase
+     * `XAX_E     ` - Half-width of time bin
+     * `RATEn     ` - Cnts/sec for series n
+     * `ERRORn    ` - Error in rate of series n
+     * `FRACEXP   ` - Fractional exposure
+</PRE>
+    If lcurve is given 2 series, additional columns are written:
+
+<P>
+
+<P></P>
+
+<PRE>
+     * `RATIO_12  ` - Ratio of ser2/ser1
+     * `RAT_E12   ` - Error in ratio of ser2/ser1
+     * `SUM12     ` - Sum of all (ser1+ser2)
+     * `SUM_E     ` - Error in sum
+</PRE>
+    If lcurve is given 3 series, additional columns are written:
+
+<P>
+
+<P></P>
+
+<PRE>
+     * `RATIO_12  ` - Ratio of ser2/ser1
+     * `RAT_E12   ` - Error in ratio of ser2/ser1
+     * `RATIO_23  ` - Ratio of ser3/ser2
+     * `RAT_E23   ` - Error in ratio of ser3/ser2
+     * `SUM123    ` - Sum of all (ser1+ser2+ser3)
+     * `SUM_E     ` - Error in sum
+</PRE>
+    If lcurve is given 4 series, additional columns are written:
+
+<P>
+
+<P></P>
+
+<PRE>
+     * `RATIO_12  ` - Ratio of ser2/ser1
+     * `RAT_E12   ` - Error in ratio of ser2/ser1
+     * `RATIO_34  ` - Ratio of ser4/ser3
+     * `RAT_E34   ` - Error in ratio of ser4/ser3
+     * `SUM1234   ` - Sum of all (ser1+ser2+ser3+ser4)
+     * `SUM_E     ` - Error in sum
+</PRE>
+
+<P>
+powspec (<TT>.fps</TT>)
+
+<P>
+
+<P></P>
+
+<PRE>
+     * `FREQUENCY ` - Frequency
+     * `XAX_E     ` - Half-width of frequency bin
+     * `POWER     ` - Power
+     * `ERROR     ` - Error in power
+     * `NUM_POINT ` - Number of power spectrum bins averaged in frequency
+                      (as result of rebinning) or in time (as results of
+                      averaging intervals in frame).
+</PRE>
+
+<P>
+timeskew (<TT>.fts</TT>)
+
+<P>
+
+<P></P>
+
+<PRE>
+     * `DELAY     ` - Time delay
+     * `XAX_E     ` - Half-width of time delay bin
+     * `TIME_SKEW ` - Time skewness
+     * `ERROR     ` - Error in time skewness
+</PRE>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html209"
+  HREF="node9.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="nextoff.gif"></A> <A NAME="tex2html205"
+  HREF="xronos.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="upoff.gif"></A> <A NAME="tex2html199"
+  HREF="node7.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="prevoff.gif"></A> <A NAME="tex2html207"
+  HREF="node1.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="conton.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html210"
+  HREF="node9.html">8. QDP/PLT</A>
+<B> Up:</B> <A NAME="tex2html206"
+  HREF="xronos.html">XRONOS User's Guide</A>
+<B> Previous:</B> <A NAME="tex2html200"
+  HREF="node7.html">6. Windows</A>
+ &nbsp <B>  <A NAME="tex2html208"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Micah Johnson
+2001-08-15
+</ADDRESS>
+</BODY>
+</HTML>

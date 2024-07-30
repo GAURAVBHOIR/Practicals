@@ -1,0 +1,972 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta8 (1.46)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>3. Walk through </TITLE>
+<META NAME="description" CONTENT="3. Walk through ">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta8">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="xronos.css">
+
+<LINK REL="next" HREF="node5.html">
+<LINK REL="previous" HREF="node3.html">
+<LINK REL="up" HREF="xronos.html">
+<LINK REL="next" HREF="node5.html">
+</HEAD>
+
+<BODY bgcolor="#FFFFFF">
+<!--Navigation Panel-->
+<A NAME="tex2html135"
+  HREF="node5.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="nextoff.gif"></A> <A NAME="tex2html131"
+  HREF="xronos.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="upoff.gif"></A> <A NAME="tex2html125"
+  HREF="node3.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="prevoff.gif"></A> <A NAME="tex2html133"
+  HREF="node1.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="conton.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html136"
+  HREF="node5.html">4. Input Files</A>
+<B> Up:</B> <A NAME="tex2html132"
+  HREF="xronos.html">XRONOS User's Guide</A>
+<B> Previous:</B> <A NAME="tex2html126"
+  HREF="node3.html">2. Overview</A>
+ &nbsp <B>  <A NAME="tex2html134"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html137"
+  HREF="#SECTION00410000000000000000">3.1 lcurve</A>
+<LI><A NAME="tex2html138"
+  HREF="#SECTION00420000000000000000">3.2 powspec</A>
+<LI><A NAME="tex2html139"
+  HREF="#SECTION00430000000000000000">3.3 efsearch</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00400000000000000000">
+3. Walk through </A>
+</H1>     
+
+<P>
+
+<H1><A NAME="SECTION00410000000000000000">
+3.1 lcurve</A>
+</H1>
+
+<P>
+In this example, we plot the light curve of a single time series from
+    EXOSAT ME of the transient pulsar, EXO 2030+375.  The light curve data
+    is made of multiple files listed in <TT>all.txt</TT>:
+
+<P>
+
+<P></P>
+
+<PRE>
+    d63924.lc.Z
+    d63934.lc.Z
+    d63945.lc.Z
+    d63954.lc.Z
+    d63968.lc.Z
+    d63980.lc.Z
+</PRE>
+
+<P>
+Executing the lcurve task:
+
+<P>
+
+<P></P>
+
+<PRE>
+    lcurve 1.0 (xronos5.18)
+     
+    Number of time series for this task[1]
+    Ser. 1 filename +options (or @file of filenames +options)[file1] @all.txt
+</PRE>
+
+<P>
+We enter the filelist beginning with an <TT>@</TT> symbol, and lcurve reads
+    in the files listed in <TT>all.txt</TT>
+
+<P>
+
+<P></P>
+
+<PRE>
+     Series 1 file   1:d63924.lc.Z
+     
+     Selected FITS extensions: 1 - RATE TABLE;
+     
+     Source ............ EXO2030+40          Start Time (d) ....  6368 11:36:56.100
+     FITS Extension ....  1 - `RATE      `   Stop Time (d) .....  6368 14:28:08.127
+     No. of Rows .......          342        Bin Time (s) ......    30.00
+     Right Ascension ... 307.624755960       Internal time sys.. Converted to TJD
+     Declination ....... 37.416656430        Experiment ........ EXOSAT   ME
+     
+     Corrections applied: Vignetting - Yes; Deadtime - Yes; Bkgd - Yes; Clock - No
+                 values: .964785340       .911577050       1.00000000
+     
+     Selected Columns:  1- Y-axis;  2- Y-error;
+     
+     File contains binned data.
+     
+     Series 1 file   2:d63934.lc.Z
+     
+     Selected FITS extensions: 1 - RATE TABLE;
+     
+     Source ............ EXO2030+40          Start Time (d) ....  6368 14:44:12.129
+     FITS Extension ....  1 - `RATE      `   Stop Time (d) .....  6368 18:24:28.162
+     No. of Rows .......          440        Bin Time (s) ......    30.00
+     Right Ascension ... 307.624755960       Internal time sys.. Converted to TJD
+     Declination ....... 37.416656430        Experiment ........ EXOSAT   ME
+     
+     Corrections applied: Vignetting - Yes; Deadtime - Yes; Bkgd - Yes; Clock - No
+                 values: .983090820       .909090880       1.00000000
+     
+     Selected Columns:  1- Y-axis;  2- Y-error;
+     
+     File contains binned data.
+     
+     Series 1 file   3:d63945.lc.Z
+     
+     Selected FITS extensions: 1 - RATE TABLE;
+     
+     Source ............ EXO2030+40          Start Time (d) ....  6368 18:38:52.164
+     FITS Extension ....  1 - `RATE      `   Stop Time (d) .....  6368 21:16:44.185
+     No. of Rows .......          315        Bin Time (s) ......    30.00
+     Right Ascension ... 307.624755960       Internal time sys.. Converted to TJD
+     Declination ....... 37.416656430        Experiment ........ EXOSAT   ME
+     
+     Corrections applied: Vignetting - Yes; Deadtime - Yes; Bkgd - Yes; Clock - No
+                 values: .964785340       .910746750       1.00000000
+     
+     Selected Columns:  1- Y-axis;  2- Y-error;
+     
+     File contains binned data.
+     
+     Series 1 file   4:d63954.lc.Z
+     
+     Selected FITS extensions: 1 - RATE TABLE;
+     
+     Source ............ EXO2030+40          Start Time (d) ....  6368 21:32:12.186
+     FITS Extension ....  1 - `RATE      `   Stop Time (d) .....  6369 01:48:04.208
+     No. of Rows .......          511        Bin Time (s) ......    30.00
+     Right Ascension ... 307.624755960       Internal time sys.. Converted to TJD
+     Declination ....... 37.416656430        Experiment ........ EXOSAT   ME
+     
+     Corrections applied: Vignetting - Yes; Deadtime - Yes; Bkgd - Yes; Clock - No
+                 values: .983090820       .909918130       1.00000000
+     
+     Selected Columns:  1- Y-axis;  2- Y-error;
+     
+     File contains binned data.
+     
+     Series 1 file   5:d63968.lc.Z
+     
+     Selected FITS extensions: 1 - RATE TABLE;
+     
+     Source ............ EXO2030+40          Start Time (d) ....  6369 02:05:24.209
+     FITS Extension ....  1 - `RATE      `   Stop Time (d) .....  6369 05:47:16.215
+     No. of Rows .......          443        Bin Time (s) ......    30.00
+     Right Ascension ... 307.624755960       Internal time sys.. Converted to TJD
+     Declination ....... 37.416656430        Experiment ........ EXOSAT   ME
+     
+     Corrections applied: Vignetting - Yes; Deadtime - Yes; Bkgd - Yes; Clock - No
+                 values: .945537030       .911577050       1.00000000
+     
+     Selected Columns:  1- Y-axis;  2- Y-error;
+     
+     File contains binned data.
+     
+     Series 1 file   6:d63980.lc.Z
+     
+     Selected FITS extensions: 1 - RATE TABLE;
+     
+     Source ............ EXO2030+40          Start Time (d) ....  6369 06:03:00.215
+     FITS Extension ....  1 - `RATE      `   Stop Time (d) .....  6369 10:18:36.212
+     No. of Rows .......          510        Bin Time (s) ......    30.00
+     Right Ascension ... 307.624755960       Internal time sys.. Converted to TJD
+     Declination ....... 37.416656430        Experiment ........ EXOSAT   ME
+     
+     Corrections applied: Vignetting - Yes; Deadtime - Yes; Bkgd - Yes; Clock - No
+                 values: .983090820       .909918130       1.00000000
+     
+     Selected Columns:  1- Y-axis;  2- Y-error;
+     
+     File contains binned data.
+     
+    Name of the window file ('-' for default window)[-]
+</PRE>
+    Entering a <TT>-</TT> indicates that the default exposure
+    windows are to be applied (<TT>$XRDEFAULTS/default_win.wi</TT>).  A custom
+    windows file may be generated with the xronwin task.
+
+<P>
+
+<P></P>
+
+<PRE>
+     Expected Start ...  6368.48398263830  (days)      11:36:56:100  (h:m:s:ms)
+     Expected Stop ....  6369.42958578854  (days)      10:18:36:212  (h:m:s:ms)
+     
+     Minimum Newbin Time    30.000000      (s)
+     for Maximum Newbin No..             2724
+     
+     Default Newbin Time is:   159.75775    (s) (to have 1 Intv. of     512 Newbins)
+     Type INDEF to accept the default value
+     
+    Newbin Time or negative rebinning[4.6692607009327] 200
+</PRE>
+
+<P>
+Entering <TT>INDEF</TT> would divide the total timespan of the
+    data into 512 equal newbins.  Note: the number 512 may be modified with
+    the hidden parameter, <TT>nbdf</TT>. You may not enter a newbin value
+    less than the Minimum Newbin Time, which corresponds to the largest bin
+    size found in the input files.  In this example, we
+    choose a newbin time of 200.
+
+<P>
+
+<P></P>
+
+<PRE>
+     Newbin Time ......     200.00000      (s)
+     Maximum Newbin No.               409
+     
+     Default Newbins per Interval are:         409
+     (giving       1 Interval of          409 Newbins)
+     Type INDEF to accept the default value
+     
+    Number of Newbins/Interval[10] indef
+</PRE>
+
+<P>
+Entering <TT>INDEF</TT> includes the whole timespan of the
+    input in the resulting plot.  In order to subdivide the time series
+    into multiple intervals, resulting in multiple plots, give a smaller
+    number than the indicated <TT>INDEF</TT> value.
+
+<P>
+
+<P></P>
+
+<PRE>
+     Maximum of       1 Intvs. with          409 Newbins of       200.000     (s)
+    Name of output file[default]
+</PRE>
+
+<P>
+In this example, we enter a space before pressing Return to indicate
+    that an output FITS file is not desired, however, entering
+    <TT>default</TT> for the output file, will result in a binned FITS
+    light curve file to be written with the extension <TT>.flc</TT>.
+    Note: In cases using a filelist, entering a specific filename rather
+    than <TT>default</TT> is recommended, as the default output file
+    uses only the first file in the list to construct the file name.
+
+<P>
+
+<P></P>
+
+<PRE>
+    Do you want to plot your results?[yes]
+</PRE>
+
+<P>
+In general, we want to plot the binned light curve, however,
+    entering <TT>no</TT> will prevent lcurve from plotting the
+    output.  This is useful when only the output FITS file is
+    desired.
+
+<P>
+
+<P></P>
+
+<PRE>
+    Enter PGPLOT device[/XW]
+</PRE>
+
+<P>
+The Xwindows device, <TT>/xw</TT> is recommended as the results may
+    be viewed immediately and the plot may be manipulated interactively with
+    PLT.  In some cases, however, other file-based devices such as
+    <TT>/ps</TT> and <TT>/gif</TT> may be desired.
+
+<P>
+
+<P></P>
+
+<PRE>
+     
+         409 analysis results per interval
+     
+     
+     Intv    1   Start  6368 11:38:21
+         Ser.1     Avg  53.04        Chisq 0.6966E+06   Var  1026.     Newbs.    390
+                   Min  23.93          Max  153.7    expVar 0.5855      Bins   2559
+</PRE>
+
+<P>
+At this point the default lcurve plot is produced.
+
+<P>
+
+<p><center>
+<img alt="Default Lcurve Plot" border=0 src="defaultlc.gif">
+</center><p>
+It may, however, by manipulated with any PLT command.
+
+<P>
+
+<P></P>
+
+<PRE>
+    PLT&gt; line step
+</PRE>
+
+<P>
+Connect the points.
+
+<P>
+
+<P></P>
+
+<PRE>
+    PLT&gt; color 3 on 2
+</PRE>
+
+<P>
+Change group 2 (the data representing Y) to color 3 (green).
+
+<P>
+
+<P></P>
+
+<PRE>
+    PLT&gt; r x 0 82000
+</PRE>
+
+<P>
+Rescale the x-axis from 0 to 82000.
+
+<P>
+
+<P></P>
+
+<PRE>
+    PLT&gt; r y,,180
+</PRE>
+
+<P>
+Rescale the y-axis from the current minimum value to 180.
+
+<P>
+
+<P></P>
+
+<PRE>
+    PLT&gt; cpd exo2030_375.gif/gif
+</PRE>
+
+<P>
+Change the plot device to a gif.
+
+<P>
+
+<P></P>
+
+<PRE>
+    PLT&gt; p
+</PRE>
+
+<P>
+Plot to the gif.
+
+<P>
+
+<P></P>
+
+<PRE>
+    PLT&gt; quit
+</PRE>
+
+<P>
+See the modified lcurve plot for the effects of the commands.
+
+<P>
+
+<p><center>
+<img alt="Modified Lcurve Plot" border=0 src="exo2030_375.gif">
+</center><p>
+Note: If a particular sequence of commands is to be used multiple times,
+    using a plot file may save some time.  Rather than entering PLT
+    commands interactively, a script file containing the commands usually
+    with the extension <TT>.pco</TT> can be given for the hidden parameter,
+    <TT>plotfile</TT>.  For example, we can place the interactive commands used
+    above into the file <TT>lcurve.pco</TT>:
+
+<P>
+
+<P></P>
+
+<PRE>
+    line step
+    color 3 on 2
+    r x 0 82000
+    cpd exo2030_375.gif/gif
+    p
+    quit
+</PRE>
+
+<P>
+If lcurve is executed like this:
+
+<P>
+
+<P></P>
+
+<PRE>
+    &gt; lcurve plotfile=lcurve.pco
+</PRE>
+
+<P>
+The program will execute the commands, creating the
+    <TT>exo2030_375.gif</TT> graphic and exiting the program
+    automatically with no interaction at the PLT prompt.
+    This is a useful option for automated plot generation provided
+    all the required parameters are set when the task is executed.
+
+<P>
+
+<H1><A NAME="SECTION00420000000000000000">
+3.2 powspec</A>
+</H1>
+
+<P>
+In this example, we plot the power spectrum of a time series from
+    EXOSAT ME of the transient pulsar, EXO 2030+375.
+
+<P>
+Executing the powspec task:
+
+<P>
+
+<P></P>
+
+<PRE>
+    powspec 1.0 (xronos5.18)
+     
+    Ser. 1 filename +options (or @file of filenames +options)[file1] me_a52385.lc.Z
+     Series 1 file   1:me_a52385.lc.Z
+</PRE>
+
+<P>
+We enter a single filename here, however a list of files in the
+    series may be given as a filelist beginning with an <TT>@</TT> symbol if
+    there are multiple files.
+
+<P>
+
+<P></P>
+
+<PRE>
+     
+     Selected FITS extensions: 1 - RATE TABLE;
+     
+     Source ............ EXO2030+375         Start Time (d) ....  6208 05:05:35.725
+     FITS Extension ....  1 - `RATE      `   Stop Time (d) .....  6208 06:41:19.250
+     No. of Rows .......         5737        Bin Time (s) ......    1.000
+     Right Ascension ... 307.588622760       Internal time sys.. Converted to TJD
+     Declination ....... 37.382217390        Experiment ........ EXOSAT   ME
+     
+     Corrections applied: Vignetting - Yes; Deadtime - Yes; Bkgd - Yes; Clock - No
+                 values: .983574270       .756429610       1.00000000
+     
+     Selected Columns:  1- Y-axis;  2- Y-error;
+     
+     File contains binned data.
+     
+    Name of the window file ('-' for default window)[-]
+</PRE>
+
+<P>
+Entering a <TT>-</TT> indicates that the default exposure
+    windows are to be applied ($XRDEFAULTS/default_win.wi).  A custom
+    windows file may be generated with the xronwin task.
+
+<P>
+
+<P></P>
+
+<PRE>
+     
+     Expected Start ...  6208.21221903629  (days)       5: 5:35:725  (h:m:s:ms)
+     Expected Stop ....  6208.27869502456  (days)       6:41:19:250  (h:m:s:ms)
+     
+     **** Warning: Newbin Time must be an integer multiple of Minimum Newbin Time
+     Minimum Newbin Time    1.0000000      (s)
+     for Maximum Newbin No..             5744
+     
+     Default Newbin Time is:   1.0000000    (s) (to have 1 Intv. of    8192 Newbins)
+     Type INDEF to accept the default value
+     
+    Newbin Time or negative rebinning[4.6692607009327] 1
+</PRE>
+
+<P>
+You may not enter a newbin value
+    less than the Minimum Newbin Time, which corresponds to the largest bin
+    size found in the input file.  In this example, we
+    choose a newbin time of 1, thus the original binning is preserved.
+
+<P>
+
+<P></P>
+
+<PRE>
+     
+     Newbin Time ......     1.0000000      (s)
+     Maximum Newbin No.              5744
+     
+     Default Newbins per Interval are:        8192
+     (giving       1 Interval of         8192 Newbins)
+     Type INDEF to accept the default value
+     
+    Number of Newbins/Interval[10] INDEF
+</PRE>
+
+<P>
+Entering <TT>INDEF</TT>  includes the whole timespan of the
+    input in the resulting plot.  In order to subdivide the time series
+    into multiple intervals, resulting in multiple plots, give a smaller
+    number than the indicated <TT>INDEF</TT> value.
+
+<P>
+
+<P></P>
+
+<PRE>
+     Maximum of       1 Intvs. with         8192 Newbins of       1.00000     (s)
+    Default intervals per frame are:         1
+    Type INDEF to accept the default value
+    Number of Intervals/Frame[1]
+</PRE>
+
+<P>
+If multiple intervals exist, frames may be calculated from the average
+    of some of them and then plotted.  One frame corresponds to one plot.
+    In this example, we have only one interval, and consequently one frame
+    and one plot.
+
+<P>
+
+<P></P>
+
+<PRE>
+     Results from up to       1 Intvs. will be averaged in a Frame
+    Rebin results? (&gt;1 const rebin, &lt;-1 geom. rebin, 0 none)[0]
+</PRE>
+
+<P>
+The first time through we will use no binning, setting the value to 0.
+    The unbinned plot appears first at the end of the example.
+    Then we will use a geometric rebinning, entering a value of -1.01,
+    the results of which are represented in the second plot below.
+    A rebin value less than -1 corresponds to binning as a geometrical
+    series with a step equal to the modulus.  In this example, the step is
+    0.01.
+
+<P>
+
+<P></P>
+
+<PRE>
+    Name of output file[default]
+</PRE>
+
+<P>
+In this example, we enter a space before pressing Return to indicate
+    that an output FITS file is not desired, however, entering
+    <TT>default</TT> for the output file, will result in a binned FITS
+    light curve file to be written with the extension <TT>.fps</TT>.
+
+<P>
+
+<P></P>
+
+<PRE>
+    Do you want to plot your results?[yes]
+</PRE>
+
+<P>
+In general, we want to plot the power spectrum, however,
+    entering <TT>no</TT> will prevent powspec from plotting the
+    output.  This is useful when only the output FITS file is
+    desired.
+
+<P>
+
+<P></P>
+
+<PRE>
+    Enter PGPLOT device[/XW]
+</PRE>
+
+<P>
+The Xwindows device, <TT>/xw</TT> is recommended as the results may
+    be viewed immediately and the plot may be manipulated interactively with
+    PLT.  In some cases, however, other file-based devices such as
+    <TT>/ps</TT> and <TT>/gif</TT> may be desired.
+
+<P>
+
+<P></P>
+
+<PRE>
+     
+        4096 analysis results per interval
+     
+     Intv    1   Start  6208  5: 5:35
+         Ser.1     Avg  401.0        Chisq 0.1627E+06   Var 0.1594E+05 Newbs.   5713
+                   Min  152.8          Max  826.5    expVar  559.6      Bins   5713
+    Power spectrum ready !
+</PRE>
+
+<P>
+At this point the default powspec plot (no rebinning) is produced.
+
+<P>
+
+<p><center>
+<img alt="Default Powspec Plot" border=0 src="linearps.gif">
+</center><p>
+Now, assume we run powspec again using the rebin value of -1.01, and
+    then use the following PLT commands:
+
+<P>
+
+<P></P>
+
+<PRE>
+    PLT&gt; color 2 on 2
+</PRE>
+
+<P>
+Change group 2 (the data representing Y) to color 2 (red).
+
+<P>
+
+<P></P>
+
+<PRE>
+    PLT&gt; cpd exo2030_375ps.gif/gif
+</PRE>
+
+<P>
+Change the plot device to a gif.
+
+<P>
+
+<P></P>
+
+<PRE>
+    PLT&gt; p
+</PRE>
+
+<P>
+Plot to the gif.
+
+<P>
+
+<P></P>
+
+<PRE>
+    PLT&gt; quit
+</PRE>
+
+<P>
+See the modified powspec plot for the effects of the commands.
+
+<P>
+
+<p><center>
+<img alt="Modified Powspec Plot" border=0 src="exo2030_375ps.gif">
+</center><p>
+
+<H1><A NAME="SECTION00430000000000000000">
+3.3 efsearch</A>
+</H1>
+
+<P>
+In this example, we search for the period of a light curve
+    from EXOSAT ME of the transient pulsar, EXO 2030+375.
+
+<P>
+Executing the efsearch task:
+
+<P>
+
+<P></P>
+
+<PRE>
+     
+    efsearch 1.1 (xronos5.18)
+     
+    Ser. 1 filename +options (or @file of filenames +options)[file1] me_a52385.lc.Z
+     Series 1 file   1:me_a52385.lc.Z
+</PRE>
+
+<P>
+We enter the light curve, <TT>me_a52385.lc.Z</TT> directly as the
+    time series to be considered.
+
+<P>
+
+<P></P>
+
+<PRE>
+     
+     Selected FITS extensions: 1 - RATE TABLE;
+     
+     Source ............ EXO2030+375         Start Time (d) ....  6208 05:05:35.725
+     FITS Extension ....  1 - `RATE      `   Stop Time (d) .....  6208 06:41:19.250
+     No. of Rows .......         5737        Bin Time (s) ......    1.000
+     Right Ascension ... 307.588622760       Internal time sys.. Converted to TJD
+     Declination ....... 37.382217390        Experiment ........ EXOSAT   ME
+     
+     Corrections applied: Vignetting - Yes; Deadtime - Yes; Bkgd - Yes; Clock - No
+                 values: .983574270       .756429610       1.00000000
+     
+     Selected Columns:  1- Y-axis;  2- Y-error;
+     
+     File contains binned data.
+     
+    Name of the window file ('-' for default window)[-]
+</PRE>
+
+<P>
+Entering a <TT>-</TT> indicates that the default exposure
+    windows are to be applied ($XRDEFAULTS/default_win.wi).  A custom
+    windows file may be generated with the xronwin task.
+
+<P>
+
+<P></P>
+
+<PRE>
+     
+     Expected Start ...  6208.21221903629  (days)       5: 5:35:725  (h:m:s:ms)
+     Expected Stop ....  6208.27869502456  (days)       6:41:19:250  (h:m:s:ms)
+     
+     Default Epoch is:  6208.000000
+    Type INDEF to accept the default value
+     Epoch format is days.
+    Epoch[34 234.23] 6208
+</PRE>
+
+<P>
+In this example we choose 6208.0 as the Epoch.
+    Entering <TT>INDEF</TT> would have the same result.
+
+<P>
+
+<P></P>
+
+<PRE>
+     Period format is seconds.
+    Period[88.87] 40
+</PRE>
+
+<P>
+Enter a guess for the period (default units are seconds) of the
+    light curve.  The period value will be used as the center of the
+    range of trial values.
+
+<P>
+
+<P></P>
+
+<PRE>
+     Expected Cycles ..            143.59
+     Default phase bins per period are:         8
+     Type INDEF to accept the default value
+    Phasebins/Period {value or neg. power of 2}[-3]
+</PRE>
+
+<P>
+The phasebins/period (<TT>nphase</TT>) setting represents the
+    resolution of the trial folded light curves
+    (<I>i.e.</I> the number of bins that the range from phase of 0.0
+    to phase of 1.0 is divided into). If a negative value is given, the
+    phasebins/period is 2 to the power of the absolute value of that
+    number.
+    (<I>e.g.</I> nphase=-3 -<IMG
+ WIDTH="16" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.gif"
+ ALT="$&gt;$"> nphase=2^{abs(-3)}=8).  The default (8),
+    corresponding to <TT>INDEF</TT> may
+    be altered with the hidden parameter <TT>nbdf</TT>.
+
+<P>
+
+<P></P>
+
+<PRE>
+     
+     Newbin Time ......     5.0000000      (s)
+     Maximum Newbin No.              1149
+     
+     Default Newbins per Interval are:        1149
+     (giving       1 Interval of         1149 Newbins)
+     Type INDEF to accept the default value
+     
+    Number of Newbins/Interval[10] 1149
+</PRE>
+
+<P>
+Entering <TT>INDEF</TT> would include exactly the timespan of the
+    input in the resulting plot.
+    Giving a smaller number than the indicated <TT>INDEF</TT> value
+    would result in multiple intervals.
+    In this example, we enter the default value, 1149, directly so only one
+    interval is calculated.
+
+<P>
+
+<P></P>
+
+<PRE>
+     Maximum of       1 Intvs. with         1149 Newbins of       5.00000     (s)
+     Default resolution is 0.1392515231
+     Type INDEF to accept the default value
+    Resolution for period search {value or neg. power of 2}[.03] 0.1
+     Default number of periods is       128
+     Type INDEF to accept the default value
+    Number of periods to search[100]
+</PRE>
+
+<P>
+The period, resolution of period search, and number of periods to search
+    together define the range of periods to search.  In this example,
+    100 periods are searched around 40 seconds in steps of 0.1 (<I>i.e.</I>
+    35.0, 35.1, 35.2, ... 44.7, 44.8, 44.9)
+
+<P>
+
+<P></P>
+
+<PRE>
+    Name of output file[default]
+</PRE>
+
+<P>
+In this example, we enter a space before pressing Return to indicate
+    that an output FITS file is not desired, however, entering
+    <TT>default</TT> for the output file, will result in a folded FITS
+    light curve file to be written with the extension <TT>.fes</TT>.
+
+<P>
+
+<P></P>
+
+<PRE>
+    Do you want to plot your results?[yes]
+</PRE>
+
+<P>
+In general, we want to plot the results of the search, however,
+    entering <TT>no</TT> will prevent efsearch from plotting the
+    output.  This is useful when only the output FITS file is
+    desired.
+
+<P>
+
+<P></P>
+
+<PRE>
+    Enter PGPLOT device[/XW]
+</PRE>
+
+<P>
+The Xwindows device, <TT>/xw</TT> is recommended as the results may
+    be viewed immediately and the plot may be manipulated interactively with
+    PLT.  In some cases, however, other file-based devices such as
+    <TT>/ps</TT> and <TT>/gif</TT> may be desired.
+
+<P>
+
+<P></P>
+
+<PRE>
+     
+         100 analysis results per interval
+     
+     
+     Period :   41.80    dP/dt :  0.0000E+00
+     Intv    1   Start  6208  5: 5:37
+         Ser.1     Avg  400.0        Chisq 0.1214E+06   Var 0.1171E+05 Newbs.      8
+                   Min  268.6          Max  554.2    expVar 0.7800      Bins   5713
+</PRE>
+
+<P>
+At this point the default efsearch plot is produced.  Note that the x
+    axis represents the attempted periods offset by the best period found.
+
+<P>
+
+<p><center>
+<img alt="Default Efsearch Plot" border=0 src="defaultes.gif">
+</center><p>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html135"
+  HREF="node5.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="nextoff.gif"></A> <A NAME="tex2html131"
+  HREF="xronos.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="upoff.gif"></A> <A NAME="tex2html125"
+  HREF="node3.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="prevoff.gif"></A> <A NAME="tex2html133"
+  HREF="node1.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="conton.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html136"
+  HREF="node5.html">4. Input Files</A>
+<B> Up:</B> <A NAME="tex2html132"
+  HREF="xronos.html">XRONOS User's Guide</A>
+<B> Previous:</B> <A NAME="tex2html126"
+  HREF="node3.html">2. Overview</A>
+ &nbsp <B>  <A NAME="tex2html134"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Micah Johnson
+2001-08-15
+</ADDRESS>
+</BODY>
+</HTML>

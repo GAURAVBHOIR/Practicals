@@ -1,0 +1,769 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta8 (1.46)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>9. Common Parameters </TITLE>
+<META NAME="description" CONTENT="9. Common Parameters ">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta8">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="xronos.css">
+
+<LINK REL="next" HREF="node11.html">
+<LINK REL="previous" HREF="node9.html">
+<LINK REL="up" HREF="xronos.html">
+<LINK REL="next" HREF="node11.html">
+</HEAD>
+
+<BODY bgcolor="#FFFFFF">
+<!--Navigation Panel-->
+<A NAME="tex2html238"
+  HREF="node11.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="nextoff.gif"></A> <A NAME="tex2html234"
+  HREF="xronos.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="upoff.gif"></A> <A NAME="tex2html228"
+  HREF="node9.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="prevoff.gif"></A> <A NAME="tex2html236"
+  HREF="node1.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="conton.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html239"
+  HREF="node11.html">10. References</A>
+<B> Up:</B> <A NAME="tex2html235"
+  HREF="xronos.html">XRONOS User's Guide</A>
+<B> Previous:</B> <A NAME="tex2html229"
+  HREF="node9.html">8. QDP/PLT</A>
+ &nbsp <B>  <A NAME="tex2html237"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html240"
+  HREF="#SECTION001010000000000000000">9.1 General Execution</A>
+<LI><A NAME="tex2html241"
+  HREF="#SECTION001020000000000000000">9.2 Output File</A>
+<LI><A NAME="tex2html242"
+  HREF="#SECTION001030000000000000000">9.3 Plotting</A>
+<LI><A NAME="tex2html243"
+  HREF="#SECTION001040000000000000000">9.4 Windows</A>
+<LI><A NAME="tex2html244"
+  HREF="#SECTION001050000000000000000">9.5 Rebinning</A>
+<LI><A NAME="tex2html245"
+  HREF="#SECTION001060000000000000000">9.6 Trend Removal</A>
+<LI><A NAME="tex2html246"
+  HREF="#SECTION001070000000000000000">9.7 Data Scaling</A>
+<LI><A NAME="tex2html247"
+  HREF="#SECTION001080000000000000000">9.8 Other</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION001000000000000000000">
+9. Common Parameters </A>
+</H1>     
+    The primary XRONOS tasks, autocor, crosscor, efold, efsearch, listdata,
+    lcmath, lcstats, lcurve, powspec, and timeskew, share common parameters:
+
+<P>
+The following abbreviations are used to indicate which XRONOS tasks use
+    a common parameter:
+
+<P>
+
+<UL>
+<LI><TT>AC</TT> - autocor
+</LI>
+<LI><TT>CC</TT> - crosscor
+</LI>
+<LI><TT>EF</TT> - efold
+</LI>
+<LI><TT>ES</TT> - efsearch
+</LI>
+<LI><TT>LC</TT> - lcurve
+</LI>
+<LI><TT>PS</TT> - powspec
+</LI>
+<LI><TT>TS</TT> - timeskew
+</LI>
+<LI><TT>LD</TT> - listdata
+</LI>
+<LI><TT>LS</TT> - lcstats
+</LI>
+<LI><TT>LM</TT> - lcmath
+</LI>
+<LI><TT>BC</TT> - earth2sun (barycenter correction)
+</LI>
+<LI><TT>RF</TT> - rbf2fits
+</LI>
+</UL>
+
+<P>
+
+<H1><A NAME="SECTION001010000000000000000">
+9.1 General Execution</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION001011000000000000000">
+9.1.1 tchat</A>
+</H2>
+
+<P>
+(Integer parameter; hidden; d/f=5; range 0-<IMG
+ WIDTH="16" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.gif"
+ ALT="$&gt;$">10)
+
+<P>
+Set terminal chattiness: (0-4) only little information is output in
+    running XRONOS applications; (5) default chattiness; (6-7) more details
+    on input files, windows, intervals statistics, etc.; (<IMG
+ WIDTH="16" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.gif"
+ ALT="$&gt;$">8) mostly for
+    debugging purposes.
+
+<P>
+Tasks: All
+
+<P>
+
+<H2><A NAME="SECTION001012000000000000000">
+9.1.2 lchat</A>
+</H2>
+
+<P>
+(Integer parameter; hidden; d/f=0; range 0-<IMG
+ WIDTH="16" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.gif"
+ ALT="$&gt;$">10)
+
+<P>
+Set log file chattiness: the default (=0) is not to write any log file;
+    for all other values information is written to the log file, with a
+    chattiness which is specified by the value of this parameter
+
+<P>
+Tasks: All
+
+<P>
+
+<H2><A NAME="SECTION001013000000000000000">
+9.1.3 logname</A>
+</H2>
+
+<P>
+(Character parameter; hidden; d/f=<TT>xronos.log</TT>)
+
+<P>
+Specify the log filename, which records all interaction with a XRONOS
+    task and results from the analysis which are normally output only to
+    the terminal.
+
+<P>
+Tasks: AC CC EF ES LC PS TS LD LS BC
+
+<P>
+
+<H2><A NAME="SECTION001014000000000000000">
+9.1.4 dpath</A>
+</H2>
+
+<P>
+(Character parameter; hidden; d/f=<TT>XRDEFAULTS</TT>)
+
+<P>
+Specify the path to the Xronos "defaults" directory, which contains the
+    default <TT>.pco</TT> file (used for plotting) and the default windows file
+    <TT>default_win.wi</TT>. Ordinarily, the user may leave this parameter set to
+    the string <TT>XRDEFAULTS</TT>, which causes Xronos to use the environment
+    variable XRDEFAULTS to locate these files. XRDEFAULTS is set when the
+    <TT>lhea-init</TT> script is sourced to point to the appropriate directory for
+    the current distribution of Xronos (<TT>$LHEASOFT/xrdefaults</TT>).  If the
+    user wishes to modify these files, he or she may make and edit copies,
+    and change the XRDEFAULTS environmental variable appropriately,
+    but the original files should not be changed.
+
+<P>
+Tasks: AC CC EF ES LC PS TS LD LS
+
+<P>
+
+<H1><A NAME="SECTION001020000000000000000">
+9.2 Output File</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION001021000000000000000">
+9.2.1 clobber</A>
+</H2>
+
+<P>
+(Logical parameter; hidden; d/f=yes)
+
+<P>
+By default, if the output file has the same name as an existing file,
+    it is overwritten.  Set <TT>clobber=no</TT> to cause a warning to be printed,
+    leaving the original file intact.
+
+<P>
+Tasks: AC CC EF ES LC PS TS
+
+<P>
+
+<H2><A NAME="SECTION001022000000000000000">
+9.2.2 outfile</A>
+</H2>
+
+<P>
+(Character parameter; queried; d/f= <TT>default</TT>)
+
+<P>
+Name  of the output file. If only the root is given, the program adds
+    an extension of 3 characters, <TT>.fXX</TT>, where f  stands  for FITS  and
+    XX  is  a  suffix  which  identifies the program that creates the
+    output. The XX values are  :  <TT>ac</TT> (autocor),  <TT>cc</TT> (crosscor),  <TT>ef</TT>
+    (efold),  <TT>es</TT> (efsearch), <TT>lc</TT> (lcurve), <TT>ps</TT> (powspec), <TT>ts</TT>
+    (timeskew). Typing <TT>default</TT> forces the  program  to generate   a
+    default   value  for  the  output filename  (see <TT>outfileroot</TT>
+    parameter).  By  typing  blank characters  at  the prompt no output
+    file will be created.
+
+<P>
+Note, although lcmath, earth2sun, and rbf2fits all contain an <TT>outfile</TT>
+    parameter, it doesn't behave exactly as described above.  See the
+    individual tasks for the correct <TT>outfile</TT> description.
+
+<P>
+Tasks: AC CC EF ES LC PS TS
+
+<P>
+
+<H2><A NAME="SECTION001023000000000000000">
+9.2.3 outfileroot</A>
+</H2>
+
+<P>
+(Character parameter; hidden; d/f= <TT>default</TT>)
+
+<P>
+This  parameter  used  in conjunction with <TT>outfile</TT> generates a
+    default output  filename.  If  the  value  of <TT>outfileroot</TT>  is
+    <TT>default</TT>  and  <TT>outfile</TT>  is <TT>default</TT>, the output filename will have the
+    same root name of the first input file of the  fits  series with a
+    <TT>.fXX</TT> extension (see outfile for XX values).
+
+<P>
+Tasks: AC CC EF ES LC PS TS
+
+<P>
+
+<H2><A NAME="SECTION001024000000000000000">
+9.2.4 outfiletype</A>
+</H2>
+
+<P>
+(Integer parameter; hidden; d/f= 2)
+
+<P>
+Define  the  FITS  structure  for the output file. Two types are
+    available.  The first type (outfiletype=1)  has  1  interval  of
+    results  per FITS table row.  The output file will have only one
+    extension. Each row of the results column contains an  array  of
+    values  with  a  size equal to the number of points per interval
+    (or frame) and a number of rows equal to  the  valid  number  of
+    intervals  analysed.   The  second  type  (outfiletype=2)  has 1
+    interval of results per FITS extension.  The  output  file  will
+    have  as  many  extension as the number of intervals (or frames)
+    analysed.  The  column  containing  the  results  has  a  single
+    element  value  in  each  row and the number of rows is equal to
+    the number of points in the  interval.   The  default  value  of
+    <TT>outfiletype</TT> is 2 (one interval per FITS extension).
+
+<P>
+Tasks: AC CC EF ES LC PS TS
+
+<P>
+
+<H1><A NAME="SECTION001030000000000000000">
+9.3 Plotting</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION001031000000000000000">
+9.3.1 plot</A>
+</H2>
+
+<P>
+(Logical parameter; queried; d/f=yes)
+
+<P>
+Specify whether the results of the analysis are plotted via PLT. NOTE:
+    After plotting the results the XRONOS task is left in the interactive
+    plotting/fitting mode (PLT<IMG
+ WIDTH="16" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.gif"
+ ALT="$&gt;$"> prompt) use command <TT>exit</TT> to return and
+    finish the XRONOS task. If the <TT>plot</TT> parameter is set to "no", the
+    other queries regarding the plotting are disabled (<TT>plotdev</TT>,
+    <TT>plotfile</TT>).
+
+<P>
+Tasks: AC CC EF ES LC PS TS
+
+<P>
+
+<H2><A NAME="SECTION001032000000000000000">
+9.3.2 plotdev</A>
+</H2>
+
+<P>
+(Character parameter; queried; d/f=<TT>/XW</TT>)
+
+<P>
+Specify the plot device. The most common plot devices are /xw (X
+    window), /tek (tektronix), /vt (vt125), /ps (PostScript).  Setting
+    <TT>plotdev</TT> as "?", forces the program before plotting  to list the
+    available plot devices to the terminal and to prompt for this parameter
+    again.
+
+<P>
+Tasks: AC CC EF ES LC PS TS
+
+<P>
+
+<H2><A NAME="SECTION001033000000000000000">
+9.3.3 plotfile</A>
+</H2>
+
+<P>
+(Character parameter; hidden; d/f=<TT>-</TT>)
+
+<P>
+Name of the Plt COmmands file. For each task an appropriate default Plt
+    COmmand file is automatically loaded by the program when the parameter
+    <TT>plotfile</TT> is "-". The user can insert additional commands using a
+    custom <TT>.pco</TT> file at this level (or within the PLT<IMG
+ WIDTH="16" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.gif"
+ ALT="$&gt;$"> prompt). The user
+    commands are appended to the default command file and therefore
+    executed last. The default <TT>.pco</TT> files are stored in the directory
+    defined by the parameter <TT>dpath</TT>.
+
+<P>
+Tasks: AC CC EF ES LC PS TS
+
+<P>
+
+<H1><A NAME="SECTION001040000000000000000">
+9.4 Windows</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION001041000000000000000">
+9.4.1 window</A>
+</H2>
+
+<P>
+(Character parameter; queried; d/f=<TT>-</TT>)
+
+<P>
+Filename of the xronos window file. The window file is an  ASCII file
+    and by default a standard window file is used, where only exposure
+    windows are set. To modify the standard file or create a new file use
+    the script <TT>xronwin</TT>.
+
+<P>
+Tasks: AC CC EF ES LC PS TS LD LS
+
+<P>
+
+<H2><A NAME="SECTION001042000000000000000">
+9.4.2 spwinbefore</A>
+</H2>
+
+<P>
+(Real parameter; hidden; d/f=0.; range 0 -<IMG
+ WIDTH="16" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.gif"
+ ALT="$&gt;$"> )
+
+<P>
+Special newbin window : number of seconds before. If a  value  <IMG
+ WIDTH="16" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.gif"
+ ALT="$&gt;$">
+    0  is used , <I>e.g.</I> 10.0, then all the newbins within 10.0 seconds
+    before a newbin rejected by an intensity  window  will  also  be
+    rejected.  The default (=0) is not to apply this type of special
+    newbin window.
+
+<P>
+Tasks: AC CC EF ES LC PS TS LS
+
+<P>
+
+<H2><A NAME="SECTION001043000000000000000">
+9.4.3 spwinafter</A>
+</H2>
+
+<P>
+(Real parameter; hidden; d/f=0.; range 0 -<IMG
+ WIDTH="16" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.gif"
+ ALT="$&gt;$"> )
+
+<P>
+Special newbin window : number of seconds after. If a  value  <IMG
+ WIDTH="16" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.gif"
+ ALT="$&gt;$">0
+    is  used  ,  <I>e.g.</I> 10.0, then all the newbins within 10.0 seconds
+    after a newbin rejected by an  intensity  window  will  also  be
+    rejected.  The default (=0) is not to apply this type of special
+    newbin window.
+
+<P>
+Tasks: AC CC EF ES LC PS TS LS
+
+<P>
+
+<H1><A NAME="SECTION001050000000000000000">
+9.5 Rebinning</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION001051000000000000000">
+9.5.1 dtnb</A>
+</H2>
+
+<P>
+(Real parameter; queried)
+
+<P>
+The duration in seconds of the NEWBIN time. For binned input files the
+    NEWBIN duration can not be shorter than the longest bin duration in the
+    input file. In autocor, crosscor, powspec, and timeskew the NEWBIN time
+    must be an integer multiple of the minimum newbin time. The task
+    internally calculates (and prints on the screen) a default value such
+    that a single interval is produced with a fixed number of newbins
+    (typically between 128 and 4096 depending on the task and on the time
+    interval length see also <TT>nbdf</TT>  parameter). Typing <TT>INDEF</TT> forces the
+    task to use as NEWBIN time the value calculated by the program. NOTE:
+    By pressing "Return" the task will use as NEWBIN time the value found in
+    the parameter file used in a previous run.
+
+<P>
+Tasks: AC CC LC PS TS LS
+
+<P>
+
+<H2><A NAME="SECTION001052000000000000000">
+9.5.2 nbint</A>
+</H2>
+
+<P>
+(Integer parameter; queried)
+
+<P>
+The number of newbins per interval used in the analysis. The <TT>nbint</TT>
+    together with the NEWBIN duration (<TT>dtnb</TT>) determines the length in
+    time of an interval and therefore the total number of intervals within
+    the start and stop time over which the analysis will be carried out.
+    Typing <TT>INDEF</TT> forces the task to use the default value (see  parameter
+    <TT>nbdf</TT>). NOTE: By pressing "Return" <TT>nbint</TT> is set to the value found in
+    the parameter file used in a previous run.  In autocor, crosscor, and
+    powspec, if <TT>fast=yes</TT> (the default), <TT>nbint</TT> must be a power of 2 in
+    order to use an FFT algorithm.
+
+<P>
+Tasks: AC CC EF ES LC PS TS LS
+
+<P>
+
+<H2><A NAME="SECTION001053000000000000000">
+9.5.3 nintfm</A>
+</H2>
+
+<P>
+(Integer parameter; queried)
+
+<P>
+The results of the analysis from individual intervals can be averaged
+    to produce a frame. The <TT>nintfm</TT> parameter is used to specify the
+    number of intervals averaged in a frame. Typing <TT>INDEF</TT> forces the task
+    to use the default value (all intervals will be use in one frame).
+    NOTE: By pressing "Return" <TT>nintfm</TT> is set to the value found in the
+    parameter file used in a previous run.
+
+<P>
+Tasks: AC CC LC PS TS
+
+<P>
+
+<H2><A NAME="SECTION001054000000000000000">
+9.5.4 nphase</A>
+</H2>
+
+<P>
+(Integer parameter; queried)
+
+<P>
+Number of phases in the folded light curve(s). Typing <TT>INDEF</TT> forces
+    the task to use the default value (see parameter <TT>nbdf</TT>). NOTE: By
+    pressing "Return" <TT>nphase</TT> is set to the value found in the parameter
+    file used in a previous run.
+
+<P>
+Tasks: EF ES
+
+<P>
+
+<H2><A NAME="SECTION001055000000000000000">
+9.5.5 nbdf</A>
+</H2>
+
+<P>
+(Integer parameter; hidden)
+
+<P>
+Specify an internal default value for the number of newbins per
+    Interval. This value is used to calculate the default newbin
+    integration time to have one interval with <TT>nbdf</TT> points. For efold and
+    efsearch, however, the value is in phasebins per period. Different
+    <TT>nbdf</TT> values have been set for different XRONOS tasks. IMPORTANT NOTE:
+    With caution this parameter can be changed by the user.
+
+<P>
+Tasks: AC CC EF ES LC PS TS LD LS
+
+<P>
+
+<H2><A NAME="SECTION001056000000000000000">
+9.5.6 rebin</A>
+</H2>
+
+<P>
+(Integer parameter; queried; d/f=0)
+
+<P>
+The results of the analysis of individual frames can be rebinned either
+    with a constant rebinning factor or as a geometrical series (to produce
+    nearly equispaced bins in a logX representation). The default value (0)
+    is not to rebin the results. Values greater than 1 indicate a constant
+    rebinning factor. Geometrical series rebinning is obtained by entering
+    a value less than -1, whose modulus represents the step of the
+    geometrical series (Values between -1.4 and -1.2 are adequate in most
+    cases).
+
+<P>
+Tasks: AC PS TS
+
+<P>
+
+<H1><A NAME="SECTION001060000000000000000">
+9.6 Trend Removal</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION001061000000000000000">
+9.6.1 itre</A>
+</H2>
+
+<P>
+(Integer parameter; hidden; d/f=0; values=0,1,2,3,4)
+
+<P>
+A polynomial trend, up to 4th-order, can be removed from input
+    time series. Setting the parameter <TT>itre</TT> equal to 1, 2, 3
+    or 4 removes a 1st, 2nd, 3rd or 4th-order polynomial trend,
+    respectively. The trend is determined separately for each
+    interval of each series by using a least-square technique. The
+    value 0 does not cause the removal of any trend from the input
+    series  and is the default value.
+
+<P>
+Tasks: AC CC LC PS TS LS
+
+<P>
+
+<H2><A NAME="SECTION001062000000000000000">
+9.6.2 itremo</A>
+</H2>
+
+<P>
+(Integer parameter; hidden; d/f=1; values=1,2,3)
+
+<P>
+Specify how the trend removal is applied to the data (available only if
+    <TT>itre</TT> is higher than 0). The trend can be subtracted from the time
+    series (<TT>itremo=1</TT>), or the time series can be divided by the trend
+    (<TT>itremo=2</TT>), or the time series can be replaced with the trend
+    (<TT>itremo=3</TT>). By default the trend is subtracted (value set to 1).
+
+<P>
+Tasks: AC CC LC PS TS LS
+
+<P>
+
+<H1><A NAME="SECTION001070000000000000000">
+9.7 Data Scaling</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION001071000000000000000">
+9.7.1 rescale</A>
+</H2>
+
+<P>
+(Real parameter; hidden; d/f=1.)
+
+<P>
+Rescaling factor applied to result  variables  and  errors.  The
+    rescaling  is  applied just before writing the output file (this
+    to avoid affecting the statistical  variables  for  the  frame).
+
+<P>
+Tasks: AC CC EF ES LC PS TS LS
+
+<P>
+
+<H2><A NAME="SECTION001072000000000000000">
+9.7.2 offset</A>
+</H2>
+
+<P>
+(Real parameter; hidden; d/f=0.)
+
+<P>
+Additive  constant summed to result variables. Result error bars
+    are left unchanged.  The additive constant is added just  before
+    writing  the  output  file  (this  is  to  avoid  affecting  the
+    statistical variables for the frame). Note that if  a  rescaling
+    factor  is  also  specified (different from 1), then the results
+    are first multiplied by the rescaling factor.
+
+<P>
+Tasks: AC CC EF ES LC PS TS LS
+
+<P>
+
+<H1><A NAME="SECTION001080000000000000000">
+9.8 Other</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION001081000000000000000">
+9.8.1 gapfill</A>
+</H2>
+
+<P>
+(Integer parameter; hidden; d/f=0; range 0-<IMG
+ WIDTH="16" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.gif"
+ ALT="$&gt;$"> )
+
+<P>
+Replace gaps in input series with running mean. If =0 (the default)
+    data gaps are not filled.  If =n newbin data gaps in input series are
+    filled in with running mean values calculated over n newbins. Note that
+    a gap newbin is filled in only if the corresponding running mean is
+    calculated over at least n/4 points (this means that in order to bridge
+    a gap of m newbins n must be <IMG
+ WIDTH="16" HEIGHT="28" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.gif"
+ ALT="$&gt;$">1.35m).
+
+<P>
+Tasks: AC CC LC PS TS LS
+
+<P>
+
+<H2><A NAME="SECTION001082000000000000000">
+9.8.2 forcestart</A>
+</H2>
+
+<P>
+(Logical parameter; hidden; d/f=no)
+
+<P>
+If  =yes the first interval will be forced to start at the time
+    of the first time window  otherwise  (=no  default)  the  center
+    time of the first qualified newbin is used as the start time.
+
+<P>
+Tasks: AC CC EF ES LC PS TS LS
+
+<P>
+
+<H2><A NAME="SECTION001083000000000000000">
+9.8.3 exposure</A>
+</H2>
+
+<P>
+(Logical parameter; hidden; d/f=no)
+
+<P>
+If  =yes the exposure profile(s) (<I>i.e.</I> newbin values are set =1,
+    gaps and rejected newbins are set =0) is/are  analysed  (instead
+    of the input series).
+
+<P>
+Tasks: AC CC EF ES LC PS TS LS
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html238"
+  HREF="node11.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="nextoff.gif"></A> <A NAME="tex2html234"
+  HREF="xronos.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="upoff.gif"></A> <A NAME="tex2html228"
+  HREF="node9.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="prevoff.gif"></A> <A NAME="tex2html236"
+  HREF="node1.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="conton.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html239"
+  HREF="node11.html">10. References</A>
+<B> Up:</B> <A NAME="tex2html235"
+  HREF="xronos.html">XRONOS User's Guide</A>
+<B> Previous:</B> <A NAME="tex2html229"
+  HREF="node9.html">8. QDP/PLT</A>
+ &nbsp <B>  <A NAME="tex2html237"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Micah Johnson
+2001-08-15
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,361 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 99.2beta8 (1.46)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>2. Overview </TITLE>
+<META NAME="description" CONTENT="2. Overview ">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v99.2beta8">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="xronos.css">
+
+<LINK REL="next" HREF="node4.html">
+<LINK REL="previous" HREF="node2.html">
+<LINK REL="up" HREF="xronos.html">
+<LINK REL="next" HREF="node4.html">
+</HEAD>
+
+<BODY bgcolor="#FFFFFF">
+<!--Navigation Panel-->
+<A NAME="tex2html117"
+  HREF="node4.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="nextoff.gif"></A> <A NAME="tex2html113"
+  HREF="xronos.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="upoff.gif"></A> <A NAME="tex2html107"
+  HREF="node2.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="prevoff.gif"></A> <A NAME="tex2html115"
+  HREF="node1.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="conton.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html118"
+  HREF="node4.html">3. Walk through</A>
+<B> Up:</B> <A NAME="tex2html114"
+  HREF="xronos.html">XRONOS User's Guide</A>
+<B> Previous:</B> <A NAME="tex2html108"
+  HREF="node2.html">1. Introduction</A>
+ &nbsp <B>  <A NAME="tex2html116"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html119"
+  HREF="#SECTION00310000000000000000">2.1 Reading Data</A>
+<LI><A NAME="tex2html120"
+  HREF="#SECTION00320000000000000000">2.2 Terminology</A>
+<LI><A NAME="tex2html121"
+  HREF="#SECTION00330000000000000000">2.3 Windows</A>
+<LI><A NAME="tex2html122"
+  HREF="#SECTION00340000000000000000">2.4 Plotting</A>
+<LI><A NAME="tex2html123"
+  HREF="#SECTION00350000000000000000">2.5 XRONOS HEAsoft</A>
+<LI><A NAME="tex2html124"
+  HREF="#SECTION00360000000000000000">2.6 Getting Help</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00300000000000000000">
+2. Overview </A>
+</H1>     
+    The XRONOS package consists of the following set of independent tasks:
+
+<P>
+
+<UL>
+<LI><TT>autocor&nbsp;&nbsp;</TT> - calculates auto correlation for a time series
+</LI>
+<LI><TT>crosscor&nbsp;</TT> - calculates cross correlation of two time series
+</LI>
+<LI><TT>efold&nbsp;&nbsp;&nbsp;&nbsp;</TT> - creates epoch folded lightcurve, hardness and color-color plots
+</LI>
+<LI><TT>efsearch&nbsp;</TT> - finds best chi-squared period by folding over range of periods
+</LI>
+<LI><TT>listdata&nbsp;</TT> - list data file on the screen
+</LI>
+<LI><TT>lcstats&nbsp;&nbsp;</TT> - calculates statistical variables a time series
+</LI>
+<LI><TT>lcurve&nbsp;&nbsp;&nbsp;</TT> - creates lightcurves, hardness and color-color plots
+</LI>
+<LI><TT>powspec&nbsp;&nbsp;</TT> - creates power spectrum density
+</LI>
+<LI><TT>timeskew&nbsp;</TT> - calculates time skewness function for a time series
+</LI>
+<LI><TT>xronwin&nbsp;&nbsp;</TT> - creates a window file suitable for xronos tasks
+</LI>
+<LI><TT>ascii2flc</TT> - creates a xronos input FITS file from an ASCII file
+</LI>
+<LI><TT>flc2ascii</TT> - dumps xronos input or output into ASCII file readable by QDP
+</LI>
+<LI><TT>lcmath&nbsp;&nbsp;&nbsp;</TT> - subtracts or adds two binned lightcurves
+</LI>
+<LI><TT>rbf2fits&nbsp;</TT> - converts the "EXOSAT rate buffer" format into FITS
+</LI>
+<LI><TT>earth2sun</TT> - change times to solar system barycenter
+</LI>
+</UL>
+
+<P>
+The simplest way to use a XRONOS task is to execute the task from the
+    command line and answer the prompts.  Defaults are indicated in square
+    brackets, and may be selected by simply pressing Enter.  Those prompts
+    correspond to parameters which may be specified when the task is
+    executed by using the syntax <TT>parameter=value</TT>.  For a full list of
+    parameters for a particular task use the <TT>plist</TT> utility with the task
+    name as its argument.
+
+<P>
+All output to the screen can be written to log files by specifying a
+    log chat level with the <TT>lchat</TT> parameter. The log file is named
+    xronos.log by default, however it may be specified through the
+    <TT>logname</TT> parameter.  For example, <TT>powspec&nbsp;lchat=10&nbsp;logname=powspec.log</TT>
+    would record a log of the execution of powspec.
+    While a task is prompting the user for an input, the task can be
+    terminated by entering an interruption (<TT>cntl&nbsp;c</TT>) during execution.
+
+<P>
+
+<H1><A NAME="SECTION00310000000000000000">
+2.1 Reading Data</A>
+</H1>
+
+<P>
+XRONOS tasks will read in time series from many consecutive input files
+    (this is to avoid wasting disk space by chaining many input files in a
+    single file) through the use of a filelist, a text file containing a
+    line for each input file, separating time series with a <TT>///</TT>.  The
+    filelist is input using the syntax <TT>@filelist</TT>.  Additional flexibility
+    is provided by Input File Options, which are used, <I>e.g.</I> to perform
+    algebraic operations on individual input files, shift times, apply
+    barycentric time corrections etc.
+
+<P>
+The primary input file format used by XRONOS tasks is FITS, although
+    platform-dependent Rate Buffers (with extension <TT>.rbf</TT>) may be
+    converted with <TT>rbf2fits</TT> and QDP files, which are ASCII files written
+    according to the QDP/PLT standard may be converted with <TT>ascii2flc</TT>.
+    XRONOS input files can either contain binned data or unbinned data
+    (<I>i.e.</I> input files containing the arrival times of individual photons,
+    also known as an event list).
+
+<P>
+
+<H1><A NAME="SECTION00320000000000000000">
+2.2 Terminology</A>
+</H1>
+
+<P>
+Within XRONOS tasks, BINS and NEWBINS control the  binning  used  in
+    the  analysis,  INTERVALS  the  subdivision  of  the time series and
+    FRAME the grouping of the output results:
+
+<P>
+
+<UL>
+<LI>BINS : these are the time bins of the time  series  being  analysed.
+       More  than one input file can have different bin durations, <I>e.g.</I> two
+       consecutive time series, one with 0.5 s bins and the other with 2  s
+       bins.  The  original  bin time is the value stored in the input file
+       in the keyword TIMEDEL. If the data are stored in  each  row  as  an
+       array  with  1CTYPn  =  'TIME', the original bin is set to the value
+       stored in the keyword 1CDLTn (where n is the column number).
+
+<P>
+</LI>
+<LI>NEWBINS : these correspond to  the  time  resolution  at  which  the
+       analysis  is  carried out.  Note that: (i) newbins cannot be shorter
+       than the longest bin duration of the  time  series  being  analysed;
+       (ii)  in many XRONOS applications (<I>e.g.</I> <TT>powspec</TT>, <TT>autocor</TT>, <TT>crosscor</TT>)
+       the newbin duration is forced to  be  an  integer  multiple  of  the
+       longest bin duration.
+
+<P>
+</LI>
+<LI>INTERVALS : an  interval  is  defined by the number of newbins over
+       which the analysis is carried out. Note that in  applications  using
+       FFT  algorithms  (<I>i.e.</I>  <TT>powspec</TT>,  <TT>autocor</TT>  and  <TT>crosscor</TT> set in fast
+       mode) the number of newbins in an interval is a power of 2.
+
+<P>
+</LI>
+<LI>FRAMES : a frame consists of  the  average  of  the  results  of  the
+       analysis   of  one  or  more  contiguous  intervals.  Each plot
+       produced by XRONOS corresponds to a frame. Note that in <TT>lcurve</TT>,
+       <TT>efsearch</TT> and <TT>lcstats</TT> a frame consists always of one interval.
+
+<P>
+</LI>
+</UL>
+
+<P>
+
+<H1><A NAME="SECTION00330000000000000000">
+2.3 Windows</A>
+</H1>
+
+<P>
+There are 4 different types of windows which can be specified within XRONOS:
+    time, phase, intensity and exposure windows. In applications requiring more
+    than one input series (<I>e.g.</I> a cross-correlation analysis) intensity and
+    exposure windows are specified separately for each series. Intensity and
+    exposure windows can be specified separately for bins, newbins and intervals.
+    The <TT>xronwin</TT> task will create, read or change XRONOS window files (default
+    extension <TT>.wi</TT>). Many XRONOS application use some default exposure windows,
+    which are designed to avoid analysing data sets which are too inhomogeneous
+    with respect to their statistical properties.
+
+<P>
+
+<H1><A NAME="SECTION00340000000000000000">
+2.4 Plotting</A>
+</H1>
+
+<P>
+Most XRONOS tasks plot their results using QDP/PLT and the default
+    PGPLOT device, /XW, in a new window.  The task will give a <TT>PLT&gt;</TT>
+    prompt while in this mode.  There are many commands that may be used to
+    customize the current plot, which are fully documented in the
+    QDP/PLT manual
+    ( <A HREF="http://heasarc.gsfc.nasa.gov/lheasoft/ftools/others/qdp/qdp.html">http://heasarc.gsfc.nasa.gov/lheasoft/ftools/others/qdp/qdp.html</A> ).    The "QDP/PLT" section of this manual provides some commonly used
+    commands.  Use <TT>exit</TT> to leave the PLT prompt.  The parameter setting
+    <TT>plot=no</TT> may be used to bypass plotting.
+
+<P>
+
+<H1><A NAME="SECTION00350000000000000000">
+2.5 XRONOS HEAsoft</A>
+</H1>
+
+<P>
+All tasks uses the Xanadu Paramater Interface based on the IRAF parameter
+    file style. This is the standard interface used by all tools distributed
+    within HEAsoft. There are a number of useful programs, distributed with
+    HEAsoft, that manipulate the XRONOS parameter files:
+
+<P>
+
+<UL>
+<LI>plist - List parameters from one or more IRAF-style parameter files
+</LI>
+<LI>pget - Get the value of one or more parameters in a parameter file
+</LI>
+<LI>pset - Set one or more parameters in an IRAF-style parameter file
+</LI>
+<LI>punlearn - Get a copy of the system parameter file
+</LI>
+</UL>
+
+<P>
+The <TT>plist</TT> program is useful for seeing a task's parameters and their
+    current values.  Its output takes the following form (hidden parameters
+    are in parentheses):
+
+<P>
+
+<P></P>
+
+<PRE>
+    &gt; plist task
+    Parameters for /home/user/pfiles/task.par
+         requiredparm = defaultvalue     Prompt question
+          (hiddenparm = defaultvalue)    Parameter info
+</PRE>
+
+<P>
+The <TT>pget</TT> program returns the default values of specific parameters.
+    For example:
+
+<P>
+
+<P></P>
+
+<PRE>
+    &gt; pget lcurve cfile
+    me_a52385.lc.Z
+</PRE>
+
+<P>
+The <TT>pset</TT> program assigns the default values of specific parameters.
+    This is most useful to change the default for hidden parameters.
+    For example, <TT>efold</TT> assumes the period is in units of seconds
+    (perfo=2).  If days is a more convenient unit, the default may be
+    permanently changed as follows:
+
+<P>
+
+<P></P>
+
+<PRE>
+    &gt; pset efold perfo=1
+</PRE>
+
+<P>
+To restore the parameters to their original values, removing any hidden
+    parameter modifications that have been made with <TT>pset</TT>, run:
+
+<P>
+
+<P></P>
+
+<PRE>
+    &gt; punlearn efold
+</PRE>
+
+<P>
+
+<H1><A NAME="SECTION00360000000000000000">
+2.6 Getting Help</A>
+</H1>
+
+<P>
+The on-line help can be invoked  using the task <TT>fhelp</TT> distributed with HEAsoft.
+    To get a list of all tasks in the XRONOS package, use <TT>fhelp&nbsp;xronos</TT>.
+    For help on individual tasks, use <TT>fhelp</TT> followed by the name of
+    the task.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html117"
+  HREF="node4.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="nextoff.gif"></A> <A NAME="tex2html113"
+  HREF="xronos.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="upoff.gif"></A> <A NAME="tex2html107"
+  HREF="node2.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="prevoff.gif"></A> <A NAME="tex2html115"
+  HREF="node1.html">
+<IMG WIDTH="100" HEIGHT="40" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="conton.gif"></A>  <BR>
+<B> Next:</B> <A NAME="tex2html118"
+  HREF="node4.html">3. Walk through</A>
+<B> Up:</B> <A NAME="tex2html114"
+  HREF="xronos.html">XRONOS User's Guide</A>
+<B> Previous:</B> <A NAME="tex2html108"
+  HREF="node2.html">1. Introduction</A>
+ &nbsp <B>  <A NAME="tex2html116"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+Micah Johnson
+2001-08-15
+</ADDRESS>
+</BODY>
+</HTML>
