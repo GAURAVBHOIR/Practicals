@@ -1,0 +1,425 @@
+                                INTRODUCTION
+ 
+For a full explanation of the terms HEASOFT, FTOOLS, XANADU,
+XIMAGE, XRONOS, XSPEC and XSTAR please see the file README.Q-AND-A.
+
+This document is a guide to installing pre-built binary
+distributions of HEASOFT 5.1 (includes FTOOLS 5.1, XANADU 5.1,
+XSTAR 2.1d) on UNIX systems only. Instructions for installing
+HEASOFT 5.1 from source code on UNIX systems may be found
+in the file INSTALL.SOURCE.
+
+The latest version of this document can be obtained online at:
+
+  http://legacy.gsfc.nasa.gov/lheasoft/install_bin.html
+
+or by anonymous ftp from:
+
+ftp://legacy.gsfc.nasa.gov/software/lheasoft/lheasoft51/binaries/INSTALL.BINARY
+
+The instructions below are valid for any combination of the
+distribution gzipped tarfiles listed, unless otherwise noted.)
+
+NOTE TO USERS OF FV 3.1 OR OTHER HEASOFT 5.1 GUIS:
+In a change from the previous release (HEASOFT 5.0), pre-built
+binary versions of the HEASOFT GUIS are now available for all
+supported platforms, including Linux.
+   
+WARNING TO USERS OF XSPEC 11.1.0:
+Users who wish to include their own models with XSPEC 11.1.0
+must build from source code, and cannot use the binary
+distribution of XSPEC 11.1.0!
+
+
+           BINARY DISTRIBUTIONS AVAILABLE FOR HEASOFT 5.1
+
+Full binary distributions of HEASOFT 5.1, are available for the
+following architectures:
+
+   Architecture  Was built at LHEA on   Should run on
+   ------------  --------------------   ---------------------------
+   DEC Alpha     DEC UNIX 4.0           Most Alpha systems running
+                                        DEC UNIX 4.x and 5.x
+
+   Intel         Red Hat 6.2		Most Intel/Linux systems
+
+   Macintosh     LinuxPPC 1999          Most Linux/PPC systems
+
+   SGI           IRIX 6.5               Most SGI systems running
+                                        IRIX 6.5 or higher, including
+                                        IRIX 64, BUT see below for
+                                        caveats
+
+   Sun           SunOS 5.6              Most Sun systems running
+                                        SunOS 5.6 (Solaris 2.6) or
+                                        higher
+
+On DEC and Solaris, these binaries were created using static
+versions of proprietary compiler-related system libraries to
+minimize compatibility problems (and to allow users who do not
+have the compilers to run the binaries), but it is nonetheless
+possible that they may not work everywhere.  On Linux, the
+binaries were dynamically linked.  As a result, some Linux users
+may experience difficulties, in which case the only option will
+be to build from the HEASOFT 5.1 source code (see the
+INSTALL.SOURCE document).
+
+Please let us know at the appropriate email address below about
+any problems you have running these binaries!
+
+NOTE TO IRIX USERS: in the past, we have had difficulty supporting
+the SGI/IRIX platform. Although we are consistently able to
+build and run all our software on our local (admittedly rather
+old) SGI, many outside users have reported problems. We consulted
+SGI about it, and they claim that as of IRIX 6.5, all machines
+should be able to run the same binaries. Hence we are guardedly
+hopeful that we may be able to support IRIX 6.5 and later IRIX
+releases better than past versions of IRIX.
+
+NOTE TO SUNOS 4 USERS: the Solaris binaries available for
+HEASOFT 5.1 will *not* run on SunOS 4.x! The present version of
+HEASOFT software has severe build-related problems on SunOS 4.
+We hope to address these problems, but we do not know when they
+will be resolved.  If you have pressing need of a SunOS 4 version
+of any HEASOFT 5.1 software, please contact us at the appropriate
+email address below.
+
+Installing HEASOFT 5.1 on VMS is not supported. Installing
+HEASOFT 5.1 within IRAF is not supported.
+
+
+                          CONTACT INFORMATION
+
+For online information about FTOOLS/FV please see:
+
+    http://legacy.gsfc.nasa.gov/ftools
+
+For correspondence regarding FTOOLS/FV please send email to:
+
+    ftoolshelp@athena.gsfc.nasa.gov
+
+For online information about XANADU (XIMAGE, XRONOS and XSPEC),
+please see:
+
+    http://legacy.gsfc.nasa.gov/xanadu
+
+For correspondence regarding XANADU (XIMAGE, XRONOS or XSPEC),
+please send email to:
+
+    xanprob@athena.gsfc.nasa.gov
+
+For online information about XSTAR please see:
+
+    http://legacy.gsfc.nasa.gov/xstar/xstar.html
+
+For correspondence regarding XSTAR please send email to:
+
+    xstarhelp@athena.gsfc.nasa.gov
+
+For general online information on the HEASARC, please see:
+
+    http://heasarc.gsfc.nasa.gov/
+
+
+                     INSTALLING HEASOFT 5.1 BINARIES
+
+As always, changes in the package structure since the last release
+have prompted a few changes in the procedure, so please read this
+entire document before continuing, and follow the instructions step
+by step.
+
+
+                          BEFORE YOU START
+
+Please visit the known bugs page at:
+
+         http://heasarc.gsfc.nasa.gov/lheasoft/bugs.html
+
+to learn of any problems identified after HEAsoft 5.1 was released.
+
+You will need the following to install the complete HEASOFT 5.1:
+
+ -approximately 300MB to 900MB free disk space
+     Actual space needed varies with system architecture. This
+     disk space requirement can be greatly reduced by building the
+     package from source using the dispatch option. See INSTALL.SOURCE
+     for further details. Disk space requirements can also be
+     reduced if only parts of HEASOFT 5.1 are installed.
+
+ -make
+     Any version of make should work for installing the binaries.
+     (GNU make (gmake) is required for *building* HEASOFT 5.1,
+     but the binary installation is simpler, and should work with
+     any version of make. See INSTALL.SOURCE for further details.)
+
+ -perl 5.001m or later
+     Strictly speaking, Perl is not required, but many of the
+     HEASOFT scripts are written in Perl, and since Perl is
+     free, and easy to install, we recommend you make sure a
+     valid Perl is in your path before you start.
+
+
+                   STEP BY STEP INSTALLATION INSTRUCTIONS
+
+1) Select and download one or more gzipped tar file(s) from our
+   FTP area, or website. If using the FTP area, go to:
+
+   legacy.gsfc.nasa.gov/software/lheasoft/lheasoft51/binary/<ARCH>
+
+   where <ARCH> is an abbreviation for the desired architecture,
+   either irix (for SGI/IRIX), linux_mac, linux_pc, osf (DEC
+   Alpha/OSF) or sol (Sun/Solaris). Each of these directories
+   contains a set of files which comprise the HEASOFT binary
+   distribution for that architecture.
+
+   A) TO OBTAIN A COMPLETE SET OF FTOOLS 5.1, including all
+   mission-specific tools, but NOT including the HEASOFT 5.1 GUIS,
+   download the following file:
+
+      ftools5.1<ARCH>.tar.gz
+
+   This file contains a complete FTOOLS 5.1 binary distribution.
+
+   If problems occur during an attempt to download this complete file,
+   it will instead be necessary to download the following separate
+   gzipped tarfiles containing the various subsets of the binary
+   FTOOLS 5.1 distribution:
+
+      asca5.1<ARCH>.tar.gz
+      caltools5.1<ARCH>.tar.gz
+      common5.1<ARCH>.tar.gz
+      einstein5.1<ARCH>.tar.gz
+      exosat5.1<ARCH>.tar.gz
+      fimage5.1<ARCH>.tar.gz
+      gro5.1<ARCH>.tar.gz
+      heao1-5.1<ARCH>.tar.gz
+      heasarc5.1<ARCH>.tar.gz
+      oso8-5.1<ARCH>.tar.gz
+      rosat5.1<ARCH>.tar.gz
+      vela5b-5.1<ARCH>.tar.gz
+      xte5.1<ARCH>.tar.gz
+
+   B) TO OBTAIN THE HEASOFT 5.1 GUIS, INCLUDING FV 3.1
+      Download the following file:
+
+      lheaguis5.1<ARCH>.tar.gz
+
+      A standalone version of the FV 3.1 GUI only is also available.
+
+   C) TO OBTAIN A COMPLETE SET OF XANADU 5.1, including XIMAGE 4.0,
+      XRONOS 5.18 and XSPEC 11.1.0, download the files:
+
+      xanadu5.1<ARCH>.tar.gz
+      xspec11.1.0data.tar.gz
+
+   D) TO OBTAIN XSTAR 2.1d, download the file:
+
+      xstar2.1d<ARCH>.tar.gz
+
+   E) TO OBTAIN ALL OF HEASOFT 5.1, perform steps A, B, C and D.
+
+   F) TO OBTAIN JUST XIMAGE 4.0, XRONOS 5.18, XSPEC 11.1.0, download
+      one of:
+
+      ximage4.0<ARCH>.tar.gz (contains XIMAGE 4.0 only -- does *not*
+                              contain image analysis FTOOLS)
+      xronos5.18<ARCH>.tar.gz
+      xspec11.1.0<ARCH>.tar.gz
+      xspec11.1.0data.tar.gz
+
+   Both xspec11.1.0<ARCH>.tar.gz and xspec11.1.0data.tar.gz are needed to
+   run XSPEC 11.1.0.
+
+   G) TO INSTALL ANY ARBITRARY SUBSET OF HEASOFT 5.1, including
+   subsets of XANADU 5.1 and particular FTOOLS 5.1 packages, simply
+   pick and choose from the lists in A through D above. Be warned
+   that some scripts require tools from more than one package,
+   so if you get errors about missing tools when you run anything,
+   you may need to find and install the missing tools. Type:
+
+      fhelp ftools
+
+   to learn which tools are part of which package.
+
+   To assist further with your selection of these distribution files,
+   here are descriptions of their contents:
+
+      common5.1<ARCH>.tar.gz -- contains basic, fundamental FTOOLS
+                               which are not mission-specific, and
+                               which will be needed for just about
+                               any type of FTOOLS analysis. If you
+                               wish to do only basic operations on
+                               FITS files, this is all you need.
+                               For users already familiar with
+                               HEASOFT software, this file contains
+                               the sub-packages examples, futils,
+                               ia, qdp, time and xpiutils (like pget,
+                               punlearn etc.)
+
+   The following files each contain the named FTOOLS sub-package:
+
+   General-purpose (non mission-specific) sub-packages:
+
+      caltools5.1<ARCH>.tar.gz (primarily CALDB-related tools)
+      fimage5.1<ARCH>.tar.gz   (image analysis FTOOLS only --
+                                does *NOT* contain XIMAGE 4.0!)
+      heasarc5.1<ARCH>.tar.gz  (High Energy Astrophysics tools)
+
+   Mission-specific sub-packages:
+
+      asca5.1<ARCH>.tar.gz
+      einstein5.1<ARCH>.tar.gz
+      exosat5.1<ARCH>.tar.gz
+      gro5.1<ARCH>.tar.gz
+      oso8-5.1<ARCH>.tar.gz
+      heao1-5.1<ARCH>.tar.gz   (data restoration package)
+      rosat5.1<ARCH>.tar.gz
+      vela5b-5.1<ARCH>.tar.gz
+      xte5.1<ARCH>.tar.gz
+
+   For example, asca5.1<ARCH>.tar.gz contains the FTOOLS
+   from the asca sub-package. Note that the name of the file refers
+   to the *sub-package*, not the *mission*. This means that, if you
+   want to do analysis of data from a particular mission, you may
+   need or want other sub-packages from the general-purpose list in
+   addition to the sub-package which is named for the mission. Here
+   are some guidelines about which files are required for some of
+   the more complex missions. For any of these missions you may find
+   other sub-packages helpful as well, but you can always add them
+   later. After the FTOOLS are installed, you can type "fhelp ftools"
+   to get a summary of the whole package. From this you may get some
+   idea of what other packages have to offer.
+
+   ASCA
+
+      Requires either:
+         ftools5.1<ARCH>.tar.gz and
+   
+      or:
+         common5.1<ARCH>.tar.gz
+         asca5.1<ARCH>.tar.gz
+         caltools5.1<ARCH>.tar.gz
+         heasarc5.1<ARCH>.tar.gz
+   
+   ROSAT
+
+      Requires either:
+         ftools5.1<ARCH>.tar.gz
+
+      or:
+         common5.1<ARCH>.tar.gz
+         caltools5.1<ARCH>.tar.gz
+         heasarc5.1<ARCH>.tar.gz
+         rosat5.1<ARCH>.tar.gz
+         xronos5.18<ARCH>.tar.gz
+
+   XTE
+
+      Requires either:
+         ftools5.1<ARCH>.tar.gz
+
+      or:
+         common5.1<ARCH>.tar.gz
+         caltools5.1<ARCH>.tar.gz
+         heasarc5.1<ARCH>.tar.gz
+         xte5.1<ARCH>.tar.gz
+
+   NOTE FOR PERSONS WISHING TO USE XSPEC 11.1.0:
+   XSPEC 11.1.0 needs a number of large data files to run properly.
+   To reduce file sizes, these files are bundled separately. To
+   use XSPEC, it is thus necessary also to download:
+
+      xspec11.1.0data.tar.gz
+
+   This file can be unpacked in the same directory as the other
+   gzipped tarfiles at any time, (before or after installing
+   XSPEC 11.1.0.)
+
+   NOTE FOR PERSONS WISHING TO ANALYZE ASCA DATA:
+   In past releases it was necessary to download ASCA data
+   files in a separate gzipped tarfile. This is no longer
+   necessary; the ASCA data files are included with the
+   rest of the ASCA package, in both lheasoft5.1src.tar.gz
+   and ftools5.1src.tar.gz.
+
+2) In the directory in which you want to install the software,
+   unpack the files you selected in step 1, using for each file,
+   e.g.:
+
+      gunzip -c lheasoft5.1src.tar.gz | tar xf -
+
+   This will create a lheasoft/ directory tree containing the
+   source distribution. All the distribution gzipped tarfiles
+   unpack into the same directory hierarchy.
+
+3) Go to the lheasoft/<ARCH>/BUILD_DIR/ directory:
+
+      cd lheasoft/<ARCH>/BUILD_DIR/
+ 
+   where <ARCH> is the appropriate architecture-specific directory
+   where the binary distribution is installed. For example, the
+   Solaris binaries would have <ARCH> = SunOS_5.6_sparc, Intel/Linux
+   would have <ARCH> = Linux_2.2_i686, etc.
+
+4) Run the main configure script, which will probe your system
+   for the items needed, and create the main Makefile.
+
+      ./configure >& configure.output & (C Shell variants)
+      ./configure > configure.output 2>&1 & (Bourne Shell variants)
+
+   The only option which works with the binary distribution is:
+
+      --disable-register
+           When you run the configure script, a brief email message will
+           be generated with information about your system. This helps
+           us gather statistics on our user base and, more importantly,
+           means we have relevant information in hand if you ever need
+           to write with a bug or problem report. By default this message
+           will automatically be emailed to ftoolsreg@athena.gsfc.nasa.gov.
+           If, however, you do not want this done then supply the above
+           option to configure to prevent the message from being sent.
+
+5) Perform the final local modifications necessary for the
+   initialization scripts to run, for parameters files to contain
+   accurate paths, etc., by executing:
+
+      ./hmake install >& install.log & (C Shell variants)
+      ./hmake install > install.log 2>&1 & (Bourne Shell variants)
+
+6) At this point, unless errors occurred, HEASOFT 5.1 should be
+   completely installed. The directory lheasoft/ should contain
+   the architecture-specific directory, e.g. Linux_2.2_i686/,
+   and the help/ and refdata/ directories. If XIMAGE 4.0 was
+   installed, there will also be a directory called image/. If
+   XSPEC 11.1.0 was installed there will also be a directory called
+   spectral/.
+
+7) If you decide at a later time to add new packages, you may do
+   so simply by repeating these instructions. It is not necessary
+   to start over in a new area; you can install additional
+   HEASOFT 5.1 products directly on top of your original
+   installation.
+
+                          INITIALIZATION & SETUP
+
+Now that you have built and installed HEASOFT 5.1, all that remains is
+to setup your environment to use the software! Please note:
+
+********************************************************************************
+    WARNING TO USERS OF EARLIER VERSIONS OF FTOOLS AND/OR XANADU:
+    ALL INITIALIZATION PROCEDURES (e.g., initu.csh, finit.csh,
+    .ftools, mkftools, etc.) WHICH WERE USED BY EARLIER RELEASES
+    OF FTOOLS AND XANADU, ARE NOW INVALID, AND SHOULD *NOT* BE USED!
+    Users should make certain that they remove all of these
+    initializations from their .login/.cshrc/.profile/.bashrc scripts!
+********************************************************************************
+
+The initialization procedure is described in the file README.USERS.
+
+If you have trouble with any part of this process, please send email
+to the appropriate mailing list for your software (see CONTACT
+INFORMATION above.) Please describe the problem in as much detail
+as you can and please send the COMPLETE installation log to help us
+diagnose and correct it.
+
+Thank you for using HEASOFT 5.1!

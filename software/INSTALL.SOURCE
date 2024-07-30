@@ -1,0 +1,620 @@
+                                INTRODUCTION
+ 
+For a full explanation of the terms HEASOFT, FTOOLS, XANADU,
+XIMAGE, XRONOS, XSPEC and XSTAR please see the file README.Q-AND-A.
+
+This document is a guide to installing HEASOFT 5.1 (includes
+FTOOLS 5.1/FV 3.1, XANADU 5.1, XSTAR 2.1d) from source code,
+on Unix systems only. Instructions for installing pre-built
+binary distributions of HEASOFT 5.1 under Unix may be found
+in the file INSTALL.BINARY. FV 3.1 is the only package available
+for MS Windows NT/95/98 and MacOS at this time.
+
+The instructions below are valid for any combination of the
+distribution gzipped tarfiles listed, unless otherwise noted.
+
+The latest version of this document can be obtained online at:
+
+  http://olegacy.gsfc.nasa.gov/lheasoft/install_src.html
+
+or by anonymous ftp from:
+
+ftp://legacy.gsfc.nasa.gov/software/lheasoft/lheasoft51/source/INSTALL.SOURCE
+
+
+                SUPPORTED ARCHITECTURES AND OPERATING SYSTEMS
+
+HEASOFT 5.1 should build from source code on any of the following
+platforms and operating systems, using proprietary Fortran
+compilers except as indicated, and C compilers as indicated,
+but see the notes following this chart:
+
+   Architecture  OS Version(s)        Support details (summary
+                                      only, more details below)
+   ------------  -------------        -----------------------------
+   DEC Alpha     DEC UNIX 4.0         gcc 2.8.1 or higher, or DEC's cc
+                 or higher
+
+   Intel         Most Linux flavors,  g77 or egcs Fortran only!
+                 though Redhat 5.2 or gcc 2.8.1 or higher, or egcs
+                 later is preferred
+
+   Macintosh     LinuxPPC 1999        g77 or egcs Fortran only!
+                                      gcc 2.8.1 or higher, or egcs
+
+   SGI           IRIX 6.5 or higher   gcc 2.8.1 or higher, and SGI's cc
+                                      but see below for caveats
+
+   SunOS/Solaris SunOS 5.6 or higher  gcc 2.8.1 or higher, or cc
+
+NOTE TO IRIX USERS: in the past, we have had difficulty supporting
+the SGI/IRIX platform. Although we are consistently able to
+build and run all our software on our local (admittedly rather
+old) SGI, many outside users have reported problems. We consulted
+SGI about it, and they claim that as of IRIX 6.5, all machines
+should be able to run the same binaries. Hence we are guardedly
+hopeful that we may be able to support IRIX 6.5 and later IRIX
+releases better than past versions of IRIX.
+
+NOTE TO SUNOS 4 USERS: the present version of HEASOFT software
+has severe build-related problems on SunOS 4. We hope to address
+these problems, but we do not know when they will be resolved.
+If you have pressing need of a SunOS 4 version of any HEASOFT
+software, please contact us at the appropriate email address below.
+
+NOTE TO SOLARIS USERS: in the lab, we have enountered some difficulties
+compiling the HEASOFT source code using the Sun Workshop 6.0 compilers,
+though we have reason to believe that these problems may be local
+only, and that external users may have no problems with WS6.0 at all.
+If you do encounter problems, please contact us via the appropriate
+email address below.
+
+NOTE TO COMPAQ/DEC ALPHA TRU64 USERS: we have successfully built
+and run our software on a Tru64 system, though since we do not
+have this system in the lab, HEASOFT has not been regularly built
+under Tru64, nor indeed has it been 100% tested on this platform.
+If you encounter problems, please contact us via the appropriate
+email address below.
+
+NOTE TO MANDRAKE LINUX USERS (equivalent to RedHat 6.0 and higher):
+we have successfully built and run our software on a Linux Mandrake 7.1
+system, though since we do not have this system in the lab, HEASOFT
+has not been regularly built under Mandrake Linux, nor indeed has it
+been 100% tested on this platform.  If you encounter problems, please
+contact us via the appropriate email address below.
+
+Installing HEASOFT 5.1 on VMS is not supported. Installing
+HEASOFT 5.1 within IRAF is not supported.
+
+
+                          CONTACT INFORMATION
+
+For online information about the FTOOLS/FV please see:
+
+    http://legacy.gsfc.nasa.gov/ftools
+
+For correspondence regarding the FTOOLS/FV please send email to:
+
+    ftoolshelp@athena.gsfc.nasa.gov
+
+For online information about XANADU (XIMAGE, XRONOS and XSPEC),
+please see:
+
+    http://legacy.gsfc.nasa.gov/xanadu
+
+For correspondence regarding the XANADU (XIMAGE, XRONOS or XSPEC),
+please send email to:
+
+    xanprob@athena.gsfc.nasa.gov
+
+For online information about XSTAR please see:
+
+    http://legacy.gsfc.nasa.gov/xstar/xstar.html
+
+For correspondence regarding the XSTAR please send email to:
+
+    xstarhelp@athena.gsfc.nasa.gov
+
+For general online information on the HEASARC, please see:
+
+    http://heasarc.gsfc.nasa.gov/
+
+
+                     BUILDING AND INSTALLING HEASOFT 5.1
+
+The procedure for building and installing HEASOFT 5.1 is modeled on
+GNU software distributions, and is very similar to the procedure
+used for FTOOLS 4.2. As always, changes in the package structure
+since the last release have prompted a few changes in the procedure,
+so please read this entire document before continuing, and follow
+the instructions step by step.
+
+NEW IN THIS RELEASE: shared versions of all HEASOFT libraries.
+A library numbering scheme was also implemented in this release:
+all HEASOFT binaries use the shared libraries, with version
+numbers (5_1) to avoid possible conflicts.  For the convenience of
+third-party software developers, libraries without version numbers
+are also installed.  Symbolic links are used to prevent duplication.
+
+
+                          BEFORE YOU START
+
+Please visit the known bugs page at:
+
+         http://heasarc.gsfc.nasa.gov/lheasoft/bugs.html
+
+to learn of any problems identified after HEAsoft 5.1 was released.
+
+A GENERAL CAVEAT ABOUT COMPILERS
+The pace of development of new compilers (particularly GNU and
+EGCS products) is quite fast, and given the number of platforms
+on which HEASOFT 5.1 is supported, it is virtually impossible for
+our development team to try every combination -- especially compiler
+versions which are released *after* HEASOFT 5.1! It is recommended
+that users check our website (URL listed above) for the latest
+information about compiler problems, BEFORE attempting to build
+HEASOFT 5.1. The information given below, and in the table above,
+is correct and current, as far as we know, as of the release date.
+
+You will need the following to build the complete HEASOFT 5.1:
+
+ -approximately 300MB to 900MB free disk space
+     Actual space needed varies with system architecture. The
+     space requirement can be greatly reduced by using the dispatch
+     option. Also, usage can be reduced if only parts of
+     HEASOFT 5.1 are built. Instructions for building only parts
+     are given along with the main build instructions.
+
+ -Fortran compiler (not needed if only installing the GUIs)
+     We support the stock f77 compilers which are available on the
+     various platforms listed above. The GNU Fortran (g77) compiler
+     is NOT supported, EXCEPT under Linux/Intel. The EGCS Fortran
+     compiler is also supported on Linux/Intel. Fortran90 compilers
+     may fail to build the HEASOFT package and we cannot currently
+     provide any help or support their use. Also, f2c is not
+     supported at all on any platform.
+
+ -ANSI C compiler
+     We support the proprietary compilers on IRIX 6.5 and higher,
+     OSF/Digital Unix 4.0 and higher, and SunOS 5.6 (Solaris 2.6)
+     and higher, and gcc v2.8.1 or higher on all platforms.  The
+     default compiler chosen by configure is cc.
+     On Linux systems, only the GNU compilers are supported.
+     The EGCS C compiler is supported on Linux/Intel (we have tried
+     several versions, and they all work!). There are instructions
+     below for choosing a specific compiler.
+
+ -C++ compiler (needed only for building FTOOLS 5.1)
+     HEASOFT 5.1 has been tested using GNU C++ (g++) on all
+     supported platforms. Other compilers may also work, and
+     users are encouraged to try them, but due to the lack of
+     a C++ standard until recently, we do not support any other
+     compiler.
+
+ -make
+     GNU make (gmake) is *required* for building HEASOFT 5.1.
+     Improvements to the Makefile structure have come
+     at the expense of requiring UNIX make to behave in a
+     standard, platform-independent way, and requiring GNU
+     make was the best way to achieve this. If you do not
+     have gmake installed, you can obtain it by anonymous
+     ftp from prep.ai.mit.edu, or from GNU's website:
+
+        http://www.gnu.org/order/ftp.html
+
+ -perl 5.001m or later (not needed if only installing the GUIs)
+     Strictly speaking, Perl is not required, but many of the
+     HEASOFT scripts are written in Perl, and since Perl is
+     free, and easy to install, we recommend you make sure a
+     valid Perl is in your path before you start.
+
+SPECIAL NOTE TO DEC ALPHA USERS:
+We have had build-time and run-time problems when using various
+versions of gcc with optimization on DEC Alphas. Any gcc 2.8.1 or
+later seems to work fine when optimization is disabled. The main
+HEASOFT 5.1 configure will automatically disable optimization if
+you use gcc (any version) on an Alpha. If you feel adventurous, and
+you want to try building with optimization, edit the
+lheasoft/src/BUILD_DIR/Makefile and add a -O to CFLAGS after
+Step 5.
+
+
+                   STEP BY STEP INSTALLATION INSTRUCTIONS
+
+1) For the complete HEAsoft 5.1 source code, download the following
+   gzipped tarfile:
+
+      lheasoft5.1src.tar.gz -- HEASOFT 5.1 complete
+
+   Or, if you do not want all of the HEASOFT packages, download
+   whichever of the following gzipped tarfiles suit your needs:
+
+      ftools5.1src.tar.gz   -- FTOOLS 5.1/FV 3.1 only
+      xanadu5.1src.tar.gz   -- XANADU 5.1 only
+      xstar2.1dsrc.tar.gz   -- XSTAR 2.1d only
+
+   NOTE FOR USERS OF XSPEC 11.1.0:
+   XSPEC 11.1.0 needs a number of large data files to run properly.
+   To reduce file sizes, these files are bundled separately. To
+   use XSPEC, it is thus necessary also to download:
+
+      xspec11.1.0data.tar.gz
+
+   This file can be unpacked in the same directory as the other
+   gzipped tarfiles at any time, (before or after installing
+   XSPEC 11.1.0)
+
+   NOTE FOR USERS WHO WISH TO ANALYZE ASCA DATA:
+   In past releases it was necessary to download ASCA data
+   files in a separate gzipped tarfile. This is no longer
+   necessary; the ASCA data files are included with the
+   rest of the ASCA package, in both lheasoft5.1src.tar.gz
+   and ftools5.1src.tar.gz.
+
+2) In the directory in which you want to install the software,
+   unpack the files you selected in step 1, using for each file,
+   e.g.:
+
+      gunzip -c lheasoft5.1src.tar.gz | tar xf -
+
+   This will create a lheasoft/ directory tree containing the
+   source distribution. All the distribution gzipped tarfiles
+   unpack into the same directory hierarchy.
+
+3) By default, configure will choose cc and c++ (GNU c++ [g++] only!)
+   for the C and C++ compilers, respectively. To override these choices,
+   make sure the compiler you want to use exists, is functional, and in
+   your path, and set the CC (for C compiler) and/or CXX (for C++ compiler)
+   environment variables. For example, to use a supported GNU compiler
+   named gcc, in C Shell variants, type:
+
+      setenv CC gcc
+
+   and in Bourne shell variants, type:
+
+      CC=gcc
+      export CC
+
+   This is only necessary if you wish to override configure's default
+   choices. Please make sure you read the section above on C++
+   compiler support before attempting to use a C++ compiler other
+   than GNU C++ (g++).
+
+4) Go to the lheasoft/src/BUILD_DIR/ directory:
+
+      cd lheasoft/src/BUILD_DIR/
+ 
+   and run the main configure script, which will probe your system
+   for libraries, header files, compilers, etc., and then generate
+   the main Makefile. To produce a default HEASOFT configuration,
+   the configure script may simply be invoked by (we recommend
+   capturing the screen output from configure as below):
+
+      ./configure >& configure.output & (C Shell variants)
+      ./configure > configure.output 2>&1 & (Bourne Shell variants)
+
+   IMPORTANT NOTE: IF YOU DO NOT HAVE A C++ COMPILER...
+   ... you cannot build FTOOLS 5.1, but you can build any
+   part of XANADU 5.1 and/or XSTAR 2.1 by adding invoking
+   configure with:
+
+      ./configure --without-cxx
+
+   CONFIGURE OPTIONS:
+
+   If you want to build using the dispatch method, or perform
+   some other customization, configure does accept a number of
+   options. While the full list can be examined via
+   "./configure --help", most users are likely to need or want
+   only the following:
+
+      --disable-strip
+           By default, all binaries produced are stripped of their
+           symbols to reduce their size. Select disable-strip to
+           prevent this from happening (useful mainly for debugging
+           and/or development purposes).
+           
+      --enable-dispatch
+           (This option has no effect on XSPEC 11.1.0 or XIMAGE 4.0.)
+           In the past this option resulted in a dramatic reduction
+           in the size of HEASOFT binaries, but due to the use of 
+           shared libraries in the current release, this is no longer
+           as great a benefit.  We still support this option, but it
+           is no longer the default.
+
+           With dispatch enabled, all the HEASOFT objects within
+           each sub-package, (e.g., asca or futils), are placed
+           in a shared library, then dynamically linked into a
+           single executable file. By contrast, in the traditional,
+           "standalone" build method, the compiled objects for
+           each Ftool are individually linked to produce one
+           executable for each Ftool. The dispatch method reduces
+           disk usage by eliminating multiple inclusions of
+           commonly called library routines in the executables.
+           Dynamic linking is performed to avoid the memory penalty
+           which would be paid if instead a large static executable
+           were produced for each sub-package.
+
+           Note that the choice of build method is completely
+           transparent to the user -- it affects only the internal
+           structure of the binaries. In either case, the same
+           source code is used, and the binaries produced behave
+           the same way.
+
+           Again, by default, dispatch is *disabled* (this is a new
+           default with HEAsoft 5.1).
+
+      --prefix=dir
+           Denotes where the libraries, executables, help files, etc.,
+           are to be installed. NOTE that this is slightly different
+           than the sense in which "prefix" is used in GNU software,
+           in that an additional system-dependent subdirectory will
+           first be appended to the prefix argument, below which the
+           bin/, lib/, and other directories will be created.
+           If no prefix argument is supplied to configure, the default
+           is the main lheasoft/ directory itself.
+
+      --enable-static   (does not affect IRIX or SunOS 5.x (Solaris) systems)
+           Supplying this option will add the appropriate flags to
+           your build such that all linking with system libraries
+           will be done statically rather than dynamically (as is the
+           default). This is useful if the same binaries will be used
+           by users on machines with different operating system 
+           version numbers (and hence, different run time libraries).
+           WARNING: this option is somewhat flaky on some systems. If
+           you really want statically linked binaries, we recommend
+           you simply download a pre-built binary distribution of
+           the software you want.
+
+      --disable-register
+           When you run the configure script, a brief email message will
+           be generated with information about your system. This helps
+           us gather statistics on our user base and, more importantly,
+           means we have relevant information in hand if you ever need
+           to write with a bug or problem report. By default this message
+           will automatically be emailed to ftoolsreg@athena.gsfc.nasa.gov.
+           If, however, you do not want this done then supply the above
+           option to configure to prevent the message from being sent.
+
+      --with-tcltk=no   (same as --without-tcltk)
+           The main HEASOFT build process now by default compiles
+           a number of GUIs based on TCL/TK/ITCL (eg, xdf, fv/pow,
+           flaunch, xselect2, xsut). If you want to skip building the
+           GUI tools you can supply the configure option as shown
+           above. This is implicit if you did "--with-x=no".
+
+      --with-cxx=no (same as --without-cxx)
+           Parts of FTOOLS 5.1 require a C++ compiler, but XANADU 5.1
+           and XSTAR 2.1d do not. As long as you are not building
+           FTOOLS 5.1, use this option to prevent configure from
+           demanding a C++ compiler.
+           
+
+5) Skip to step 6 unless you are installing XSPEC 11.1.0 with
+   local models.
+
+   There are two ways to include local models in XSPEC 11.1.0:
+
+   A) It is possible for users to add local models *after* XSPEC 11.1.0
+      is completely installed. This is useful if the same installation
+      of XSPEC 11.1.0 will be used by scientists who wish to use different
+      sets of local models. To use this option, make sure that your
+      LMODDIR environment variable is *not* set, and go on to step 6.
+      However, it is recommended that you at least skim the section
+      below titled ADDING LOCAL MODELS TO XSPEC 11.1.0 AFTER INSTALLATION
+      before you attempt this method.
+   
+   B) The other option is much simpler, and is strongly recommended
+      if the same local models will be used by all users of a given
+      XSPEC 11.1.0 installation. Instructions for this option are given
+      here:
+
+      Create a directory with all the local model source code files,
+      and a matching lmodel.dat file (see XSPEC 11.1.0's documentation
+      for further information about local model coding.) Then set the
+      environment variable LMODDIR to point to this directory. In csh
+      or tcsh, type:
+   
+         setenv LMODDIR /path/to/local/model/code
+   
+      In sh or bash, type:
+   
+         LMODDIR=/path/to/local/model/code
+         export LMODDIR
+   
+      Then proceed to step 6. Users will automatically have
+      access to the local models after the installation finishes,
+      and need not take any special actions.
+
+6) Start the build process. We strongly recommend that you capture all
+   output into a log file. Then, if you need to report a problem,
+   please send us the ENTIRE log file. And since it takes quite some
+   time to run (anywhere from 45 minutes on a very fast, unloaded
+   system to several hours on a more typical system) we recommend
+   that you build it in the background:
+
+      ./hmake >& build.log & (C Shell variants)
+      ./hmake > build.log 2>&1 & (Bourne Shell variants)
+
+   Note that the utility hmake is used when building HEASOFT
+   software, instead of standard UNIX make, or XANADU's xmake!
+
+   To check on the build progress in real-time (if you wish) try:
+
+      tail -f build.log
+
+   It is also possible to build only parts of HEASOFT 5.1 by
+   specifying the sub-package name as an argument to hmake, e.g.,
+   "./hmake asca", "./hmake spectral", etc. After you have built
+   whatever parts you wish to build, continue with the next step
+   in these instructions exactly as is, i.e., the remaining steps
+   in these instructions do not change if only selected packages
+   are built.
+
+7) VERY IMPORTANT: Check your build.log for errors! If a problem
+   occurs and is discovered at this point, it may be easy to correct
+   (contact the appropriate help address listed above.) By contrast,
+   if an error occurs, but you continue with the next step, it may
+   make resolving the problem more complex, or more time-consuming.
+
+   The easiest way to check your build.log for errors is to look
+   for occurrences of the string ***. (Most UNIX utilities which
+   use regular expression matching require these to be "escaped"
+   using backslashes, e.g. \*\*\*.) Note that on some systems
+   the following warning occurs:
+
+read_subs.f:292: warning:
+            GOTO 100
+                 1
+read_subs.f:349: (continued):
+    100     call fcerr('*** FADMAP EXITED IN SUBROUTINE READ_EXPOSURE ***')
+    2
+Reference to label at (1) is outside block containing definition at (2)
+
+   Although this contains ***, this is *not* a problem.
+
+   Also, on IRIX, warning messages of the form:
+
+"ascatime.c", line 76: warning(1009): nested comment is not allowed
+   /************************************************************************/
+   ^
+ 
+   are also *not* a problem.
+
+8) Perform the final installation of the executables, libraries,
+   help files, calibration data, perl scripts, etc, by executing:
+
+      ./hmake install >& install.log & (C Shell variants)
+      ./hmake install > install.log 2>&1 & (Bourne Shell variants)
+
+   This will create an appropriately-named system-dependent directory,
+   e.g. SunOS_5.6_sparc/, either under lheasoft/ or, if you specified
+   a prefix argument to configure, (see Step 5 above), in the directory
+   you selected at that time.
+
+9) VERY IMPORTANT: Check your install.log for errors! The best
+   method is the same as that described in step 7.
+
+10) At this point, HEASOFT 5.1 should be completely installed. The
+   directory lheasoft/ should contain the source directory tree,
+   src/, and an architecture-specific directory, e.g. Linux_2.2_i686/,
+   or SunOS_5.6_sparc/, which contains your HEASOFT installation.
+   (If you specified a --prefix when you ran configure, this latter
+   directory will instead be located under the directory you chose.)
+   In addition, the lheasoft/ directory will contain help/ and
+   refdata/ directories. If XIMAGE 4.0 was installed, there will
+   also be a directory called image/. If XSPEC 11.1 was installed
+   there will also be a directory called spectral/.
+
+   If you now want to build and install for a different architecture
+   out of the same source tree, execute:
+
+      ./hmake distclean
+
+   before logging into the new machine and starting again with
+   Step 3 above.
+
+   If you are very short on disk space, you may delete the entire
+   source directory tree, src/, after you are done installing
+   HEASOFT 5.1 for all desired architectures, which will reclaim
+   about 330 MB of space. We recommend against this, however, in
+   case you need to make any software modifications or perform
+   rebuilds at a later time, for example, if an XTE update is
+   released. But once you have done Step 8, the only files
+   you need to run the software will be inside the system-dependent
+   directory created during this step.
+
+
+         ADDING LOCAL MODELS TO XSPEC 11.1.0 AFTER INSTALLATION
+
+Because XSPEC 11.1.0 uses a shared library to house local models,
+it is possible for users to add their own local models, simply
+by creating new versions of that shared library. This obviates
+the need for users to build their own private copies of the xspec
+binary, because the new shared library may be loaded without
+re-linking xspec.
+
+CAUTION: This feature is a very recent development, and while
+it is very useful, there are still a few bugs. It seems to work
+best on SunOS 5.x (Solaris 2.x) systems. It is recommended that
+only advanced XSPEC users try it. On DEC Alphas it is known *not*
+to work at present, though it is hoped support for this can be
+added soon.
+
+To add local models after installation, follow these steps:
+
+ LM1) Create a directory with all the local model source code files,
+      and a matching lmodel.dat file (see XSPEC 11.1.0's documentation
+      for further information about local model coding.) Then set the
+      environment variable LMODDIR to point to this directory. In csh
+      or tcsh, type:
+   
+         setenv LMODDIR /path/to/local/model/code
+   
+      In sh or bash, type:
+   
+         LMODDIR=/path/to/local/model/code
+         export LMODDIR
+
+ LM2) Perform the standard HEASOFT setup, as described in the file
+      README.USERS. Then do the following extra step. In csh/tcsh:
+
+         source $LHEASOFT/BUILD_DIR/devinit.csh
+
+      and in sh/bash:
+
+         . $LHEASOFT/BUILD_DIR/devinit.sh
+
+      This puts the build utility hmake into your path.
+
+ LM3) Go to the $LMODDIR directory, and copy all the files from
+      the directory local_mod/ into $LMODDIR:
+
+         cd $LMODDIR
+         cp $LHEASOFT/../spectral/xspec/src/local_mod/* .
+
+      Note that this will copy a Makefile, a copy of xspec.inc, and
+      a copy of model.dat into the local directory.
+
+ LM4) Still in this directory, type "hmake". The local model library
+      should be built right there. (The user is of course responsible
+      for his/her own programming errors!)
+
+ LM5) In order for xspec to find the local models at runtime, the
+      user must prepend LMODDIR to his/her LD_LIBRARY_PATH variable.
+      In csh/tcsh:
+
+         setenv LD_LIBRARY_PATH "${LMODDIR}:$LD_LIBRARY_PATH"
+
+      and in sh/bash:
+
+         LD_LIBRARY_PATH="$LMODDIR:$LD_LIBRARY_PATH"
+         export LD_LIBRARY_PATH
+
+After these steps are completed, the local models should be available.
+Only the last step will need to be performed every time the user
+logs in -- after the HEASOFT initialization.
+
+                          INITIALIZATION & SETUP
+
+Now that you have built and installed HEASOFT 5.1, all that remains is
+to setup your environment to use the software! Please note:
+
+********************************************************************************
+    WARNING TO USERS OF EARLIER VERSIONS OF FTOOLS AND/OR XANADU:
+    ALL INITIALIZATION PROCEDURES (e.g., initu.csh, finit.csh,
+    .ftools, mkftools, etc.) WHICH WERE USED BY EARLIER RELEASES
+    OF FTOOLS AND XANADU, ARE NOW INVALID, AND SHOULD *NOT* BE USED!
+    Users should make certain that they remove all of these
+    initializations from their .login/.cshrc/.profile/.bashrc scripts!
+********************************************************************************
+
+The initialization procedure is described in the file README.USERS.
+
+If you have trouble with any part of this process, please send email
+to the appropriate mailing list for your software (see CONTACT
+INFORMATION above.) Please describe the problem in as much detail
+as you can and please send the COMPLETE installation log to help us
+diagnose and correct it.
+
+Thank you for using HEASOFT 5.1!
